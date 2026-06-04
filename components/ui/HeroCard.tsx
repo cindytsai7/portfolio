@@ -11,8 +11,7 @@ export default function HeroCard() {
   return (
     <div
       ref={containerRef}
-      className="bg-portfolio-surface rounded-2xl px-6 py-8 md:px-10 md:py-12 flex flex-col gap-8 md:grid md:grid-cols-[3fr_2fr] md:gap-16"
-      style={{ position: 'relative' }}
+      className="relative bg-portfolio-surface rounded-2xl px-6 py-8 md:px-10 md:py-12 flex flex-col gap-8 md:grid md:grid-cols-[3fr_2fr] md:gap-16"
     >
       {/* Left: identity + CTA */}
       <div className="flex flex-col justify-between gap-8">
@@ -36,7 +35,7 @@ export default function HeroCard() {
           <LinkedInButton />
           <a
             href="mailto:cindytsai7@gmail.com"
-            className="inline-flex items-center bg-portfolio-primary text-white text-body font-medium rounded-lg px-6 h-12 hover:opacity-80 transition-opacity"
+            className="inline-flex items-center bg-portfolio-primary text-white text-body font-medium rounded-[12px] px-6 h-12 hover:opacity-80 transition-opacity"
           >
             Say hello
           </a>

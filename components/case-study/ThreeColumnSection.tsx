@@ -1,4 +1,5 @@
 import SectionBlock from "./SectionBlock";
+import Reveal from "@/components/motion/Reveal";
 
 interface ColumnItem {
   heading: string;
@@ -21,11 +22,13 @@ export default function ThreeColumnSection({
       <SectionBlock label={label} heading={title} />
       <div className="grid md:grid-cols-3 gap-8">
         {columns.map((col, i) => (
-          <div key={i} className="flex flex-col gap-4">
-            <div className="bg-[#c7c7c2] h-px w-full" />
-            <h3 className="text-h2 font-bold text-portfolio-primary">{col.heading}</h3>
-            <p className="text-body text-portfolio-muted">{col.body}</p>
-          </div>
+          <Reveal key={i} delay={i * 0.08}>
+            <div className="flex flex-col gap-4">
+              <div className="bg-portfolio-rule h-px w-full" />
+              <h3 className="text-h2 font-bold text-portfolio-primary">{col.heading}</h3>
+              <p className="text-body text-portfolio-muted">{col.body}</p>
+            </div>
+          </Reveal>
         ))}
       </div>
     </div>

@@ -11,20 +11,15 @@ const priorityColor: Record<string, string> = {
 
 export default function NumberedList({ items }: { items: NumberedItem[] }) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col divide-y divide-portfolio-rule">
       {items.map((item, i) => (
-        <div key={i}>
-          {i > 0 && <div className="bg-[#c7c7c2] h-px w-full" />}
-          <div className="flex gap-5 items-start py-5">
-            <span
-              className={`text-h1 font-bold leading-none shrink-0 w-12 ${priorityColor[item.priority] ?? "text-portfolio-muted"}`}
-            >
-              {item.priority}
-            </span>
-            <div className="flex flex-col gap-1 pt-1">
-              <p className="text-body font-semibold text-portfolio-primary">{item.title}</p>
-              <p className="text-body text-portfolio-muted">{item.description}</p>
-            </div>
+        <div key={i} className="flex gap-5 items-start py-5">
+          <span className={`text-h1 font-bold leading-none shrink-0 w-12 ${priorityColor[item.priority] ?? "text-portfolio-muted"}`}>
+            {item.priority}
+          </span>
+          <div className="flex flex-col gap-1 pt-1">
+            <p className="text-body font-semibold text-portfolio-primary">{item.title}</p>
+            <p className="text-body text-portfolio-muted">{item.description}</p>
           </div>
         </div>
       ))}

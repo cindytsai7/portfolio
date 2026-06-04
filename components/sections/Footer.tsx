@@ -1,7 +1,9 @@
+import FooterCard from '@/components/ui/FooterCard'
+
 export default function Footer() {
   return (
     <footer>
-      {/* Footer */}
+      <FooterCard />
     </footer>
-  );
+  )
 }

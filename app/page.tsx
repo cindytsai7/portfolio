@@ -4,7 +4,7 @@ import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <main className="p-4 md:p-8 flex flex-col gap-4">
+    <main className="max-w-[1440px] mx-auto w-full p-4 md:p-8 flex flex-col gap-4">
       <Hero />
       <Projects />
       <Footer />

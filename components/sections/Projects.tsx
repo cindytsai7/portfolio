@@ -3,9 +3,14 @@ import { projects } from "@/lib/projects";
 
 export default function Projects() {
   return (
-    <section className="flex flex-col gap-4 md:grid md:grid-cols-[2fr_1fr]">
+    <section className="flex flex-col gap-4 md:grid md:grid-cols-3">
       {projects.map((project) => (
-        <ProjectCard key={project.id} project={project} />
+        <div
+          key={project.id}
+          className={project.colSpan === 2 ? "md:col-span-2" : "md:col-span-1"}
+        >
+          <ProjectCard project={project} />
+        </div>
       ))}
     </section>
   );

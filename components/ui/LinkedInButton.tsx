@@ -1,10 +1,10 @@
 export default function LinkedInButton() {
   return (
     <a
-      href="https://linkedin.com/in/cindytsai"
+      href="https://www.linkedin.com/in/cindyctsai/"
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center justify-center bg-white text-portfolio-primary rounded-lg p-3 h-12 w-12 hover:opacity-80 transition-opacity"
+      className="inline-flex items-center justify-center bg-white text-portfolio-primary rounded-[12px] p-3 h-12 w-12 hover:opacity-80 transition-opacity"
       aria-label="LinkedIn"
     >
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

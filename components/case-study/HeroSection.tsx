@@ -9,7 +9,6 @@ interface HeroSectionProps {
   body: string;
   metadata: MetadataItem[];
   heroImage?: string;
-  heroVideo?: string;
 }
 
 export default function HeroSection({
@@ -18,7 +17,6 @@ export default function HeroSection({
   body,
   metadata,
   heroImage,
-  heroVideo,
 }: HeroSectionProps) {
   return (
     <section className="px-4 md:px-8 pt-4 md:pt-8 flex flex-col gap-8">
@@ -41,7 +39,7 @@ export default function HeroSection({
             <h1 className="text-h1 font-bold leading-tight tracking-tight text-portfolio-primary">
               {title}
             </h1>
-            <p className="text-body text-portfolio-primary">{body}</p>
+            <p className="text-body text-portfolio-muted">{body}</p>
           </div>
         </div>
 
@@ -54,7 +52,7 @@ export default function HeroSection({
               </p>
               <p className="text-body font-medium text-portfolio-primary">{item.value}</p>
               {i < metadata.length - 1 && (
-                <div className="bg-[#c7c7c2] h-px w-full mt-1" />
+                <div className="bg-portfolio-rule h-px w-full mt-1" />
               )}
             </div>
           ))}
@@ -62,22 +60,8 @@ export default function HeroSection({
 
       </div>
 
-      {/* Hero video */}
-      {heroVideo && (
-        <div className="rounded-[8px] overflow-hidden">
-          <video
-            src={heroVideo}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full"
-          />
-        </div>
-      )}
-
-      {/* Hero image fallback */}
-      {!heroVideo && heroImage && (
+      {/* Hero image */}
+      {heroImage && (
         <img
           src={heroImage}
           alt="Project prototype"

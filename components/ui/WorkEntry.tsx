@@ -1,6 +1,6 @@
 import type { Experience } from "@/lib/experience";
 
-export default function WorkEntry({ years, company, isActive }: Experience) {
+export default function WorkEntry({ years, company, isActive, isLast }: Experience & { isLast?: boolean }) {
   return (
     <div>
       <p className="text-caption font-mono text-portfolio-muted uppercase tracking-widest">{years}</p>
@@ -11,9 +11,9 @@ export default function WorkEntry({ years, company, isActive }: Experience) {
             <span className="relative inline-flex h-2 w-2 rounded-full bg-portfolio-muted" />
           </span>
         )}
-        <p className="text-h3 text-portfolio-primary font-semibold">{company}</p>
+        <p className="text-body font-medium text-portfolio-primary">{company}</p>
       </div>
-      <hr className="border-t border-portfolio-muted/30 mt-3" />
+      {!isLast && <hr className="border-t border-portfolio-muted/30 mt-3" />}
     </div>
   );
 }

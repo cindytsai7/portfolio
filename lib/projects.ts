@@ -7,6 +7,7 @@ export interface Project {
   image: string;
   href: string;
   variant?: "large" | "small";
+  colSpan?: 1 | 2;
 }
 
 export const projects: Project[] = [
@@ -17,6 +18,7 @@ export const projects: Project[] = [
     tags: ["MICROSOFT", "ENTERPRISE", "SYSTEMS"],
     image: "/projects/edge-admin-hub.png",
     href: "/projects/edge-admin-hub",
+    colSpan: 2,
   },
   {
     id: "compliance-review",
@@ -27,5 +29,16 @@ export const projects: Project[] = [
     image: "/projects/compliance-review.png",
     href: "/projects/compliance-review",
     variant: "small",
+    colSpan: 1,
+  },
+  {
+    id: "franklin-payroll",
+    title: "0 to 1, a Web3 payroll suite",
+    description: "Designed a Web3 payroll suite for crypto-native startups.",
+    tags: ["START UP", "WEB3", "PAYROLL"],
+    image: "/projects/franklin-payroll/card.png",
+    href: "/projects/franklin-payroll",
+    variant: "small",
+    colSpan: 1,
   },
 ];
