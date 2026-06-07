@@ -24,7 +24,7 @@ export default function EdgeAdminHubPage() {
     <main className="bg-portfolio-background min-h-screen">
       <CaseStudyNav />
 
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-8 pb-8">
+      <div className="max-w-[1440px] mx-auto flex flex-col gap-8 pb-4 md:pb-8">
 
         {/* 1 · Hero */}
         <HeroSection

@@ -8,6 +8,7 @@ export interface Project {
   href: string;
   variant?: "large" | "small";
   colSpan?: 1 | 2;
+  imageContain?: boolean;
 }
 
 export const projects: Project[] = [
@@ -40,5 +41,15 @@ export const projects: Project[] = [
     href: "/projects/franklin-payroll",
     variant: "small",
     colSpan: 1,
+  },
+  {
+    id: "edge-sidebar-onboarding",
+    title: "Driving user retention in Edge sidebar",
+    description: "Designed a contextual onboarding framework for Microsoft Edge's sidebar.",
+    tags: ["MICROSOFT", "GROWTH", "CONSUMER"],
+    image: "/projects/edge-sidebar-onboarding/card.png",
+    href: "/projects/edge-sidebar-onboarding",
+    colSpan: 2,
+    imageContain: true,
   },
 ];

@@ -10,6 +10,7 @@ interface DarkOutroSectionProps {
   heading: string;
   body: string;
   metrics?: Metric[];
+  link?: { text: string; href: string };
 }
 
 export default function DarkOutroSection({
@@ -17,6 +18,7 @@ export default function DarkOutroSection({
   heading,
   body,
   metrics,
+  link,
 }: DarkOutroSectionProps) {
   return (
     <section className="bg-portfolio-primary rounded-[20px] px-8 md:px-16 py-16 md:py-20 flex flex-col gap-12">
@@ -34,6 +36,17 @@ export default function DarkOutroSection({
       )}
 
       <p className="text-white/70 text-body leading-relaxed max-w-[640px]">{body}</p>
+
+      {link && (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white/50 text-caption font-mono uppercase tracking-widest underline underline-offset-4 hover:text-white/80 transition-colors w-fit"
+        >
+          {link.text}
+        </a>
+      )}
     </section>
   );
 }

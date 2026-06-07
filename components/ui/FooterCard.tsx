@@ -171,7 +171,7 @@ export default function FooterCard() {
 
       {/* Weather strip */}
       <div className="flex justify-end">
-        <div className="flex items-center gap-2 font-mono text-[13px] uppercase">
+        <div className="relative flex items-center gap-2 font-mono text-[13px] uppercase">
           <span style={{ opacity: 0.7 }}>SEATTLE</span>
           <span style={{ opacity: 0.7 }}>·</span>
           <span style={{ opacity: 0.7 }}>{time}</span>

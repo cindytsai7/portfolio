@@ -33,6 +33,17 @@
   transform: translateY(0);
 }
 
+.srq-word {
+  display: inline-block;
+  color: #C2C0BA;
+  transition: color 0.1s ease;
+  margin-right: 0.25em;
+}
+
+.srq-word.active {
+  color: #1A1A1A;
+}
+
 .card-visual-wrapper {
   width: 100%;
   aspect-ratio: 16 / 10;
@@ -41,7 +52,7 @@
   background-repeat: no-repeat;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
-  border-radius: 12px;
+  border-radius: 6px;
 }
 
 .footer-card {
@@ -49,7 +60,6 @@
 }
 
 .weather-pill {
-  position: relative;
   display: flex;
   align-items: center;
   padding: 6px 12px 6px 10px;
@@ -63,7 +73,7 @@
   position: absolute;
   bottom: calc(100% + 12px);
   right: 0;
-  width: 220px;
+  width: 100%;
   border-radius: 14px;
   padding: 16px;
   backdrop-filter: blur(20px);
