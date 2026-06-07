@@ -34,7 +34,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       {project.variant === "small" ? (
         // In flex flow — card's fixed height + overflow-hidden handles right/bottom clipping
         <div
-          className="ml-6 flex-shrink-0 w-[130%] bg-cover bg-left-top aspect-[16/10] transition-transform duration-[400ms] ease-in-out group-hover:-translate-y-4"
+          className="ml-6 flex-shrink-0 w-[130%] bg-cover bg-left-top aspect-[16/10] rounded-[20px] transition-transform duration-[400ms] ease-in-out group-hover:-translate-y-4"
           style={{ backgroundImage: `url(${project.image})` }}
         />
       ) : project.imageContain ? (

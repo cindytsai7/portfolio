@@ -10,7 +10,7 @@ const config: Config = {
       colors: {
         portfolio: {
           primary: "#1A1A1A",
-          surface: "#ECEBE7",
+          surface: "#F2F1ED",
           accent: "#B35942",
           secondary: "#C2CCBD",
           muted: "#737373",
