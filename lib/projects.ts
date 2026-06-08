@@ -27,7 +27,7 @@ export const projects: Project[] = [
   {
     id: "compliance-review",
     title: "Risk review systems",
-    description: "Designing the core compliance frameworks that scale to mitigate global operational risk.",
+    description: "I lead the end-to-end design of AI-powered systems and triage workflows that streamline risk review, reduce friction for fast-moving teams, and scale design quality through intelligent automation.",
     tags: ["META", "PLATFORM", "TOOLING", "NDA"],
     filledTags: ["NDA"],
     href: "/projects/compliance-review",

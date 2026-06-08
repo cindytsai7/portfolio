@@ -1,4 +1,5 @@
 import HeroCard from "@/components/ui/HeroCard";
+import Reveal from "@/components/motion/Reveal";
 
 export default function Hero() {
   return (
@@ -8,7 +9,9 @@ export default function Hero() {
           About
         </a>
       </nav>
-      <HeroCard />
+      <Reveal>
+        <HeroCard />
+      </Reveal>
     </section>
   );
 }

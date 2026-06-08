@@ -38,9 +38,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             <p className="text-body text-portfolio-muted leading-snug">
               {project.description}
             </p>
-            {project.passwordProtected && (
-              <span className="text-caption font-mono uppercase tracking-wider text-portfolio-muted">This project is password protected</span>
-            )}
           </div>
 
           {/* Metadata footer */}
