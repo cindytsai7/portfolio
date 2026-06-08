@@ -11,6 +11,7 @@ const config: Config = {
         portfolio: {
           primary: "#1A1A1A",
           surface: "#F2F1ED",
+          stroke: "#E6E5E1",
           accent: "#B35942",
           secondary: "#C2CCBD",
           muted: "#737373",

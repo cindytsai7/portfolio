@@ -44,6 +44,10 @@
   color: #1A1A1A;
 }
 
+.surface-card {
+  box-shadow: inset 0 0 0 1px #E6E5E1;
+}
+
 .card-visual-wrapper {
   width: 100%;
   aspect-ratio: 16 / 10;

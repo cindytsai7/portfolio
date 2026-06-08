@@ -4,11 +4,14 @@ export interface Project {
   description: string;
   tags: string[];
   filledTags?: string[];
-  image: string;
+  image?: string;
   href: string;
-  variant?: "large" | "small";
+  variant?: "large" | "small" | "editorial";
   colSpan?: 1 | 2;
   imageContain?: boolean;
+  role?: string;
+  timeline?: string;
+  passwordProtected?: boolean;
 }
 
 export const projects: Project[] = [
@@ -23,14 +26,16 @@ export const projects: Project[] = [
   },
   {
     id: "compliance-review",
-    title: "Compliance review for fast moving teams",
-    description: "Designed a compliance review system for Meta's AI platform teams.",
+    title: "Risk review systems",
+    description: "Designing the core compliance frameworks that scale to mitigate global operational risk.",
     tags: ["META", "PLATFORM", "TOOLING", "NDA"],
     filledTags: ["NDA"],
-    image: "/projects/compliance-review.png",
     href: "/projects/compliance-review",
-    variant: "small",
+    variant: "editorial",
     colSpan: 1,
+    role: "Lead Designer",
+    timeline: "2025 – Now",
+    passwordProtected: true,
   },
   {
     id: "franklin-payroll",

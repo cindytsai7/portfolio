@@ -7,17 +7,18 @@ interface NumberedItem {
 const priorityColor: Record<string, string> = {
   P0: "text-portfolio-accent",
   P1: "text-[#4F68B0]",
+  P2: "text-[#4F68B0]",
 };
 
 export default function NumberedList({ items }: { items: NumberedItem[] }) {
   return (
     <div className="flex flex-col divide-y divide-portfolio-rule">
       {items.map((item, i) => (
-        <div key={i} className="flex gap-5 items-start py-5">
+        <div key={i} className="flex gap-5 items-center py-5">
           <span className={`text-h1 font-bold leading-none shrink-0 w-12 ${priorityColor[item.priority] ?? "text-portfolio-muted"}`}>
             {item.priority}
           </span>
-          <div className="flex flex-col gap-1 pt-1">
+          <div className="flex flex-col gap-1">
             <p className="text-body font-semibold text-portfolio-primary">{item.title}</p>
             <p className="text-body text-portfolio-muted">{item.description}</p>
           </div>

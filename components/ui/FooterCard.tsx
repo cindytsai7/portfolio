@@ -150,7 +150,7 @@ export default function FooterCard() {
     >
       {/* Main content */}
       <div>
-        <h2 className="text-[28px] font-bold leading-tight max-w-[520px]">
+        <h2 className="text-[28px] font-normal leading-tight max-w-[520px]">
           Designed and built by Cindy Tsai
         </h2>
         <div className="flex gap-8 mt-8">

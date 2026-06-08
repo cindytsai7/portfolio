@@ -26,7 +26,7 @@ export default function FullWidthShowcase({
           className={`w-full object-cover${rounded ? " rounded-[20px]" : ""}`}
         />
       ) : (
-        <div className="w-full aspect-[16/9] bg-portfolio-surface rounded-[20px] flex items-center justify-center">
+        <div className="surface-card w-full aspect-[16/9] bg-portfolio-surface rounded-[20px] flex items-center justify-center">
           {placeholderLabel && (
             <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">
               {placeholderLabel}

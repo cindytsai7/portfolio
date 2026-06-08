@@ -21,8 +21,8 @@ export default function DarkOutroSection({
   link,
 }: DarkOutroSectionProps) {
   return (
-    <section className="bg-portfolio-primary rounded-[20px] px-8 md:px-16 py-16 md:py-20 flex flex-col gap-12">
-      <SectionBlock label={label} heading={heading} light className="max-w-[720px]" />
+    <section className="bg-portfolio-primary rounded-[20px] ring-1 ring-inset ring-[#2C2C2C] px-8 md:px-16 py-16 md:py-20 flex flex-col gap-12">
+      <SectionBlock label={label} heading={heading} light />
 
       {metrics && metrics.length > 0 && (
         <div className="grid grid-cols-3 gap-8">
@@ -35,7 +35,7 @@ export default function DarkOutroSection({
         </div>
       )}
 
-      <p className="text-white/70 text-body leading-relaxed max-w-[640px]">{body}</p>
+      <p className="text-white/70 text-body leading-relaxed">{body}</p>
 
       {link && (
         <a

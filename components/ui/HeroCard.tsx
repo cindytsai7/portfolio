@@ -11,7 +11,7 @@ export default function HeroCard() {
   return (
     <div
       ref={containerRef}
-      className="relative bg-portfolio-surface rounded-2xl px-6 py-8 md:px-10 md:py-12 flex flex-col gap-8 md:grid md:grid-cols-[3fr_2fr] md:gap-16"
+      className="relative surface-card bg-portfolio-surface rounded-2xl px-6 py-8 md:px-10 md:py-12 flex flex-col gap-8 md:grid md:grid-cols-[3fr_2fr] md:gap-16"
     >
       {/* Left: identity + CTA */}
       <div className="flex flex-col justify-between gap-8">

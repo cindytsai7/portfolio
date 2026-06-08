@@ -26,11 +26,11 @@ export default function FranklinPayrollPage() {
     <main className="bg-portfolio-background min-h-screen">
       <CaseStudyNav />
 
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-8 pb-4 md:pb-8">
+      <div className="max-w-[1440px] mx-auto flex flex-col gap-4 pt-4 md:pt-8 pb-4 md:pb-8">
 
         {/* 1 · Hero */}
-        <section className="px-4 md:px-8 pt-4 md:pt-8">
-          <div className="bg-portfolio-surface rounded-[20px] p-8 md:p-12 flex flex-col gap-10">
+        <section className="px-4 md:px-8">
+          <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-12 flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-start gap-12">
 
               {/* Left: tags + title + body + metadata */}
@@ -82,7 +82,7 @@ export default function FranklinPayrollPage() {
         {/* 2 · Business opportunity */}
         <CaseStudySection>
           <Reveal>
-            <div className="bg-portfolio-primary rounded-[20px] px-8 md:px-12 py-10 md:py-12 flex flex-col gap-4">
+            <div className="bg-portfolio-primary rounded-[20px] ring-1 ring-inset ring-[#2C2C2C] px-8 md:px-12 py-10 md:py-12 flex flex-col gap-4">
               <p className="text-caption font-mono uppercase tracking-widest text-white/50">
                 Business Opportunity
               </p>
@@ -155,7 +155,7 @@ export default function FranklinPayrollPage() {
         {/* 8 · Reflections */}
         <CaseStudySection>
           <Reveal>
-            <div className="bg-portfolio-surface rounded-[20px] p-8 md:p-12 flex flex-col gap-6">
+            <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-12 flex flex-col gap-6">
               <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">
                 Reflections
               </p>

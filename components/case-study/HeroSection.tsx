@@ -21,9 +21,9 @@ export default function HeroSection({
   const bodyLines = Array.isArray(body) ? body : [body];
 
   return (
-    <section className="px-4 md:px-8 pt-4 md:pt-8 flex flex-col gap-8">
+    <section className="px-4 md:px-8 flex flex-col gap-8">
       {/* Single hero card */}
-      <div className="bg-portfolio-surface rounded-[20px] p-8 md:p-12 flex flex-col gap-10">
+      <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-10 flex flex-col gap-10">
 
         {/* Top row: tags + title + body / metadata */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">

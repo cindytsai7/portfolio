@@ -25,7 +25,7 @@ export default function ComplianceReviewPage() {
       <CaseStudyNav />
 
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-4 md:pt-8 pb-2">
-        <div className="bg-portfolio-surface rounded-[20px] p-8 md:p-12 flex flex-col gap-8">
+        <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-10 flex flex-col gap-8">
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2">
