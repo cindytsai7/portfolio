@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import CaseStudyNav from "@/components/case-study/CaseStudyNav";
 
-const TAGS = ["META", "PLATFORM", "TOOLING", "NDA"];
+const TAGS = ["META", "PLATFORM", "NDA"];
 const PASSWORD = "meta2025";
 
 
@@ -24,18 +24,17 @@ export default function ComplianceReviewPage() {
     <main className="bg-portfolio-background">
       <CaseStudyNav />
 
-      <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-4 md:pt-8 pb-2">
-        <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-10 flex flex-col gap-8">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-4 md:pt-8">
+        <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-10 flex flex-col gap-8">
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex items-center gap-[8px] font-mono text-[13px] tracking-[0.05em] uppercase whitespace-nowrap">
+            <span className="text-portfolio-primary">02</span>
             {TAGS.map((tag) => (
-              <span
-                key={tag}
-                className={`inline-flex items-center h-[26px] border border-portfolio-rule rounded-full px-3 text-caption font-mono text-portfolio-muted uppercase tracking-wider whitespace-nowrap${tag === "NDA" ? " bg-portfolio-rule/60" : ""}`}
-              >
-                {tag}
-              </span>
+              <Fragment key={tag}>
+                <span className="text-portfolio-rule">·</span>
+                <span className="text-portfolio-muted">{tag}</span>
+              </Fragment>
             ))}
           </div>
 
@@ -43,7 +42,7 @@ export default function ComplianceReviewPage() {
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
             {/* Left: title + body */}
             <div className="flex flex-col gap-4 flex-1 max-w-[720px]">
-              <h1 className="text-h1 font-bold leading-tight tracking-tight text-portfolio-primary">
+              <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
                 Risk review systems
               </h1>
               <div className="flex flex-col gap-4">
@@ -58,11 +57,10 @@ export default function ComplianceReviewPage() {
 
             {/* Right: metadata */}
             <div className="flex flex-col gap-4 md:w-[300px] shrink-0">
-              {[{ label: "Role", value: "Lead Designer" }, { label: "Timeline", value: "2025 – Now" }].map((item, i) => (
+              {[{ label: "Role", value: "Lead Designer" }, { label: "Timeline", value: "2025 – Now" }].map((item) => (
                 <div key={item.label} className="flex flex-col gap-2">
                   <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">{item.label}</p>
                   <p className="text-body font-medium text-portfolio-primary">{item.value}</p>
-                  {i === 0 && <div className="bg-portfolio-rule h-px w-full mt-1" />}
                 </div>
               ))}
             </div>

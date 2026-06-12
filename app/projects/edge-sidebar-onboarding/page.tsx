@@ -24,10 +24,11 @@ export default function EdgeSidebarOnboardingPage() {
     <main className="bg-portfolio-background min-h-screen">
       <CaseStudyNav />
 
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-4 pt-4 md:pt-8 pb-4 md:pb-8">
+      <div className="max-w-[1440px] mx-auto flex flex-col gap-4 pt-4 md:pt-8">
 
         {/* 1 · Hero */}
         <HeroSection
+          index="04"
           tags={["MICROSOFT", "GROWTH", "CONSUMER"]}
           title="Designing a contextual onboarding framework for Edge sidebar"
           body="Activating dormant browser cohorts through intelligent, progressive onboarding triggers, then sustaining engagement via passive, context-aware collaboration hubs."
@@ -41,7 +42,7 @@ export default function EdgeSidebarOnboardingPage() {
         {/* 2 · Tell me more / Challenge */}
         <CaseStudySection className="grid md:grid-cols-2 gap-4">
           <Reveal>
-            <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-10 flex flex-col gap-6 h-full">
+            <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-10 flex flex-col gap-6 h-full">
               <SectionBlock
                 label="Tell me more"
                 heading="What is Edge sidebar?"
@@ -52,7 +53,7 @@ export default function EdgeSidebarOnboardingPage() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="surface-card bg-portfolio-surface rounded-[20px] overflow-hidden flex flex-col h-full">
+            <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col h-full">
               <div className="flex flex-col gap-6 p-8 md:p-10">
                 <SectionBlock
                   label="The Challenge"
@@ -93,7 +94,7 @@ export default function EdgeSidebarOnboardingPage() {
         </CaseStudySection>
 
         {/* 4 · How might we nudge existing users */}
-        <CaseStudySection className="flex flex-col gap-6 mt-12">
+        <CaseStudySection className="flex flex-col gap-4 mt-12">
           <Reveal>
             <SectionBlock
               label="Restoring for growth"
@@ -103,9 +104,9 @@ export default function EdgeSidebarOnboardingPage() {
 
           <div className="grid md:grid-cols-2 gap-4">
             {/* Dual priority framework — col 1, row 1 */}
-            <Reveal>
-              <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-10 flex flex-col gap-6">
-                <SectionBlock label="The approach" heading="Priority framework" />
+            <Reveal className="h-full">
+              <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-10 flex flex-col gap-6 h-full">
+                <p className="text-body font-semibold text-portfolio-primary">Priority framework</p>
                 <NumberedList
                   items={[
                     {
@@ -133,10 +134,10 @@ export default function EdgeSidebarOnboardingPage() {
 
             {/* Solution: Customize app — col 2, rows 1–2 */}
             <Reveal delay={0.08} className="md:row-span-2 h-full">
-              <div className="bg-portfolio-primary rounded-[20px] ring-1 ring-inset ring-[#2C2C2C] overflow-hidden flex flex-col h-full">
+              <div className="surface-card bg-portfolio-surface-deep/55 rounded-card overflow-hidden flex flex-col h-full">
                 <div className="p-8 md:p-10 flex flex-col gap-3">
-                  <p className="text-body font-semibold text-white">Solution: Customize app</p>
-                  <p className="text-body text-white/70">Final decision was to house this notification within the 'customize' app so that it remains accessible post first-run experience without disrupting the users' primary workflow.</p>
+                  <p className="text-body font-semibold text-black">Solution: Customize app</p>
+                  <p className="text-body text-black/70">Final decision was to house this notification within the 'customize' app so that it remains accessible post first-run experience without disrupting the users' primary workflow.</p>
                 </div>
                 <img src={IMGS.solutionCustomize} alt="Customize app UI" className="mt-auto w-[85%] object-cover object-top" />
               </div>
@@ -144,7 +145,7 @@ export default function EdgeSidebarOnboardingPage() {
 
             {/* Notification in omnibox — col 1, row 2 */}
             <Reveal className="h-full">
-              <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-10 flex flex-col gap-8 h-full">
+              <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-10 flex flex-col gap-8 h-full">
                 <div className="flex flex-col gap-2">
                   <p className="text-body font-semibold text-portfolio-primary">
                     Exploration: Notification in omnibox
@@ -159,7 +160,7 @@ export default function EdgeSidebarOnboardingPage() {
 
             {/* Exploration: Tool tip flyout */}
             <Reveal className="h-full">
-              <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-10 flex flex-col gap-4 h-full">
+              <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-10 flex flex-col gap-4 h-full">
                 <div className="flex flex-col gap-2">
                   <p className="text-body font-semibold text-portfolio-primary">
                     Exploration: Tool tip flyout
@@ -174,7 +175,7 @@ export default function EdgeSidebarOnboardingPage() {
 
             {/* Exploration: Settings gear */}
             <Reveal delay={0.08} className="h-full">
-              <div className="surface-card bg-portfolio-surface rounded-[20px] overflow-hidden flex flex-col gap-4 h-full">
+              <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col gap-4 h-full">
                 <div className="flex flex-col gap-2 p-8 md:p-10">
                   <p className="text-body font-semibold text-portfolio-primary">
                     Exploration: Settings gear
@@ -184,7 +185,7 @@ export default function EdgeSidebarOnboardingPage() {
                 <img
                   src={IMGS.explorationSettings}
                   alt="Settings gear"
-                  className="mt-auto w-[65%] -ml-[5%] object-cover object-right-top"
+                  className="mt-auto w-[85%] -ml-[5%] object-cover object-right-top"
                 />
               </div>
             </Reveal>
@@ -211,6 +212,7 @@ export default function EdgeSidebarOnboardingPage() {
         <CaseStudySection className="mt-12">
           <Reveal>
             <DarkOutroSection
+              variant="overcast"
               label="Strategic alignment and outcome"
               heading="Turning dormant users into active adopters"
               metrics={[

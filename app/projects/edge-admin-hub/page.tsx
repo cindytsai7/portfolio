@@ -24,10 +24,11 @@ export default function EdgeAdminHubPage() {
     <main className="bg-portfolio-background min-h-screen">
       <CaseStudyNav />
 
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-4 pt-4 md:pt-8 pb-4 md:pb-8">
+      <div className="max-w-[1440px] mx-auto flex flex-col gap-4 pt-4 md:pt-8">
 
         {/* 1 · Hero */}
         <HeroSection
+          index="01"
           tags={["MICROSOFT", "ENTERPRISE", "SYSTEMS"]}
           title="Building a scalable framework for Edge Browser's admin hub"
           body="I led the redesign of a scalable dashboard that simplifies Edge browser policy management. Working with PMs and developers, I re-architected the admin center around a flexible design system, creating a more unified experience and enabling future feature expansion."
@@ -41,7 +42,7 @@ export default function EdgeAdminHubPage() {
         {/* 2 · Challenge / Opportunity */}
         <CaseStudySection className="grid md:grid-cols-2 gap-4">
           <Reveal>
-            <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-10 flex flex-col gap-6 h-full">
+            <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-10 flex flex-col gap-6 h-full">
               <SectionBlock
                 label="The Challenge"
                 heading="Users weren't getting alerted"
@@ -56,7 +57,7 @@ export default function EdgeAdminHubPage() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-10 flex flex-col gap-6 h-full">
+            <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-10 flex flex-col gap-6 h-full">
               <SectionBlock
                 label="The Opportunity"
                 heading="From confusion to conversion"
@@ -181,6 +182,7 @@ export default function EdgeAdminHubPage() {
         <CaseStudySection className="mt-12">
           <Reveal>
             <DarkOutroSection
+              variant="overcast"
               label="Strategic alignment and outcome"
               heading="Unifying the system to unlock scale"
               metrics={[

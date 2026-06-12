@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import CaseStudyNav from "@/components/case-study/CaseStudyNav";
 import CaseStudySection from "@/components/case-study/CaseStudySection";
 import SectionBlock from "@/components/case-study/SectionBlock";
@@ -26,24 +27,26 @@ export default function FranklinPayrollPage() {
     <main className="bg-portfolio-background min-h-screen">
       <CaseStudyNav />
 
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-4 pt-4 md:pt-8 pb-4 md:pb-8">
+      <div className="max-w-[1440px] mx-auto flex flex-col gap-4 pt-4 md:pt-8">
 
         {/* 1 · Hero */}
         <section className="px-4 md:px-8">
-          <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-12 flex flex-col gap-10">
+          <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-12 flex flex-col gap-10">
             <div className="flex flex-col md:flex-row md:items-start gap-12">
 
               {/* Left: tags + title + body + metadata */}
               <div className="flex flex-col gap-6 flex-1 max-w-[720px]">
-                <div className="flex flex-wrap gap-2">
+                <div className="flex items-center gap-[8px] font-mono text-[13px] tracking-[0.05em] uppercase whitespace-nowrap">
+                  <span className="text-portfolio-primary">03</span>
                   {TAGS.map((tag) => (
-                    <span key={tag} className="inline-flex items-center h-[26px] border border-[#c7c7c2] rounded-full px-3 text-caption font-mono text-portfolio-muted uppercase tracking-wider whitespace-nowrap">
-                      {tag}
-                    </span>
+                    <Fragment key={tag}>
+                      <span className="text-portfolio-rule">·</span>
+                      <span className="text-portfolio-muted">{tag}</span>
+                    </Fragment>
                   ))}
                 </div>
                 <div className="flex flex-col gap-4">
-                  <h1 className="text-h1 font-bold leading-tight tracking-tight text-portfolio-primary">
+                  <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
                     From 0–1, a Web3 payroll suite
                   </h1>
                   <div className="flex flex-col gap-3">
@@ -51,28 +54,25 @@ export default function FranklinPayrollPage() {
                     <p className="text-body text-portfolio-muted">As the sole designer for this start up, I designed a full payroll suite for crypto-native startups, and worked end-to-end with the founding team to ship a product used in production.</p>
                   </div>
                 </div>
-                <div className="flex flex-row gap-8">
-                  {METADATA.map((item, i) => (
-                    <div key={item.label} className="flex flex-row items-stretch gap-8">
-                      {i > 0 && <div className="w-px bg-[#c7c7c2] self-stretch" />}
-                      <div className="flex flex-col gap-1">
-                        <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">{item.label}</p>
-                        <p className="text-body font-medium text-portfolio-primary">{item.value}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
 
               {/* Vertical divider */}
               <div className="hidden md:block w-px bg-[#c7c7c2] self-stretch shrink-0" />
 
-              {/* Right: impact counter — offset to align with title */}
-              <div className="flex-1 pt-[50px]">
+              {/* Right: impact counter + metadata */}
+              <div className="flex-1 pt-[50px] flex flex-col gap-8">
                 <MetricCountUp
                   target={2900000}
                   caption="A strategic soft launch validated the product market fit, driving investor interest to close the seed round."
                 />
+                <div className="flex flex-row gap-14">
+                  {METADATA.map((item) => (
+                    <div key={item.label} className="flex flex-col gap-2">
+                      <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">{item.label}</p>
+                      <p className="text-body font-medium text-portfolio-primary">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
 
             </div>
@@ -82,14 +82,14 @@ export default function FranklinPayrollPage() {
         {/* 2 · Business opportunity */}
         <CaseStudySection>
           <Reveal>
-            <div className="bg-portfolio-primary rounded-[20px] ring-1 ring-inset ring-[#2C2C2C] px-8 md:px-12 py-10 md:py-12 flex flex-col gap-4">
-              <p className="text-caption font-mono uppercase tracking-widest text-white/50">
+            <div className="surface-card bg-portfolio-surface-deep/55 rounded-card px-8 md:px-12 py-10 md:py-12 flex flex-col gap-4">
+              <p className="text-caption font-mono uppercase tracking-widest text-black/50">
                 Business Opportunity
               </p>
-              <h2 className="text-h1 font-bold leading-tight tracking-tight text-white">
+              <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-black">
                 Web3 companies lack out-of-the-box financial tools
               </h2>
-              <p className="text-body text-white/60">
+              <p className="text-body text-black/70">
                 The market needs crypto-native solutions for essential business processes that traditional systems simply can&apos;t handle.
               </p>
             </div>
@@ -129,8 +129,8 @@ export default function FranklinPayrollPage() {
           <Reveal image>
             <div className="flex flex-col gap-6">
               <div className="grid grid-cols-2 gap-4">
-                <img src={IMGS.navigationLeft} alt="Original Franklin navigation" className="w-full rounded-[20px] object-cover" />
-                <img src={IMGS.navigationRight} alt="Revised client-facing navigation" className="w-full rounded-[20px] object-cover" />
+                <img src={IMGS.navigationLeft} alt="Original Franklin navigation" className="w-full rounded-card object-cover" />
+                <img src={IMGS.navigationRight} alt="Revised client-facing navigation" className="w-full rounded-card object-cover" />
               </div>
               <div className="flex flex-col gap-2 w-3/4">
                 <p className="text-body font-semibold text-portfolio-primary leading-tight">Navigation</p>
@@ -153,9 +153,9 @@ export default function FranklinPayrollPage() {
         </CaseStudySection>
 
         {/* 8 · Reflections */}
-        <CaseStudySection>
+        <CaseStudySection className="mt-16">
           <Reveal>
-            <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-12 flex flex-col gap-6">
+            <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-12 flex flex-col gap-6">
               <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">
                 Reflections
               </p>
