@@ -43,13 +43,13 @@ export default function HeroCard() {
             href="https://www.linkedin.com/in/cindyctsai/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold hover:opacity-50 transition-opacity inline-flex items-center"
+            className="text-[14px] font-bold uppercase text-portfolio-primary hover:opacity-60 transition-opacity duration-200 inline-flex items-center"
           >
             LinkedIn<ArrowIcon />
           </a>
           <a
             href="mailto:cindytsai7@gmail.com"
-            className="font-bold hover:opacity-50 transition-opacity inline-flex items-center"
+            className="text-[14px] font-bold uppercase text-portfolio-primary hover:opacity-60 transition-opacity duration-200 inline-flex items-center"
           >
             Email<ArrowIcon />
           </a>

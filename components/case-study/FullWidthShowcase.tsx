@@ -35,7 +35,7 @@ export default function FullWidthShowcase({
         </div>
       )}
       {(label || heading || body) && (
-        <div className="flex flex-col gap-2 w-3/4">
+        <div className="flex flex-col gap-[6px] w-3/4">
           {label && (
             <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">
               {label}

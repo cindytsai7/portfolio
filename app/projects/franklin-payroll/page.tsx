@@ -4,7 +4,6 @@ import CaseStudySection from "@/components/case-study/CaseStudySection";
 import SectionBlock from "@/components/case-study/SectionBlock";
 import FullWidthShowcase from "@/components/case-study/FullWidthShowcase";
 import Reveal from "@/components/motion/Reveal";
-import ScrollRevealQuote from "@/components/case-study/ScrollRevealQuote";
 import MetricCountUp from "@/components/case-study/MetricCountUp";
 
 const IMGS = {
@@ -79,25 +78,22 @@ export default function FranklinPayrollPage() {
         {/* 2 · Business opportunity */}
         <CaseStudySection>
           <Reveal>
-            <div className="surface-card bg-portfolio-surface-deep/55 rounded-card px-8 md:px-12 py-10 md:py-12 flex flex-col gap-4">
-              <p className="text-caption font-mono uppercase tracking-widest text-black/50">
+            <div className="surface-card bg-portfolio-surface/50 rounded-card px-8 md:px-12 py-10 md:py-12 flex flex-col gap-4">
+              <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">
                 Business Opportunity
               </p>
-              <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-black">
+              <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
                 Web3 companies lack out-of-the-box financial tools
               </h2>
-              <p className="text-body text-black/70">
-                The market needs crypto-native solutions for essential business processes that traditional systems simply can&apos;t handle.
+              <p className="text-body text-portfolio-muted">
+                Our goal with Franklin was to build a crypto-native back-office suite that made managing complex financial operations feel seamless and intuitive. The challenge was bridging the gap between volatile Web3 technology and the rigid, high-stakes requirements of tax compliance.
               </p>
             </div>
           </Reveal>
         </CaseStudySection>
 
-        {/* 3 · Goal / challenge quote */}
-        <ScrollRevealQuote text="Our goal with Franklin was to build a crypto-native back-office suite that made managing complex financial operations feel seamless and intuitive. The challenge was bridging the gap between volatile Web3 technology and the rigid, high-stakes requirements of tax compliance." />
-
-        {/* 4–7 · Solutions */}
-        <CaseStudySection className="flex flex-col gap-[80px]">
+        {/* 3 · Solutions */}
+        <CaseStudySection className="flex flex-col gap-[80px] mt-12">
           <div className="flex flex-col gap-6">
             <Reveal>
               <SectionBlock label="Solutions" heading="The operational framework" />
