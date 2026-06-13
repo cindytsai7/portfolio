@@ -43,9 +43,12 @@ export default function ComplianceReviewPage() {
                 href="https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[14px] font-bold uppercase opacity-60 hover:opacity-100 transition-opacity duration-200 inline-flex items-center gap-1"
+                className="text-[14px] font-bold uppercase text-portfolio-primary hover:opacity-60 transition-opacity duration-200 inline-flex items-center"
               >
-                How AI Is Ushering in the Next Era of Risk Review at Meta ↗
+                How AI Is Ushering in the Next Era of Risk Review at Meta
+                <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-[0.65em] h-[0.65em] shrink-0 ml-0.5">
+                  <path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" />
+                </svg>
               </a>
             </p>
           </div>

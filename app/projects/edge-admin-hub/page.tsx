@@ -83,7 +83,7 @@ export default function EdgeAdminHubPage() {
         </CaseStudySection>
 
         {/* 3 · Spatial Architecture */}
-        <CaseStudySection className="flex flex-col gap-6 mt-12">
+        <CaseStudySection className="flex flex-col gap-6 mt-20">
           <Reveal>
             <SectionBlock
               label="Spatial architecture"
@@ -101,7 +101,7 @@ export default function EdgeAdminHubPage() {
         </CaseStudySection>
 
         {/* 4 · Constraints */}
-        <CaseStudySection className="mt-12">
+        <CaseStudySection className="mt-20">
           <Reveal>
             <ThreeColumnSection
               label="The Constraints"
@@ -125,7 +125,7 @@ export default function EdgeAdminHubPage() {
         </CaseStudySection>
 
         {/* 5 · Redesigned Framework */}
-        <CaseStudySection className="flex flex-col gap-6 mt-12">
+        <CaseStudySection className="flex flex-col gap-6 mt-20">
           <Reveal>
             <SectionBlock label="Solutions" heading="Redesigned Framework" />
           </Reveal>
@@ -141,7 +141,7 @@ export default function EdgeAdminHubPage() {
         </CaseStudySection>
 
         {/* 6 · Systemic Craft */}
-        <CaseStudySection className="flex flex-col gap-[80px] mt-[48px]">
+        <CaseStudySection className="flex flex-col gap-[80px] mt-20">
           <div className="flex flex-col gap-6">
             <Reveal>
               <SectionBlock label="Systemic craft" heading="The building blocks" />
@@ -176,7 +176,7 @@ export default function EdgeAdminHubPage() {
         </CaseStudySection>
 
         {/* 7 · Strategic Outcome */}
-        <CaseStudySection className="mt-12">
+        <CaseStudySection className="mt-20">
           <Reveal>
             <DarkOutroSection
               variant="overcast"
