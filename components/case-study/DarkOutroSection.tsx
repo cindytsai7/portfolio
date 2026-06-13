@@ -26,7 +26,7 @@ export default function DarkOutroSection({
 
   if (isOvercast) {
     return (
-      <section className="surface-card bg-portfolio-surface-deep/55 rounded-card px-8 md:px-16 py-16 md:py-20 flex flex-col gap-12">
+      <section className="bg-portfolio-surface-deep/50 rounded-card px-8 md:px-12 py-10 md:py-12 flex flex-col gap-8" style={{ boxShadow: 'inset 0 0 0 1px #D1CCC5' }}>
         <div className="flex flex-col gap-4">
           <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-black/50">{label}</p>
           <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-black">{heading}</h2>
@@ -61,7 +61,7 @@ export default function DarkOutroSection({
 
   return (
     <section className="bg-black rounded-card overflow-hidden">
-      <DarkCard className="px-8 md:px-16 py-16 md:py-20 flex flex-col gap-12">
+      <DarkCard className="px-8 md:px-12 py-10 md:py-12 flex flex-col gap-8">
 
         <div className="flex flex-col gap-4">
           <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-white/50">{label}</p>
