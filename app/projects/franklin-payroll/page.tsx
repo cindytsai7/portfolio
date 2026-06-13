@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import CaseStudyNav from "@/components/case-study/CaseStudyNav";
+import CaseStudyPage from "@/components/case-study/CaseStudyPage";
 import CaseStudySection from "@/components/case-study/CaseStudySection";
 import SectionBlock from "@/components/case-study/SectionBlock";
 import FullWidthShowcase from "@/components/case-study/FullWidthShowcase";
@@ -24,10 +24,7 @@ const METADATA = [
 
 export default function FranklinPayrollPage() {
   return (
-    <main className="bg-portfolio-background min-h-screen">
-      <CaseStudyNav />
-
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-4 pt-4 md:pt-8">
+    <CaseStudyPage>
 
         {/* 1 · Hero */}
         <section className="px-4 md:px-8">
@@ -169,7 +166,6 @@ export default function FranklinPayrollPage() {
           </Reveal>
         </CaseStudySection>
 
-      </div>
-    </main>
+    </CaseStudyPage>
   );
 }

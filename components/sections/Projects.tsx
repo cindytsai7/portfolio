@@ -11,7 +11,7 @@ export default function Projects() {
           className={project.colSpan === 2 ? "md:col-span-2" : "md:col-span-1"}
         >
           <Reveal delay={i * 0.08}>
-            <ProjectCard project={project} />
+            <ProjectCard project={project} index={i + 1} />
           </Reveal>
         </div>
       ))}

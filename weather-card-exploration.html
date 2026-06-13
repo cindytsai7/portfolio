@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Footer Weather Card — Opacity Exploration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #ffffff;
+      padding: 48px;
+      color: #1A1A1A;
+    }
+
+    h3 { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5C5C5C; margin-bottom: 12px; }
+
+    .card {
+      border-radius: 16px;
+      overflow: hidden;
+      height: 320px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background-color 0.5s ease;
+      position: relative;
+    }
+
+    /* Inset border — same as .surface-card */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+      pointer-events: none;
+    }
+
+    .card-title { font-size: 22px; font-weight: 400; line-height: 1.3; max-width: 320px; }
+    .card-links { display: flex; gap: 24px; }
+    .card-link { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.6; text-decoration: none; }
+    .card-link:hover { opacity: 1; }
+    .weather-row { font-family: 'DM Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.6; text-align: right; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 999px;
+    }
+
+    /* ─── CURRENT (solid) ─────────────────────────────────────── */
+    .solid-sunny  { background: #D9C4A0; color: #3a3020; }
+    .solid-rain   { background: #282F38; color: #A5B4C4; }
+    .solid-overcast { background: #3D3B38; color: #E8E6E2; }
+    .solid-snow   { background: #e5e3df; color: #2a2825; }
+
+    /* ─── OPTION A — weather color at 50% opacity (light backgrounds) ── */
+    .a-sunny    { background: rgba(217,196,160,0.50); color: #3a3020; }
+    .a-rain     { background: rgba(40,47,56,0.50);   color: #1A1A1A; }
+    .a-overcast { background: rgba(61,59,56,0.50);   color: #1A1A1A; }
+    .a-snow     { background: rgba(229,227,223,0.50); color: #2a2825; }
+
+    /* ─── OPTION B — weather color at 35% opacity (even lighter) ── */
+    .b-sunny    { background: rgba(217,196,160,0.35); color: #3a3020; }
+    .b-rain     { background: rgba(40,47,56,0.35);   color: #1A1A1A; }
+    .b-overcast { background: rgba(61,59,56,0.35);   color: #1A1A1A; }
+    .b-snow     { background: rgba(229,227,223,0.35); color: #2a2825; }
+
+    /* ─── OPTION C — hue-shifted pastels (new light variants) ── */
+    /* sunny → warm cream, rain → muted slate-blue, overcast → warm stone, snow → cool off-white */
+    .c-sunny    { background: rgba(242,230,200,0.60); color: #3a3020; }
+    .c-rain     { background: rgba(180,198,216,0.50); color: #1e2d3d; }
+    .c-overcast { background: rgba(200,196,190,0.55); color: #2a2825; }
+    .c-snow     { background: rgba(225,232,240,0.55); color: #2a2825; }
+
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+    .section-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #C7C7C2; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid #E6E5E1; }
+    .condition-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; color: #C7C7C2; }
+  </style>
+</head>
+<body>
+
+  <p style="font-size:13px; font-family:'DM Mono',monospace; letter-spacing:0.05em; text-transform:uppercase; color:#C7C7C2; margin-bottom:40px;">
+    Footer card · opacity exploration · white (#FFFFFF) background
+  </p>
+
+  <!-- CURRENT -->
+  <div class="section-label">Current — Solid fills</div>
+  <div class="grid-4" style="margin-bottom:56px;">
+    <div>
+      <div class="condition-tag">Sunny</div>
+      <div class="card solid-sunny">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ☀ 72°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Rain</div>
+      <div class="card solid-rain">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · 🌧 52°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Overcast</div>
+      <div class="card solid-overcast">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ☁ 58°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Snow</div>
+      <div class="card solid-snow">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ❄ 34°F</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION A — 50% opacity -->
+  <div class="section-label">Option A — Same colors, 50% opacity (surface/50 logic)</div>
+  <div class="grid-4" style="margin-bottom:56px;">
+    <div>
+      <div class="condition-tag">Sunny</div>
+      <div class="card a-sunny">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ☀ 72°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Rain</div>
+      <div class="card a-rain">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · 🌧 52°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Overcast</div>
+      <div class="card a-overcast">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ☁ 58°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Snow</div>
+      <div class="card a-snow">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ❄ 34°F</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION B — 35% opacity -->
+  <div class="section-label">Option B — Same colors, 35% opacity (lighter, more like other cards)</div>
+  <div class="grid-4" style="margin-bottom:56px;">
+    <div>
+      <div class="condition-tag">Sunny</div>
+      <div class="card b-sunny">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ☀ 72°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Rain</div>
+      <div class="card b-rain">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · 🌧 52°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Overcast</div>
+      <div class="card b-overcast">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ☁ 58°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Snow</div>
+      <div class="card b-snow">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ❄ 34°F</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION C — new hue-shifted pastels -->
+  <div class="section-label">Option C — Hue-shifted pastels (warmer/cooler mood, semi-transparent)</div>
+  <div class="grid-4" style="margin-bottom:56px;">
+    <div>
+      <div class="condition-tag">Sunny → warm cream</div>
+      <div class="card c-sunny">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ☀ 72°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Rain → slate blue</div>
+      <div class="card c-rain">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · 🌧 52°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Overcast → warm stone</div>
+      <div class="card c-overcast">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ☁ 58°F</div>
+      </div>
+    </div>
+    <div>
+      <div class="condition-tag">Snow → cool white</div>
+      <div class="card c-snow">
+        <div>
+          <div class="card-title">Designed and built by Cindy Tsai</div>
+          <div class="card-links" style="margin-top:20px;">
+            <a class="card-link" href="#">E-MAIL ↗</a>
+            <a class="card-link" href="#">LINKEDIN ↗</a>
+          </div>
+        </div>
+        <div class="weather-row">SEATTLE · 2:41 PM · ❄ 34°F</div>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:12px; font-family:'DM Mono',monospace; color:#C7C7C2; letter-spacing:0.05em;">
+    All options use the same inset 1px rgba(0,0,0,0.08) border · text color unified to #1A1A1A (dark) for semi-transparent options · white page background shows through
+  </p>
+
+</body>
+</html>

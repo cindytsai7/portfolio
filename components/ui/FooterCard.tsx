@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import VariableProximity from '@/components/ui/VariableProximity'
 
 type Condition = 'sunny' | 'rain' | 'overcast' | 'snow'
 type ForecastDay = { day: string; temp: number; condition: Condition }
@@ -14,28 +15,28 @@ type WeatherState = {
 
 const states: Record<Condition, WeatherState> = {
   sunny: {
-    bg: '#D9C4A0',
+    bg: 'rgba(242,230,200,0.60)',
     text: '#3a3020',
-    pill: { bg: 'rgba(0,0,0,0.1)', border: 'rgba(0,0,0,0.12)' },
-    tooltip: { bg: 'rgba(58,48,32,0.85)', text: '#d9c4a0' },
+    pill: { bg: 'rgba(0,0,0,0.07)', border: 'rgba(0,0,0,0.10)' },
+    tooltip: { bg: 'rgba(80,65,40,0.92)', text: 'rgba(242,230,200,1)' },
   },
   rain: {
-    bg: '#282F38',
-    text: '#A5B4C4',
-    pill: { bg: 'rgba(255,255,255,0.08)', border: 'transparent' },
-    tooltip: { bg: 'rgba(165,180,196,0.12)', text: '#A5B4C4' },
+    bg: 'rgba(180,198,216,0.50)',
+    text: '#1e2d3d',
+    pill: { bg: 'rgba(0,0,0,0.07)', border: 'rgba(0,0,0,0.10)' },
+    tooltip: { bg: 'rgba(30,45,61,0.92)', text: 'rgba(180,198,216,1)' },
   },
   overcast: {
-    bg: '#3D3B38',
-    text: '#E8E6E2',
-    pill: { bg: 'rgba(255,255,255,0.08)', border: 'transparent' },
-    tooltip: { bg: 'rgba(232,230,226,0.1)', text: '#E8E6E2' },
+    bg: 'rgba(200,196,190,0.55)',
+    text: '#2a2825',
+    pill: { bg: 'rgba(0,0,0,0.07)', border: 'rgba(0,0,0,0.10)' },
+    tooltip: { bg: 'rgba(50,48,45,0.92)', text: 'rgba(200,196,190,1)' },
   },
   snow: {
-    bg: '#e5e3df',
+    bg: 'rgba(225,232,240,0.55)',
     text: '#2a2825',
-    pill: { bg: 'rgba(0,0,0,0.08)', border: 'rgba(0,0,0,0.12)' },
-    tooltip: { bg: 'rgba(42,40,37,0.85)', text: '#e5e3df' },
+    pill: { bg: 'rgba(0,0,0,0.07)', border: 'rgba(0,0,0,0.10)' },
+    tooltip: { bg: 'rgba(40,50,60,0.92)', text: 'rgba(225,232,240,1)' },
   },
 }
 
@@ -55,6 +56,14 @@ function formatTime(date: Date) {
       timeZone: 'America/Los_Angeles',
     })
     .toUpperCase()
+}
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-[0.65em] h-[0.65em] shrink-0 ml-0.5">
+      <path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" />
+    </svg>
+  );
 }
 
 function SunIcon() {
@@ -124,6 +133,7 @@ export default function FooterCard() {
   const [temp, setTemp] = useState<number | null>(null)
   const [forecast, setForecast] = useState<ForecastDay[]>([])
   const [time, setTime] = useState(() => formatTime(new Date()))
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetch('/api/weather')
@@ -145,32 +155,40 @@ export default function FooterCard() {
 
   return (
     <div
-      className="footer-card rounded-[20px] overflow-hidden flex flex-col justify-between p-8 md:p-12 h-[464px]"
+      ref={containerRef}
+      className="footer-card surface-card rounded-card overflow-hidden flex flex-col px-6 py-8 md:px-10 md:py-12 min-h-[380px]"
       style={{ backgroundColor: state.bg, color: state.text }}
     >
       {/* Main content */}
       <div>
         <h2 className="text-[28px] font-normal leading-tight max-w-[520px]">
-          Designed and built by Cindy Tsai
+          Designed and built by <VariableProximity
+            label="Cindy Tsai"
+            fromFontVariationSettings="'wght' 300"
+            toFontVariationSettings="'wght' 900"
+            containerRef={containerRef}
+            radius={150}
+            falloff="linear"
+          />
         </h2>
         <div className="flex gap-8 mt-8">
           <a
-            href="mailto:cindytsai7@gmail.com"
-            className="text-[14px] font-bold uppercase opacity-60 hover:opacity-100 transition-opacity duration-200"
+            href="https://www.linkedin.com/in/cindyctsai/"
+            className="text-[14px] font-bold uppercase opacity-60 hover:opacity-100 transition-opacity duration-200 inline-flex items-center"
           >
-            E-MAIL →
+            LINKEDIN<ArrowIcon />
           </a>
           <a
-            href="https://www.linkedin.com/in/cindyctsai/"
-            className="text-[14px] font-bold uppercase opacity-60 hover:opacity-100 transition-opacity duration-200"
+            href="mailto:cindytsai7@gmail.com"
+            className="text-[14px] font-bold uppercase opacity-60 hover:opacity-100 transition-opacity duration-200 inline-flex items-center"
           >
-            LINKEDIN →
+            E-MAIL<ArrowIcon />
           </a>
         </div>
       </div>
 
       {/* Weather strip */}
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-auto pt-8">
         <div className="relative flex items-center gap-2 font-mono text-[13px] uppercase">
           <span style={{ opacity: 0.7 }}>SEATTLE</span>
           <span style={{ opacity: 0.7 }}>·</span>

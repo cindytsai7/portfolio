@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark Card — Warm Neutral Exploration</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900&family=DM+Mono:wght@400&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #ffffff;
+      padding: 48px;
+      color: #1A1A1A;
+    }
+
+    /* ── shared card shell ── */
+    .card {
+      border-radius: 16px;
+      padding: 40px 48px;
+      position: relative;
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      box-shadow: inset 0 0 0 1px #E6E5E1;
+      pointer-events: none;
+    }
+
+    /* ── light reference card (portfolio-surface/50) ── */
+    .light { background: rgba(242,241,237,0.50); }
+
+    /* ── dark card variants (warm neutrals) ── */
+    .current  { background: rgba(61,59,56,0.50); }   /* current overcast — for reference */
+    .opt-a    { background: rgba(180,172,158,0.55); } /* warm mid-tone — sand/stone */
+    .opt-b    { background: rgba(200,192,176,0.55); } /* lighter warm tan */
+    .opt-c    { background: rgba(160,150,135,0.60); } /* deeper warm stone */
+    .opt-d    { background: rgba(242,241,237,0.85); } /* portfolio-surface at 85% — just a darker hero */
+
+    /* ── type ── */
+    .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.45);
+      margin-bottom: 16px;
+    }
+    .heading {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+      color: #1A1A1A;
+      margin-bottom: 16px;
+    }
+    .body-text {
+      font-size: 18px;
+      line-height: 1.5;
+      color: rgba(0,0,0,0.65);
+    }
+
+    /* ── layout ── */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #C7C7C2;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #E6E5E1;
+    }
+    .stack { display: flex; flex-direction: column; gap: 8px; margin-bottom: 56px; }
+    .variant-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #C7C7C2;
+      margin-bottom: 6px;
+    }
+
+    /* light card internals */
+    .meta-row { display: flex; gap: 32px; margin-top: 24px; }
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .meta-key { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(0,0,0,0.40); }
+    .meta-val { font-size: 17px; font-weight: 500; color: #1A1A1A; }
+  </style>
+</head>
+<body>
+
+  <p style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#C7C7C2;margin-bottom:40px;">
+    Franklin payroll · business opportunity card · warm neutral exploration
+  </p>
+
+  <!-- LIGHT CARD REFERENCE -->
+  <div class="section-label">Light card reference (portfolio-surface/50 = rgba(242,241,237,0.50))</div>
+  <div class="stack">
+    <div class="card light">
+      <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(0,0,0,0.40);margin-bottom:10px;">
+        03 · START UP · WEB3 · PAYROLL
+      </div>
+      <div class="heading" style="font-size:40px;">From 0–1, a Web3 payroll suite</div>
+      <div class="body-text">The concept of Franklin is straightforward: increase Web3 adoption by integrating crypto into payments.</div>
+      <div class="meta-row">
+        <div class="meta-item"><span class="meta-key">Role</span><span class="meta-val">Lead Designer</span></div>
+        <div class="meta-item"><span class="meta-key">Timeline</span><span class="meta-val">2022</span></div>
+        <div class="meta-item"><span class="meta-key">Status</span><span class="meta-val">Shipped</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURRENT -->
+  <div class="section-label">Current — overcast rgba(61,59,56,0.50) · feels cool/gray</div>
+  <div class="stack">
+    <div class="card current">
+      <div class="label">Business Opportunity</div>
+      <div class="heading">Web3 companies lack out-of-the-box financial tools</div>
+      <div class="body-text">The market needs crypto-native solutions for essential business processes that traditional systems simply can't handle.</div>
+    </div>
+  </div>
+
+  <!-- OPTION A -->
+  <div class="section-label">Option A — rgba(180,172,158,0.55) · warm sand/stone mid-tone</div>
+  <div class="stack">
+    <div class="card opt-a">
+      <div class="label">Business Opportunity</div>
+      <div class="heading">Web3 companies lack out-of-the-box financial tools</div>
+      <div class="body-text">The market needs crypto-native solutions for essential business processes that traditional systems simply can't handle.</div>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="section-label">Option B — rgba(200,192,176,0.55) · lighter warm tan · closer to light card</div>
+  <div class="stack">
+    <div class="card opt-b">
+      <div class="label">Business Opportunity</div>
+      <div class="heading">Web3 companies lack out-of-the-box financial tools</div>
+      <div class="body-text">The market needs crypto-native solutions for essential business processes that traditional systems simply can't handle.</div>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="section-label">Option C — rgba(160,150,135,0.60) · deeper warm stone · most contrast</div>
+  <div class="stack">
+    <div class="card opt-c">
+      <div class="label">Business Opportunity</div>
+      <div class="heading">Web3 companies lack out-of-the-box financial tools</div>
+      <div class="body-text">The market needs crypto-native solutions for essential business processes that traditional systems simply can't handle.</div>
+    </div>
+  </div>
+
+  <!-- OPTION D -->
+  <div class="section-label">Option D — rgba(242,241,237,0.85) · portfolio-surface at 85% · same family, just denser</div>
+  <div class="stack">
+    <div class="card opt-d">
+      <div class="label">Business Opportunity</div>
+      <div class="heading">Web3 companies lack out-of-the-box financial tools</div>
+      <div class="body-text">The market needs crypto-native solutions for essential business processes that traditional systems simply can't handle.</div>
+    </div>
+  </div>
+
+  <!-- STACKED IN CONTEXT -->
+  <div class="section-label" style="margin-top:32px;">In context — light card + dark card stacked (gap: 8px)</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;">
+
+    <div>
+      <div class="variant-label">Option A</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="card light">
+          <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(0,0,0,0.40);margin-bottom:10px;">03 · START UP · WEB3 · PAYROLL</div>
+          <div style="font-size:32px;font-weight:700;letter-spacing:-0.025em;line-height:1.08;margin-bottom:12px;">From 0–1, a Web3 payroll suite</div>
+          <div class="body-text" style="font-size:16px;">The concept of Franklin is straightforward.</div>
+        </div>
+        <div class="card opt-a">
+          <div class="label">Business Opportunity</div>
+          <div style="font-size:26px;font-weight:700;letter-spacing:-0.025em;line-height:1.08;margin-bottom:12px;">Web3 companies lack out-of-the-box financial tools</div>
+          <div class="body-text" style="font-size:16px;">The market needs crypto-native solutions for essential business processes.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="variant-label">Option B</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="card light">
+          <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(0,0,0,0.40);margin-bottom:10px;">03 · START UP · WEB3 · PAYROLL</div>
+          <div style="font-size:32px;font-weight:700;letter-spacing:-0.025em;line-height:1.08;margin-bottom:12px;">From 0–1, a Web3 payroll suite</div>
+          <div class="body-text" style="font-size:16px;">The concept of Franklin is straightforward.</div>
+        </div>
+        <div class="card opt-b">
+          <div class="label">Business Opportunity</div>
+          <div style="font-size:26px;font-weight:700;letter-spacing:-0.025em;line-height:1.08;margin-bottom:12px;">Web3 companies lack out-of-the-box financial tools</div>
+          <div class="body-text" style="font-size:16px;">The market needs crypto-native solutions for essential business processes.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="variant-label">Option C</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="card light">
+          <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(0,0,0,0.40);margin-bottom:10px;">03 · START UP · WEB3 · PAYROLL</div>
+          <div style="font-size:32px;font-weight:700;letter-spacing:-0.025em;line-height:1.08;margin-bottom:12px;">From 0–1, a Web3 payroll suite</div>
+          <div class="body-text" style="font-size:16px;">The concept of Franklin is straightforward.</div>
+        </div>
+        <div class="card opt-c">
+          <div class="label">Business Opportunity</div>
+          <div style="font-size:26px;font-weight:700;letter-spacing:-0.025em;line-height:1.08;margin-bottom:12px;">Web3 companies lack out-of-the-box financial tools</div>
+          <div class="body-text" style="font-size:16px;">The market needs crypto-native solutions for essential business processes.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="variant-label">Option D</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="card light">
+          <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(0,0,0,0.40);margin-bottom:10px;">03 · START UP · WEB3 · PAYROLL</div>
+          <div style="font-size:32px;font-weight:700;letter-spacing:-0.025em;line-height:1.08;margin-bottom:12px;">From 0–1, a Web3 payroll suite</div>
+          <div class="body-text" style="font-size:16px;">The concept of Franklin is straightforward.</div>
+        </div>
+        <div class="card opt-d">
+          <div class="label">Business Opportunity</div>
+          <div style="font-size:26px;font-weight:700;letter-spacing:-0.025em;line-height:1.08;margin-bottom:12px;">Web3 companies lack out-of-the-box financial tools</div>
+          <div class="body-text" style="font-size:16px;">The market needs crypto-native solutions for essential business processes.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="font-family:'DM Mono',monospace;font-size:11px;color:#C7C7C2;letter-spacing:0.05em;margin-top:56px;">
+    All options use inset 1px #E6E5E1 border · black text · white (#FFFFFF) page background
+  </p>
+
+</body>
+</html>

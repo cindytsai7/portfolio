@@ -1,19 +1,25 @@
+import { Fragment } from 'react';
+
 interface MetadataItem {
   label: string;
   value: string;
 }
 
 interface HeroSectionProps {
+  index: string;
   tags: string[];
   title: string;
+  notice?: string;
   body: string | string[];
   metadata: MetadataItem[];
   heroImage?: string;
 }
 
 export default function HeroSection({
+  index,
   tags,
   title,
+  notice,
   body,
   metadata,
   heroImage,
@@ -23,24 +29,23 @@ export default function HeroSection({
   return (
     <section className="px-4 md:px-8 flex flex-col gap-8">
       {/* Single hero card */}
-      <div className="surface-card bg-portfolio-surface rounded-[20px] p-8 md:p-10 flex flex-col gap-10">
+      <div className="surface-card bg-portfolio-surface/50 rounded-card px-6 py-8 md:px-10 md:py-12 flex flex-col gap-10">
 
         {/* Top row: tags + title + body / metadata */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
           {/* Left: tags + title + body */}
           <div className="flex flex-col gap-6 flex-1 max-w-[720px]">
-            <div className="flex flex-wrap gap-2">
+            <div className="flex items-center gap-[8px] font-mono text-[13px] tracking-[0.05em] uppercase whitespace-nowrap">
+              <span className="text-portfolio-primary">{index}</span>
               {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center h-[26px] border border-[#c7c7c2] rounded-full px-3 text-caption font-mono text-portfolio-muted uppercase tracking-wider whitespace-nowrap"
-                >
-                  {tag}
-                </span>
+                <Fragment key={tag}>
+                  <span className="text-portfolio-rule">·</span>
+                  <span className="text-portfolio-muted">{tag}</span>
+                </Fragment>
               ))}
             </div>
             <div className="flex flex-col gap-4">
-              <h1 className="text-h1 font-bold leading-tight tracking-tight text-portfolio-primary">
+              <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
                 {title}
               </h1>
               <div className="flex flex-col gap-3">
@@ -59,13 +64,17 @@ export default function HeroSection({
                   {item.label}
                 </p>
                 <p className="text-body font-medium text-portfolio-primary">{item.value}</p>
-                {i < metadata.length - 1 && (
-                  <div className="bg-portfolio-rule h-px w-full mt-1" />
-                )}
               </div>
             ))}
           </div>
         </div>
+
+        {/* NDA banner — full width across the card */}
+        {notice && (
+          <div className="bg-portfolio-background rounded-[12px] px-5 py-4">
+            <p className="text-body font-medium text-portfolio-muted">{notice}</p>
+          </div>
+        )}
 
       </div>
 

@@ -1,4 +1,4 @@
-import CaseStudyNav from "@/components/case-study/CaseStudyNav";
+import CaseStudyPage from "@/components/case-study/CaseStudyPage";
 import CaseStudySection from "@/components/case-study/CaseStudySection";
 import HeroSection from "@/components/case-study/HeroSection";
 import SectionBlock from "@/components/case-study/SectionBlock";
@@ -21,10 +21,7 @@ const IMGS = {
 
 export default function EdgeAdminHubPage() {
   return (
-    <main className="bg-portfolio-background min-h-screen">
-      <CaseStudyNav />
-
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-4 pt-4 md:pt-8">
+    <CaseStudyPage>
 
         {/* 1 · Hero */}
         <HeroSection
@@ -195,7 +192,6 @@ export default function EdgeAdminHubPage() {
           </Reveal>
         </CaseStudySection>
 
-      </div>
-    </main>
+    </CaseStudyPage>
   );
 }

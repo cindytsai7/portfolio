@@ -23,10 +23,10 @@ export default function FullWidthShowcase({
         <img
           src={image}
           alt={alt}
-          className={`w-full object-cover${rounded ? " rounded-[20px]" : ""}`}
+          className={`w-full object-cover${rounded ? " rounded-card" : ""}`}
         />
       ) : (
-        <div className="surface-card w-full aspect-[16/9] bg-portfolio-surface rounded-[20px] flex items-center justify-center">
+        <div className="surface-card w-full aspect-[16/9] bg-portfolio-surface rounded-card flex items-center justify-center">
           {placeholderLabel && (
             <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">
               {placeholderLabel}

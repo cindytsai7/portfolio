@@ -5,7 +5,7 @@ export default function ExperienceList() {
   return (
     <div className="flex flex-col gap-4">
       {experience.map((entry, i) => (
-        <WorkEntry key={entry.company} {...entry} isLast={i === experience.length - 1} />
+        <WorkEntry key={entry.company} {...entry} />
       ))}
     </div>
   );

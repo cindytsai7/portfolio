@@ -4,8 +4,8 @@
 
 @layer base {
   body {
-    font-size: 19px;
-    line-height: 1.375;
+    font-size: 18px;
+    line-height: 1.5;
   }
 }
 
@@ -79,7 +79,7 @@
   right: 0;
   width: 100%;
   border-radius: 14px;
-  padding: 16px;
+  padding: 12px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   opacity: 0;

@@ -1,93 +1,55 @@
-'use client'
+import CaseStudyPage from "@/components/case-study/CaseStudyPage";
+import CaseStudySection from "@/components/case-study/CaseStudySection";
+import HeroSection from "@/components/case-study/HeroSection";
+import SectionBlock from "@/components/case-study/SectionBlock";
 
-import { useState, Fragment } from "react";
-import CaseStudyNav from "@/components/case-study/CaseStudyNav";
-
-const TAGS = ["META", "PLATFORM", "NDA"];
-const PASSWORD = "meta2025";
-
+const IMPACT_ITEMS = [
+  "Mapped the end-to-end submitter and reviewer journey, surfacing critical breakdowns in the operational workflow.",
+  "Designed the full review experience — structured status visibility, proactive context, and clear next steps at every stage.",
+  "Led a data versioning model so iterative reviews carry forward prior evidence instead of restarting from zero.",
+  "Created structured intake patterns that translate complex end-user context into reviewer-legible signals for novel risk categories.",
+  "Designed intelligent routing and decision-support tooling for triage and escalation, blending automation with human review.",
+];
 
 export default function ComplianceReviewPage() {
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (password === PASSWORD) {
-      // unlock placeholder
-    } else {
-      setError(true);
-    }
-  }
-
   return (
-    <main className="bg-portfolio-background">
-      <CaseStudyNav />
-
-      <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-4 md:pt-8">
-        <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-10 flex flex-col gap-8">
-
-          {/* Tags */}
-          <div className="flex items-center gap-[8px] font-mono text-[13px] tracking-[0.05em] uppercase whitespace-nowrap">
-            <span className="text-portfolio-primary">02</span>
-            {TAGS.map((tag) => (
-              <Fragment key={tag}>
-                <span className="text-portfolio-rule">·</span>
-                <span className="text-portfolio-muted">{tag}</span>
-              </Fragment>
-            ))}
-          </div>
-
-          {/* Title + body / metadata */}
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
-            {/* Left: title + body */}
-            <div className="flex flex-col gap-4 flex-1 max-w-[720px]">
-              <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
-                Risk review systems
-              </h1>
-              <div className="flex flex-col gap-4">
-                <p className="text-body text-portfolio-muted">
-                  At Meta, I design tools that help teams identify, triage, and act on integrity risks across platforms. The goal is to make complex risk review workflows faster, more accurate, and scalable for the people protecting billions of users.
-                </p>
-                <p className="text-body text-portfolio-muted">
-                  Currently, this has spanned designing systems that surface risk signals for researchers, end-to-end triage and escalation workflows for review teams, and leading the design vision for an agentic AI-powered risk review experience.
-                </p>
-              </div>
-            </div>
-
-            {/* Right: metadata */}
-            <div className="flex flex-col gap-4 md:w-[300px] shrink-0">
-              {[{ label: "Role", value: "Lead Designer" }, { label: "Timeline", value: "2025 – Now" }].map((item) => (
-                <div key={item.label} className="flex flex-col gap-2">
-                  <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">{item.label}</p>
-                  <p className="text-body font-medium text-portfolio-primary">{item.value}</p>
-                </div>
+    <CaseStudyPage>
+        <HeroSection
+          index="02"
+          tags={["META", "PLATFORM", "NDA"]}
+          title="Risk review systems"
+          notice="This work is covered by an NDA. Some specifics are abstracted here, happy to go deeper in conversation."
+          body={[
+            "At Meta, I design tools that help teams identify, triage, and act on integrity risks across platforms. The goal is to make complex risk review workflows faster, more accurate, and scalable for the people protecting billions of users.",
+            "Currently, this has spanned designing systems that surface risk signals for researchers, end-to-end triage and escalation workflows for review teams, and leading the design vision for an agentic AI-powered risk review experience.",
+          ]}
+          metadata={[
+            { label: "Role", value: "Lead Designer" },
+            { label: "Timeline", value: "2025 – Now" },
+          ]}
+        />
+        <CaseStudySection>
+          <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-10 flex flex-col gap-6">
+            <SectionBlock label="Impact" heading="Why this mattered" />
+            <ul className="flex flex-col gap-3 list-disc list-inside marker:text-portfolio-rule">
+              {IMPACT_ITEMS.map((item, i) => (
+                <li key={i} className="text-body text-portfolio-muted">{item}</li>
               ))}
-            </div>
+            </ul>
+            <hr className="border-portfolio-rule" />
+            <p className="text-body text-portfolio-muted">
+              Meta has written publicly about this broader initiative —{" "}
+              <a
+                href="https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[14px] font-bold uppercase opacity-60 hover:opacity-100 transition-opacity duration-200 inline-flex items-center gap-1"
+              >
+                How AI Is Ushering in the Next Era of Risk Review at Meta ↗
+              </a>
+            </p>
           </div>
-
-          {/* Password gate */}
-          <form onSubmit={handleSubmit} className="bg-portfolio-background rounded-[14px] flex items-center gap-4 px-5 py-3 max-w-[720px]">
-            <input
-              type="password"
-              placeholder="Enter password here"
-              value={password}
-              onChange={(e) => { setPassword(e.target.value); setError(false); }}
-              className="flex-1 bg-transparent text-body text-portfolio-primary placeholder:text-portfolio-muted placeholder:font-light outline-none"
-            />
-            {error && (
-              <span className="text-caption text-portfolio-muted whitespace-nowrap">Incorrect password</span>
-            )}
-            <button
-              type="submit"
-              className="inline-flex items-center bg-portfolio-primary text-white text-body font-medium rounded-[12px] px-6 h-12 hover:opacity-80 transition-opacity whitespace-nowrap"
-            >
-              Enter
-            </button>
-          </form>
-
-        </div>
-      </div>
-    </main>
+        </CaseStudySection>
+    </CaseStudyPage>
   );
 }
