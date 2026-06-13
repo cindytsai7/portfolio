@@ -37,7 +37,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           {/* Tags + Title + Description + password notice */}
           <div className="flex flex-col gap-3 px-6 pt-6 pb-6 md:px-10 md:pt-10 flex-1">
             <MetaString tags={project.tags} index={index} passwordProtected={project.passwordProtected} />
-            <h2 className="text-[40px] font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
+            <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
               {project.title}
             </h2>
             <p className="text-body text-portfolio-muted leading-[1.5]">
@@ -71,7 +71,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         {/* Text content */}
         <div className="flex flex-col gap-3 p-6 md:px-10 md:pt-10 md:pb-6">
           <MetaString tags={project.tags} index={index} passwordProtected={project.passwordProtected} />
-          <h2 className="text-[40px] font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
+          <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
             {project.title}
           </h2>
         </div>

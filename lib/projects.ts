@@ -26,7 +26,7 @@ export const projects: Project[] = [
   },
   {
     id: "compliance-review",
-    title: "Risk review systems",
+    title: "Risk systems",
     tags: ["META", "PLATFORM", "NDA"],
     image: "/projects/compliance-review.png",
     href: "/projects/compliance-review",

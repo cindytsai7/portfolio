@@ -17,7 +17,7 @@ export default function ComplianceReviewPage() {
         <HeroSection
           index="02"
           tags={["META", "PLATFORM", "NDA"]}
-          title="Risk review systems"
+          title="Risk systems"
           notice="This work is covered by an NDA. Some specifics are abstracted here, happy to go deeper in conversation."
           body={[
             "At Meta, I design tools that help teams identify, triage, and act on integrity risks across platforms. The goal is to make complex risk review workflows faster, more accurate, and scalable for the people protecting billions of users.",
