@@ -22,7 +22,7 @@ export default function HeroCard({ showExperience = true }: { showExperience?: b
     >
       {/* Left: identity + CTA */}
       <div className={`flex flex-col justify-between gap-8 ${showExperience ? "md:col-span-2" : ""}`}>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
           <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
             <VariableProximity
               label="Cindy Tsai"
@@ -33,12 +33,12 @@ export default function HeroCard({ showExperience = true }: { showExperience?: b
               falloff="linear"
             />
           </h1>
-          <p className="text-[1.5vh] text-portfolio-muted leading-[1.2] tracking-[-0.01em] max-w-[480px]">
+          <p className="text-body leading-[1.3] tracking-tight text-portfolio-muted max-w-[480px] mb-4">
             Product Designer specializing in complex systems and enterprise infrastructure.
-            Currently at Meta, building AI compliance systems that help teams identify and mitigate risks.
+            Currently at Meta, building AI compliance systems that help teams identify and mitigate&nbsp;risks.
           </p>
         </div>
-        <div className="flex items-center gap-6 font-sans text-body text-portfolio-primary">
+        <div className="flex items-center gap-6">
           <a
             href="https://www.linkedin.com/in/cindyctsai/"
             target="_blank"

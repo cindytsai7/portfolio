@@ -43,7 +43,7 @@ export default function DarkOutroSection({
           </div>
         )}
 
-        <p className="text-black/70 text-body leading-relaxed">{body}</p>
+        <p className="text-black/70 text-body">{body}</p>
 
         {link && (
           <a
@@ -79,7 +79,7 @@ export default function DarkOutroSection({
           </div>
         )}
 
-        <p className="text-white/70 text-body leading-relaxed">{body}</p>
+        <p className="text-white/70 text-body">{body}</p>
 
         {link && (
           <a

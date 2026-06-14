@@ -25,7 +25,7 @@ const config: Config = {
         h1: ["clamp(24px,2.5vw,36px)", { lineHeight: "1.3", fontWeight: "700" }],
         h2: ["36px", { lineHeight: "1.08", fontWeight: "700" }],
         h3: ["clamp(16px,1.4vw,20px)", { lineHeight: "1.4", fontWeight: "500" }],
-        body: ["1.5vh", { lineHeight: "1.2", fontWeight: "400", letterSpacing: "-0.01em" }],
+        body: ["1.5vh", { lineHeight: "1.25", fontWeight: "400", letterSpacing: "-0.025em" }],
         caption: ["13px", { lineHeight: "1.4", letterSpacing: "0.05em" }],
       },
       borderRadius: {

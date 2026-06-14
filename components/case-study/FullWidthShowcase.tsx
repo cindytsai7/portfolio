@@ -42,10 +42,10 @@ export default function FullWidthShowcase({
             </p>
           )}
           {heading && (
-            <p className="text-body font-semibold text-portfolio-primary leading-tight">{heading}</p>
+            <p className="text-body font-semibold text-portfolio-primary">{heading}</p>
           )}
           {body && (
-            <p className="text-body text-portfolio-muted leading-snug">{body}</p>
+            <p className="text-body text-portfolio-muted">{body}</p>
           )}
         </div>
       )}

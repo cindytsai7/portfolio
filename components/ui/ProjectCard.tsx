@@ -40,7 +40,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
               {project.title}
             </h2>
-            <p className="text-body text-portfolio-muted leading-[1.5]">
+            <p className="text-body text-portfolio-muted">
               {project.description}
             </p>
           </div>
