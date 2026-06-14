@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <main className="max-w-[1440px] mx-auto w-full p-4 md:p-8 flex flex-col gap-4">
       <Hero />
-      <Projects />
+      <div className="mt-40 md:mt-[160px]">
+        <Projects />
+      </div>
       <Footer />
     </main>
   );

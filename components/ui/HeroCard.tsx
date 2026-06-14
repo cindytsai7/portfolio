@@ -18,12 +18,12 @@ export default function HeroCard({ showExperience = true }: { showExperience?: b
   return (
     <div
       ref={containerRef}
-      className={`relative surface-card bg-portfolio-surface/50 rounded-card py-8 md:py-12 px-6 md:px-0 flex flex-col gap-8 ${showExperience ? "md:grid md:grid-cols-3 md:gap-4" : ""}`}
+      className={`flex flex-col gap-8 ${showExperience ? "md:grid md:grid-cols-3 md:gap-4 md:items-start" : ""}`}
     >
       {/* Left: identity + CTA */}
-      <div className={`flex flex-col justify-between gap-8 md:pl-10 ${showExperience ? "md:col-span-2" : "md:pr-10"}`}>
+      <div className={`flex flex-col justify-between gap-8 ${showExperience ? "md:col-span-2" : ""}`}>
         <div className="flex flex-col gap-6">
-          <h1 className="text-[64px] font-bold tracking-[-0.03em] leading-[1.1] text-portfolio-primary">
+          <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
             <VariableProximity
               label="Cindy Tsai"
               fromFontVariationSettings="'wght' 300"
@@ -33,7 +33,7 @@ export default function HeroCard({ showExperience = true }: { showExperience?: b
               falloff="linear"
             />
           </h1>
-          <p className="text-body text-portfolio-muted leading-[1.6] max-w-[538px]">
+          <p className="text-[1.5vh] text-portfolio-muted leading-[1.2] tracking-[-0.01em] max-w-[480px]">
             Product Designer specializing in complex systems and enterprise infrastructure.
             Currently at Meta, building AI compliance systems that help teams identify and mitigate risks.
           </p>
@@ -57,11 +57,7 @@ export default function HeroCard({ showExperience = true }: { showExperience?: b
       </div>
 
       {/* Right: experience timeline */}
-      {showExperience && (
-        <div className="md:pl-10 md:pr-10">
-          <ExperienceList />
-        </div>
-      )}
+      {showExperience && <ExperienceList />}
     </div>
   );
 }
