@@ -156,22 +156,26 @@ export default function FooterCard() {
   return (
     <div
       ref={containerRef}
-      className="footer-card surface-card rounded-card overflow-hidden flex flex-col px-6 py-8 md:px-10 md:py-12 min-h-[380px]"
+      className="footer-card surface-card rounded-card overflow-hidden flex flex-col px-6 py-8 md:px-10 md:py-12 min-h-[280px]"
       style={{ backgroundColor: state.bg, color: state.text }}
     >
       {/* Main content */}
       <div>
-        <h2 className="text-[28px] font-normal leading-tight max-w-[520px]">
-          Designed and built by <VariableProximity
+        <h2 className="text-[1.5vh] font-normal leading-[1.2] tracking-[-0.01em] max-w-[520px]">
+          © 2026 Designed and built by <VariableProximity
             label="Cindy Tsai"
             fromFontVariationSettings="'wght' 300"
             toFontVariationSettings="'wght' 900"
             containerRef={containerRef}
             radius={150}
             falloff="linear"
-          />
+          />.
         </h2>
-        <div className="flex gap-8 mt-8">
+      </div>
+
+      {/* Bottom row: links left, weather right */}
+      <div className="flex justify-between items-center mt-auto pt-8">
+        <div className="flex gap-8">
           <a
             href="https://www.linkedin.com/in/cindyctsai/"
             className="text-[14px] font-bold uppercase opacity-60 hover:opacity-100 transition-opacity duration-200 inline-flex items-center"
@@ -182,13 +186,9 @@ export default function FooterCard() {
             href="mailto:cindytsai7@gmail.com"
             className="text-[14px] font-bold uppercase opacity-60 hover:opacity-100 transition-opacity duration-200 inline-flex items-center"
           >
-            E-MAIL<ArrowIcon />
+            EMAIL<ArrowIcon />
           </a>
         </div>
-      </div>
-
-      {/* Weather strip */}
-      <div className="flex justify-end mt-auto pt-8">
         <div className="relative flex items-center gap-2 font-mono text-[13px] uppercase">
           <span style={{ opacity: 0.7 }}>SEATTLE</span>
           <span style={{ opacity: 0.7 }}>·</span>
