@@ -12,16 +12,16 @@ function ArrowIcon() {
   );
 }
 
-export default function HeroCard() {
+export default function HeroCard({ showExperience = true }: { showExperience?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       ref={containerRef}
-      className="relative surface-card bg-portfolio-surface/50 rounded-card px-6 py-8 md:px-10 md:py-12 flex flex-col gap-8 md:grid md:grid-cols-3 md:gap-4"
+      className={`relative surface-card bg-portfolio-surface/50 rounded-card py-8 md:py-12 px-6 md:px-0 flex flex-col gap-8 ${showExperience ? "md:grid md:grid-cols-3 md:gap-4" : ""}`}
     >
       {/* Left: identity + CTA */}
-      <div className="flex flex-col justify-between gap-8 md:col-span-2">
+      <div className={`flex flex-col justify-between gap-8 md:pl-10 ${showExperience ? "md:col-span-2" : "md:pr-10"}`}>
         <div className="flex flex-col gap-6">
           <h1 className="text-[64px] font-bold tracking-[-0.03em] leading-[1.1] text-portfolio-primary">
             <VariableProximity
@@ -57,7 +57,11 @@ export default function HeroCard() {
       </div>
 
       {/* Right: experience timeline */}
-      <ExperienceList />
+      {showExperience && (
+        <div className="md:pl-10 md:pr-10">
+          <ExperienceList />
+        </div>
+      )}
     </div>
   );
 }

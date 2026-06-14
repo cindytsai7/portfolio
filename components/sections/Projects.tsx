@@ -4,7 +4,7 @@ import { projects } from "@/lib/projects";
 
 export default function Projects() {
   return (
-    <section className="flex flex-col gap-4 md:grid md:grid-cols-3">
+    <section id="work" className="flex flex-col gap-4 md:grid md:grid-cols-3">
       {projects.map((project, i) => (
         <div
           key={project.id}
