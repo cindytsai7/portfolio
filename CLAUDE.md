@@ -57,25 +57,28 @@
 |---|---|---|---|---|
 | `text-display` | 64px | 700 | 1.1 | -0.03em |
 | `text-h1` | clamp(24–36px) | 700 | 1.3 | — |
-| `text-h2` | 40px | 700 | 1.08 | -0.025em |
+| `text-h2` | 36px | 700 | 1.08 | -0.025em |
 | `text-h3` | clamp(16–20px) | 500 | 1.4 | — |
-| `text-body` | 18px | 400 | 1.5 | — |
+| `text-body` | 1.5vh | 400 | 1.25 | -0.025em |
 | `text-caption` | 13px | 400 | 1.4 | +0.05em |
 
-- Hero name (`text-display`): apply `tracking-[-0.03em]` explicitly in component
 - Card titles (`text-h2`): apply `tracking-[-0.025em] leading-[1.08]` explicitly in component
-- Hero intro body: override with `leading-[1.6]` + `max-w-[538px]`
+- Hero bio: overrides `leading-[1.3] tracking-tight` on top of `text-body`; `max-w-[480px] mb-4`
 - Labels / meta: always `font-mono text-[13px] tracking-[0.05em] uppercase`
-- Case study headings: `text-h2` (40px) — not `text-h1`
+- Case study headings: `text-h2` (36px) — not `text-h1`
 
 ---
 
 ## Site Status
 
 ### Landing page ✅
-- **Hero** — HeroCard with VariableProximity, bold `LinkedIn ↗` + `Email ↗` text links, ExperienceList (pulse dot on Meta)
-- **Projects** — 3-col bento grid (4 cards)
+- **Hero** — Open editorial layout (no card container); HeroCard with VariableProximity name, bio paragraph, `LinkedIn ↗` + `Email ↗` links, ExperienceList on the right
+- **Projects** — 3-col bento grid (4 cards); `mt-40` below hero
 - **Footer** — Weather-tinted semi-transparent card, VariableProximity on "Cindy Tsai", live Seattle time, 3-day forecast tooltip
+- No top navigation on landing page
+
+### About page ✅
+- `/about` — Back link nav, HeroCard (with ExperienceList), Testimonials carousel
 
 ### Case studies ✅
 | Route | Status |
@@ -105,7 +108,7 @@
 
 ### `components/case-study/`
 - `CaseStudyNav` — sticky nav with RAF-driven scroll progress bar (`bg-portfolio-surface`, `h-[2px]`); `max-w-[1440px]` inner wrapper; `py-3 md:py-4`
-- `HeroSection` — accepts `index` prop; dot-separated meta string (`01 · TAG · TAG`); `text-h2` heading; no metadata dividers; `bg-portfolio-surface/50 rounded-card px-6 py-8 md:px-10 md:py-12`
+- `HeroSection` — accepts `index` prop; dot-separated meta string (`01 · TAG · TAG`); `text-h2` heading; body `text-body` (no overrides); no metadata dividers; `bg-portfolio-surface/50 rounded-card px-6 py-8 md:px-10 md:py-12`
 - `SectionBlock` — label (optional) + heading + body; `label` prop is optional — omit to show heading only
 - `NumberedList` — P0 (terracotta) / P1 (`#4F68B0`) priority rows; `items-center` alignment
 - `ThreeColumnSection` — 3-col bento card; `bg-portfolio-surface/50 rounded-card`; divider rule sits between SectionBlock heading and columns (not on each column)
@@ -117,10 +120,15 @@
 ### `components/ui/`
 - `ProjectCard` — wraps HoverCard; handles large / small / imageContain / editorial variants; renders dot-separated `MetaString`
 - `HoverCard` — `bg-portfolio-surface/50 hover:bg-portfolio-surface/80 rounded-card`; inset 1px `#E6E5E1` border via absolute overlay div
-- `HeroCard` — `bg-portfolio-surface/50 rounded-card`; grid `md:grid-cols-[2fr_1fr] md:gap-4`; VariableProximity name; bold ArrowIcon text links; body `max-w-[538px]`
+- `HeroCard` — open layout (no card background); 3-col grid `md:grid-cols-3 md:gap-4`, left `md:col-span-2`; VariableProximity name (`text-h2`); bio `text-body leading-[1.3] tracking-tight max-w-[480px] mb-4`; bold ArrowIcon text links; ExperienceList right col
+- `ExperienceList` — `grid-cols-[100px_1fr] gap-x-[52px] py-[3px]`; `text-body font-medium`; border-top + border-bottom dividers per row
 - `DarkCard` — `bg-white/5 rounded-card`; `rgba(255,255,255,0.08)` inset border; for cards on black backgrounds
-- `WorkEntry` — stacked layout: mono date above company name; no divider lines; `gap-[26px]` in ExperienceList
 - `FooterCard` — semi-transparent weather tints (4 states); VariableProximity on "Cindy Tsai"; LinkedIn then Email order; tooltip forecast
+
+### `components/sections/`
+- `Projects` — bento grid with `id="work"` for scroll target
+- `Footer` — wraps FooterCard
+- `Testimonials` — horizontal scroll carousel; 6 real testimonials; warm surface cards `bg-[#D1CCC5]/50 shadow-[inset_0_0_0_1px_#D1CCC5]`; black text; ← → nav arrows
 
 ### `app/globals.css` key classes
 - `.surface-card` — `box-shadow: inset 0 0 0 1px #E6E5E1`
@@ -146,17 +154,25 @@
 - Progress bar: `absolute top-0 left-0 h-[2px] bg-portfolio-surface`, RAF-driven `style.width`
 - Back + About links slide outward on scroll: lerp 0.1, max 100px offset, full at 80px scroll
 
-### Hero card (landing)
-- Grid: `md:grid-cols-3 md:gap-4` — left content `md:col-span-2`, ExperienceList in col 3, aligns with project card 02 below
-- Background: `bg-portfolio-surface/50`, radius `rounded-card`, border via `.surface-card`
-- Left col: VariableProximity h1 at 64px + intro body `max-w-[538px]` + `LinkedIn ↗ · Email ↗` bold text links (`gap-6`)
-- Right col: ExperienceList — stacked date/company, `gap-4` between entries, `gap-2` within each entry
+### Hero (landing)
+- No card container — open editorial layout, content sits directly on page background
+- Grid: `md:grid-cols-3 md:gap-4` — left content `md:col-span-2`, ExperienceList in col 3 (aligns with project card 02 below)
+- Name: `VariableProximity` with `text-h2 font-bold leading-[1.08] tracking-[-0.025em]`
+- Bio: `text-body leading-[1.3] tracking-tight text-portfolio-muted max-w-[480px] mb-4` — non-breaking space before "risks." to prevent orphan
+- Links: `text-[14px] font-bold uppercase text-portfolio-primary hover:opacity-60`, `gap-6` between them
+- Below hero: `mt-40` before Projects grid
+
+### ExperienceList
+- Wrapper: `flex flex-col border-t border-portfolio-stroke`
+- Each row: `grid grid-cols-[100px_1fr] gap-x-[52px] py-[3px] border-b border-portfolio-stroke`
+- Text: `text-body font-medium` — dates `text-portfolio-muted`, companies `text-portfolio-primary`
 
 ### HeroSection (case studies)
 - Padding: `px-6 py-8 md:px-10 md:py-12`
 - Background: `bg-portfolio-surface/50 rounded-card`
 - Tags row: dot-separated `index · TAG · TAG` (no pills)
-- Heading: `text-h2` (40px)
+- Heading: `text-h2` (36px)
+- Body: `text-body text-portfolio-muted` (no leading/tracking overrides — uses global token)
 - Metadata: no dividers between items
 
 ### Arrow icon (`ArrowIcon` component)
