@@ -12,7 +12,7 @@ function MetaString({ tags, index, passwordProtected }: { tags: string[]; index:
   return (
     <div className="flex flex-col gap-1.5">
       <p className="font-mono text-[13px] tracking-[0.05em] uppercase">
-        <span className="text-portfolio-primary">{indexStr}</span>
+        <span className="text-portfolio-muted">{indexStr}</span>
         {tags.map((tag) => (
           <span key={tag}>
             <span className="text-portfolio-rule"> · </span>
@@ -50,13 +50,13 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             {project.role && (
               <div className="flex flex-col gap-1">
                 <span className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted">Role</span>
-                <span className="text-body font-medium text-portfolio-primary">{project.role}</span>
+                <span className="text-body font-medium text-portfolio-muted">{project.role}</span>
               </div>
             )}
             {project.timeline && (
               <div className="flex flex-col gap-1">
                 <span className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted">Timeline</span>
-                <span className="text-body font-medium text-portfolio-primary">{project.timeline}</span>
+                <span className="text-body font-medium text-portfolio-muted">{project.timeline}</span>
               </div>
             )}
           </div>

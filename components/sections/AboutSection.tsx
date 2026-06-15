@@ -44,11 +44,11 @@ export default function AboutSection() {
       {/* How I work */}
       <ParallaxBlock speed={30}>
         <div className="grid grid-cols-1 md:grid-cols-[447fr_895fr] gap-6 md:gap-8 md:items-start">
-          <p className="font-mono text-[13px] tracking-[0.12em] uppercase text-portfolio-primary md:pt-[6px]">
+          <p className="font-mono text-[13px] tracking-[0.12em] uppercase text-portfolio-muted md:pt-[6px]">
             How I work
           </p>
-          <p className="text-[20px] leading-[1.3] tracking-tight text-portfolio-muted max-w-[760px]">
-            I bring clarity to ambiguous problems by mapping the system, its actors, and its constraints before designing. I prototype with AI to test many directions fast, converging on solutions that stay legible and defensible. Then I ship early and let real feedback drive what I refine next.
+          <p className="text-body leading-[1.3] tracking-tight text-portfolio-muted max-w-[760px]">
+            I tackle ambiguity by mapping systems, actors, and constraints before diving into pixels. I use AI to prototype and stress-test ideas at speed, quickly converging on clear, defensible solutions. For me, design is an active cycle: ship early, gather feedback, and iterate relentlessly.
           </p>
         </div>
       </ParallaxBlock>
@@ -56,7 +56,7 @@ export default function AboutSection() {
       {/* What people say */}
       <ParallaxBlock speed={30} delay={0.08}>
         <div className="grid grid-cols-1 md:grid-cols-[447fr_895fr] gap-6 md:gap-8 md:items-start">
-          <p className="font-mono text-[13px] tracking-[0.12em] uppercase text-portfolio-primary md:pt-[6px]">
+          <p className="font-mono text-[13px] tracking-[0.12em] uppercase text-portfolio-muted md:pt-[6px]">
             What people say
           </p>
           <div className="flex flex-col">
@@ -65,7 +65,7 @@ export default function AboutSection() {
                 key={i}
                 className="py-7 border-t border-portfolio-stroke/50 first:border-t-0 first:pt-0 flex flex-col gap-3"
               >
-                <p className="text-[20px] leading-[1.3] tracking-tight text-portfolio-muted max-w-[760px]">
+                <p className="text-body leading-[1.3] tracking-tight text-portfolio-muted max-w-[760px]">
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <p className="font-mono text-[12px] tracking-[0.08em] uppercase text-portfolio-muted">
