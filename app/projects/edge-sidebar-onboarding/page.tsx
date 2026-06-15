@@ -189,22 +189,6 @@ export default function EdgeSidebarOnboardingPage() {
           </div>
         </CaseStudySection>
 
-        {/* 5 · How might we expand this experience */}
-        <CaseStudySection className="flex flex-col gap-6 mt-12">
-          <Reveal>
-            <SectionBlock
-              label="Solution"
-              heading="How might we expand this experience"
-            />
-          </Reveal>
-          <Reveal image>
-            <FullWidthShowcase
-              placeholderLabel="Insert prototype here"
-              body="text"
-            />
-          </Reveal>
-        </CaseStudySection>
-
         {/* 6 · Strategic Outcome */}
         <CaseStudySection className="mt-12">
           <Reveal>

@@ -12,7 +12,7 @@ function ArrowIcon() {
   );
 }
 
-export default function HeroCard({ showExperience = true }: { showExperience?: boolean }) {
+export default function HeroCard({ showExperience = true, showAboutLink = false }: { showExperience?: boolean; showAboutLink?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -53,6 +53,14 @@ export default function HeroCard({ showExperience = true }: { showExperience?: b
           >
             Email<ArrowIcon />
           </a>
+          {showAboutLink && (
+            <a
+              href="#about"
+              className="text-[14px] font-bold uppercase text-portfolio-primary hover:opacity-60 transition-opacity duration-200 inline-flex items-center"
+            >
+              Approach
+            </a>
+          )}
         </div>
       </div>
 
