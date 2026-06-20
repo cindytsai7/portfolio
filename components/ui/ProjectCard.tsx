@@ -2,63 +2,41 @@ import Link from "next/link";
 import HoverCard from "@/components/ui/HoverCard";
 import type { Project } from "@/lib/projects";
 
-interface ProjectCardProps {
-  project: Project;
-  index: number;
-}
-
-function MetaString({ tags, index, passwordProtected }: { tags: string[]; index: number; passwordProtected?: boolean }) {
-  const indexStr = String(index).padStart(2, "0");
+function CardHeader({ title, tags }: { title: string; tags: string[] }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <p className="font-mono text-[13px] tracking-[0.05em] uppercase">
-        <span className="text-portfolio-muted">{indexStr}</span>
+    <div className="flex justify-between items-start gap-6 px-6 pt-6 md:px-10 md:pt-10 pb-6">
+      <h2 className="text-[20px] font-semibold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
+        {title}
+      </h2>
+      <div className="flex flex-col text-left shrink-0">
         {tags.map((tag) => (
-          <span key={tag}>
-            <span className="text-portfolio-rule"> · </span>
-            <span className="text-portfolio-muted">{tag}</span>
+          <span key={tag} className="text-[20px] font-normal leading-[1.08] tracking-[-0.025em] text-portfolio-muted">
+            {tag}
           </span>
         ))}
-      </p>
-      {passwordProtected && (
-        <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted">
-          PASSWORD PROTECTED
-        </p>
-      )}
+      </div>
     </div>
   );
 }
 
-export default function ProjectCard({ project, index }: ProjectCardProps) {
-  if (project.variant === "editorial") {
+function MetaLogo() {
+  return (
+    <img
+      src="/projects/Meta_lockup_mono_black_RGB.png"
+      alt="Meta"
+      className="w-[180px] select-none"
+    />
+  );
+}
+
+export default function ProjectCard({ project }: { project: Project }) {
+  if (project.lockIcon) {
     return (
       <Link href={project.href} className="block">
-        <HoverCard as="article" className="flex flex-col md:h-[560px]">
-          {/* Tags + Title + Description + password notice */}
-          <div className="flex flex-col gap-3 px-6 pt-6 pb-6 md:px-10 md:pt-10 flex-1">
-            <MetaString tags={project.tags} index={index} passwordProtected={project.passwordProtected} />
-            <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
-              {project.title}
-            </h2>
-            <p className="text-body text-portfolio-muted">
-              {project.description}
-            </p>
-          </div>
-
-          {/* Metadata footer */}
-          <div className="flex gap-10 px-6 py-6 md:px-10 md:py-8">
-            {project.role && (
-              <div className="flex flex-col gap-1">
-                <span className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted">Role</span>
-                <span className="text-body font-medium text-portfolio-muted">{project.role}</span>
-              </div>
-            )}
-            {project.timeline && (
-              <div className="flex flex-col gap-1">
-                <span className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted">Timeline</span>
-                <span className="text-body font-medium text-portfolio-muted">{project.timeline}</span>
-              </div>
-            )}
+        <HoverCard as="article" className="relative flex flex-col md:h-[460px]">
+          <CardHeader title={project.title} tags={project.tags} />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <MetaLogo />
           </div>
         </HoverCard>
       </Link>
@@ -67,28 +45,16 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
   return (
     <Link href={project.href} className="block">
-      <HoverCard as="article" className="flex flex-col md:h-[560px]">
-        {/* Text content */}
-        <div className="flex flex-col gap-3 p-6 md:px-10 md:pt-10 md:pb-6">
-          <MetaString tags={project.tags} index={index} passwordProtected={project.passwordProtected} />
-          <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
-            {project.title}
-          </h2>
-        </div>
+      <HoverCard as="article" className={`flex flex-col ${project.colSpan === 1 ? "md:h-[460px]" : "md:h-[560px]"}`}>
+        <CardHeader title={project.title} tags={project.tags} />
 
-        {/* Image */}
-        {project.variant === "small" ? (
-          <div
-            className="ml-6 flex-shrink-0 w-[130%] bg-cover bg-left-top min-h-[500px] rounded-[16px] transition-transform duration-[400ms] ease-in-out group-hover:-translate-y-4"
-            style={{ backgroundImage: `url(${project.image})` }}
-          />
-        ) : project.imageContain ? (
-          <div className="px-6 md:px-10">
-            <div className="w-[68%] mx-auto">
+        {project.imageContain ? (
+          <div className="flex-1 flex items-center px-6 pb-6 md:px-10 md:pb-8">
+            <div className="mx-auto" style={{ width: project.imageWidth ?? "68%" }}>
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full transition-transform duration-[400ms] ease-in-out group-hover:-translate-y-4"
+                className="w-full rounded-[6px] transition-transform duration-[400ms] ease-in-out group-hover:-translate-y-4"
               />
             </div>
           </div>
