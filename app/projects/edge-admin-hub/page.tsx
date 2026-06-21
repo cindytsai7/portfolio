@@ -29,7 +29,7 @@ export default function EdgeAdminHubPage() {
         </section>
 
         {/* 1 · Editorial hero */}
-        <section className="px-4 md:px-8 pt-6 pb-16 md:pb-24 flex flex-col gap-16 md:gap-24">
+        <section className="px-4 md:px-8 pt-16 md:pt-24 pb-24 md:pb-40 flex flex-col gap-16 md:gap-24">
           <p className="text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[1100px] md:pl-[20%]">
             I led the redesign of Edge Browser's admin hub at Microsoft, creating a scalable framework that simplifies complex policy management. By re-architecting the admin center around a unified design system and an adaptable kit of parts, I established a foundation that streamlines future feature expansion.
           </p>

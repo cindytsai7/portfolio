@@ -19,7 +19,7 @@ export default function ComplianceReviewPage() {
     <CaseStudyPage>
 
       {/* 1 · Editorial hero */}
-      <section className="px-4 md:px-8 pt-16 md:pt-24 pb-16 md:pb-24">
+      <section className="px-4 md:px-8 pt-16 md:pt-24 pb-24 md:pb-40">
         <div className="md:pl-[20%] flex flex-col gap-16 md:gap-24">
           <p className="text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[760px]">
             At Meta, I design the intelligent, scalable risk review systems that protect billions of users across our platforms.
@@ -62,7 +62,7 @@ export default function ComplianceReviewPage() {
       </section>
 
       {/* 2 · Further reading */}
-      <section className="px-4 md:px-8 pb-16 md:pb-24">
+      <section className="px-4 md:px-8 pb-24 md:pb-40">
         <div className="md:pl-[20%]">
           <div className="max-w-[760px] flex flex-col gap-2">
             <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted">Further reading</p>

@@ -126,7 +126,10 @@
   - VariableProximity on name: `wght 600 → 300` (starts bold, lightens on hover); initial render seeded with `fromFontVariationSettings` via `?? fallback`
 - `ExperienceList` — `grid-cols-[100px_1fr] gap-x-[52px] py-[3px]`; `text-body font-medium`; border-top + border-bottom dividers per row
 - `DarkCard` — `bg-white/5 rounded-card`; `rgba(255,255,255,0.08)` inset border; for cards on black backgrounds
-- `FooterCard` — semi-transparent weather tints (4 states); VariableProximity on "Cindy Tsai" (`wght 600 → 300`); LinkedIn then Email order; tooltip forecast
+- `FooterCard` — semi-transparent weather tints (4 states); VariableProximity on "Cindy Tsai" (`wght 600 → 300`); tooltip forecast
+  - **Layout:** copyright ("© 2026 Designed and built by Cindy Tsai.") bottom-left, weather pill bottom-right; `mt-auto flex justify-between items-end`
+  - **No LinkedIn/Email links** — removed
+  - **Weather pill text:** DM Sans regular, `text-[20px] font-normal leading-[1.08] tracking-[-0.025em]`; "Seattle" sentence case (not uppercase); time uses no `.toUpperCase()`
 
 ### `components/sections/`
 - `Projects` — bento grid with `id="work"` for scroll target
@@ -187,8 +190,8 @@
   - Title (left): `text-[20px] font-semibold leading-[1.08] tracking-[-0.025em] text-portfolio-primary`
   - Tags (right): stacked, `text-[20px] font-normal leading-[1.08] tracking-[-0.025em] text-portfolio-muted`
 - **No numbered index, no MetaString** — removed entirely
-- **Card heights:** colSpan 2 → `md:h-[560px]`; colSpan 1 → `md:h-[460px]`
-- **lockIcon variant:** Meta logo absolutely centered over full card (`position: absolute, inset-0`) — `/projects/Meta_lockup_mono_black_RGB.png`, `w-[180px]`; card uses `relative` wrapper
+- **Card heights:** all cards `lg:h-[460px]` regardless of colSpan — global, uniform height
+- **lockIcon variant:** Meta logo absolutely centered over full card (`position: absolute, inset-0`) — `/projects/Meta_lockup_mono_black_RGB.png`, `w-[180px]`
 - **imageContain variant:** `flex-1 flex items-center px-6 pb-6 md:px-10 md:pb-8`; `rounded-[6px]` on image; hover `-translate-y-4`
 - **standard variant:** `card-visual-wrapper` bg-image in `px-6 md:px-10`; hover `-translate-y-4`
 
@@ -197,6 +200,11 @@
 
 ### Edge Admin Hub (`/projects/edge-admin-hub`)
 - The Challenge card body: "No unified framework, no hierarchy, no cohesion." (first sentence removed)
+
+### Editorial hero padding — global standard (all 3 case studies)
+- Section class: `px-4 md:px-8 pt-16 md:pt-24 pb-24 md:pb-40`
+- Applies to: edge-admin-hub (section 1), franklin-payroll (section 1), compliance-review (section 1)
+- White space is intentional — editorial anchor between animation/hero and body content
 
 ### Edge Admin Hub — custom hero (instance-specific, not shared)
 - **No HeroSection** — replaced with inline editorial layout
@@ -251,7 +259,7 @@
 
 **Page structure (4 sections):**
 1. Hero image — full-width `franklin-hero.png` in `CaseStudySection`
-2. Editorial hero — raw `<section>` with `pt-16 md:pt-24 pb-16 md:pb-24`; all content in single `md:pl-[20%]` container; `gap-16 md:gap-24` between blocks
+2. Editorial hero — raw `<section>` with `pt-16 md:pt-24 pb-24 md:pb-40`; all content in single `md:pl-[20%]` container; `gap-16 md:gap-24` between blocks
 3. Solutions — `CaseStudySection` with `gap-[80px]`; contains bento grid + interactive prototype + canvas showcases + navigation
 4. Reflections — surface card closing statement
 
@@ -310,8 +318,8 @@
 ## Compliance Review page (`/projects/compliance-review`)
 
 **Page structure (2 sections):**
-1. Editorial hero — raw `<section>` with `pt-16 md:pt-24 pb-16 md:pb-24`; all content in `md:pl-[20%]` container; `gap-16 md:gap-24` between blocks
-2. Further reading — raw `<section>` with `pb-16 md:pb-24`; same `md:pl-[20%]` indent; `max-w-[760px]` on inner content div
+1. Editorial hero — raw `<section>` with `pt-16 md:pt-24 pb-24 md:pb-40`; all content in `md:pl-[20%]` container; `gap-16 md:gap-24` between blocks
+2. Further reading — raw `<section>` with `pb-24 md:pb-40`; same `md:pl-[20%]` indent; `max-w-[760px]` on inner content div
 
 **No index/tags row** — `HeroSection` not used; `index` and `tags` props on `HeroSection` are now optional and conditionally rendered
 

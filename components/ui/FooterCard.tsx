@@ -48,14 +48,12 @@ const conditionLabels: Record<Condition, string> = {
 }
 
 function formatTime(date: Date) {
-  return date
-    .toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-      timeZone: 'America/Los_Angeles',
-    })
-    .toUpperCase()
+  return date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+    timeZone: 'America/Los_Angeles',
+  })
 }
 
 function ArrowIcon() {
@@ -171,8 +169,8 @@ export default function FooterCard() {
             falloff="linear"
           />.
         </h2>
-        <div className="relative flex items-center gap-2 font-mono text-[13px] uppercase">
-          <span style={{ opacity: 0.7 }}>SEATTLE</span>
+        <div className="relative flex items-center gap-2 text-[20px] font-normal leading-[1.08] tracking-[-0.025em]">
+          <span style={{ opacity: 0.7 }}>Seattle</span>
           <span style={{ opacity: 0.7 }}>·</span>
           <span style={{ opacity: 0.7 }}>{time}</span>
 
@@ -202,7 +200,7 @@ export default function FooterCard() {
                   <div className="flex justify-between">
                     {forecast.map((day) => (
                       <div key={day.day} className="flex flex-col items-center gap-1">
-                        <span className="text-[11px] font-mono uppercase" style={{ opacity: 0.6 }}>
+                        <span className="text-[11px]" style={{ opacity: 0.6 }}>
                           {day.day}
                         </span>
                         {icons[day.condition]}
