@@ -6,7 +6,6 @@ import { useEffect, useRef } from "react";
 export default function CaseStudyNav() {
   const barRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLAnchorElement>(null);
-  const aboutRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     let rafId: number;
@@ -26,7 +25,6 @@ export default function CaseStudyNav() {
       current += (target - current) * 0.1;
 
       if (backRef.current) backRef.current.style.transform = `translateX(${-current}px)`;
-      if (aboutRef.current) aboutRef.current.style.transform = `translateX(${current}px)`;
 
       rafId = requestAnimationFrame(update);
     }
@@ -44,13 +42,6 @@ export default function CaseStudyNav() {
           className="text-body text-portfolio-primary hover:text-portfolio-muted transition-colors will-change-transform"
         >
           ← Back
-        </Link>
-        <Link
-          ref={aboutRef}
-          href="/about"
-          className="text-body text-portfolio-primary hover:text-portfolio-muted transition-colors will-change-transform"
-        >
-          About
         </Link>
       </div>
       <div

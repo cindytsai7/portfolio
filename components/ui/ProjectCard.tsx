@@ -4,7 +4,7 @@ import type { Project } from "@/lib/projects";
 
 function CardHeader({ title, tags }: { title: string; tags: string[] }) {
   return (
-    <div className="flex justify-between items-start gap-6 px-6 pt-6 md:px-10 md:pt-10 pb-6">
+    <div className="flex justify-between items-start gap-6 px-6 pt-6 lg:px-10 lg:pt-10 pb-6">
       <h2 className="text-[20px] font-semibold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
         {title}
       </h2>
@@ -33,7 +33,7 @@ export default function ProjectCard({ project }: { project: Project }) {
   if (project.lockIcon) {
     return (
       <Link href={project.href} className="block">
-        <HoverCard as="article" className="relative flex flex-col md:h-[460px]">
+        <HoverCard as="article" className="flex flex-col lg:h-[460px]">
           <CardHeader title={project.title} tags={project.tags} />
           <div className="absolute inset-0 flex items-center justify-center">
             <MetaLogo />
@@ -45,11 +45,11 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Link href={project.href} className="block">
-      <HoverCard as="article" className={`flex flex-col ${project.colSpan === 1 ? "md:h-[460px]" : "md:h-[560px]"}`}>
+      <HoverCard as="article" className="flex flex-col lg:h-[460px]">
         <CardHeader title={project.title} tags={project.tags} />
 
         {project.imageContain ? (
-          <div className="flex-1 flex items-center px-6 pb-6 md:px-10 md:pb-8">
+          <div className="flex-1 flex items-center px-6 pb-6 lg:px-10 lg:pb-8">
             <div className="mx-auto" style={{ width: project.imageWidth ?? "68%" }}>
               <img
                 src={project.image}
@@ -59,7 +59,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             </div>
           </div>
         ) : (
-          <div className="px-6 md:px-10">
+          <div className="px-6 lg:px-10">
             <div
               className="card-visual-wrapper transition-transform duration-[400ms] ease-in-out group-hover:-translate-y-4"
               style={{ backgroundImage: `url(${project.image})` }}

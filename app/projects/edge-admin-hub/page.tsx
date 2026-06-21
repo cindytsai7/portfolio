@@ -1,6 +1,6 @@
 import CaseStudyPage from "@/components/case-study/CaseStudyPage";
 import CaseStudySection from "@/components/case-study/CaseStudySection";
-import HeroSection from "@/components/case-study/HeroSection";
+import CardsAssembly from "@/components/case-study/CardsAssembly";
 import SectionBlock from "@/components/case-study/SectionBlock";
 import NumberedList from "@/components/case-study/NumberedList";
 import ThreeColumnSection from "@/components/case-study/ThreeColumnSection";
@@ -23,18 +23,31 @@ export default function EdgeAdminHubPage() {
   return (
     <CaseStudyPage>
 
-        {/* 1 · Hero */}
-        <HeroSection
-          index="01"
-          tags={["MICROSOFT", "ENTERPRISE", "SYSTEMS"]}
-          title="Building a scalable framework for Edge Browser's admin hub"
-          body="I led the redesign of a scalable dashboard that simplifies Edge browser policy management. Working with PMs and developers, I re-architected the admin center around a flexible design system, creating a more unified experience and enabling future feature expansion."
-          metadata={[
-            { label: "Role", value: "Lead Product Designer" },
-            { label: "Timeline", value: "2024" },
-            { label: "Status", value: "Shipped" },
-          ]}
-        />
+        {/* 0 · Animation hero */}
+        <section className="px-4 md:px-8 py-8 md:py-12">
+          <CardsAssembly />
+        </section>
+
+        {/* 1 · Editorial hero */}
+        <section className="px-4 md:px-8 pt-6 pb-16 md:pb-24 flex flex-col gap-16 md:gap-24">
+          <p className="text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[1100px] md:pl-[20%]">
+            I led the redesign of Edge Browser's admin hub at Microsoft, creating a scalable framework that simplifies complex policy management. By re-architecting the admin center around a unified design system and an adaptable kit of parts, I established a foundation that streamlines future feature expansion.
+          </p>
+
+          <div className="grid grid-cols-[160px_1fr] gap-y-2 md:pl-[20%]">
+            {[
+              { label: "Role",     value: "Lead Product Designer" },
+              { label: "Timeline", value: "2024" },
+              { label: "Team",     value: "1 PM · 2 Eng · 1 UXR" },
+              { label: "Status",   value: "Shipped" },
+            ].map(({ label, value }) => (
+              <>
+                <p key={label + "-l"} className="text-body text-portfolio-muted">{label}</p>
+                <p key={label + "-v"} className="text-body text-portfolio-primary">{value}</p>
+              </>
+            ))}
+          </div>
+        </section>
 
         {/* 2 · Challenge / Opportunity */}
         <CaseStudySection className="grid md:grid-cols-2 gap-4">
@@ -43,7 +56,7 @@ export default function EdgeAdminHubPage() {
               <SectionBlock
                 label="The Challenge"
                 heading="Users weren't getting alerted"
-                body="Almost half of users spent 1.5+ hours navigating the dashboard. No unified framework, no hierarchy, no cohesion."
+                body="No unified framework, no hierarchy, no cohesion."
               />
               <img
                 src={IMGS.challenge}
@@ -124,23 +137,7 @@ export default function EdgeAdminHubPage() {
           </Reveal>
         </CaseStudySection>
 
-        {/* 5 · Redesigned Framework */}
-        <CaseStudySection className="flex flex-col gap-6 mt-20">
-          <Reveal>
-            <SectionBlock label="Solutions" heading="Redesigned Framework" />
-          </Reveal>
-          <Reveal image>
-            <FullWidthShowcase
-              image={IMGS.framework}
-              placeholderLabel="Redesigned dashboard"
-              rounded={false}
-              heading="The unified dashboard"
-              body="The final dashboard brings together modular alerts, analytical charts, and configuration workflows. Instead of overwhelming the administrator, the structured grid ensures clear hierarchy, visual alignment, and an intuitive, scale-agnostic layout across complex enterprise tools."
-            />
-          </Reveal>
-        </CaseStudySection>
-
-        {/* 6 · Systemic Craft */}
+        {/* 5 · Systemic Craft */}
         <CaseStudySection className="flex flex-col gap-[80px] mt-20">
           <div className="flex flex-col gap-6">
             <Reveal>

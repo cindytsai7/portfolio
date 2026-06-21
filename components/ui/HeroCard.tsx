@@ -42,25 +42,23 @@ export default function HeroCard({ showExperience = true, vertical = false }: { 
   if (vertical) {
     return (
       <div ref={containerRef} className="flex flex-col h-full">
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-2">
-            <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
-              <VariableProximity
-                label="Cindy Tsai"
-                fromFontVariationSettings="'wght' 600"
-                toFontVariationSettings="'wght' 300"
-                containerRef={containerRef}
-                radius={150}
-                falloff="linear"
-              />
-            </h1>
-            <p className="text-[32px] leading-[1.05] tracking-[-0.04em] text-portfolio-primary mb-8 text-pretty">
-              I&rsquo;m a Seattle-based product designer creating enterprise software and B2B platforms, translating complex systems into clear digital experiences.
-            </p>
-            <p className="text-[32px] leading-[1.05] tracking-[-0.04em] mb-6 text-pretty" style={{ color: '#666666' }}>
-              Currently at Meta, I design AI compliance platforms to identify and mitigate systemic risk. Say hello! You can find me on <LinkedInLink /> or reach out over <EmailLink />.
-            </p>
-          </div>
+        <div className="flex flex-col gap-2">
+          <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
+            <VariableProximity
+              label="Cindy Tsai"
+              fromFontVariationSettings="'wght' 600"
+              toFontVariationSettings="'wght' 300"
+              containerRef={containerRef}
+              radius={150}
+              falloff="linear"
+            />
+          </h1>
+          <p className="text-[32px] leading-[1.05] tracking-[-0.04em] text-portfolio-primary mb-8 text-pretty">
+            I&rsquo;m a Seattle-based product designer creating enterprise software and B2B platforms, translating complex systems into clear digital experiences.
+          </p>
+          <p className="text-[32px] leading-[1.05] tracking-[-0.04em] mb-6 text-pretty" style={{ color: '#666666' }}>
+            Currently at Meta, I design AI compliance platforms to identify and mitigate systemic risk. Say hello! You can find me on <LinkedInLink /> or reach out over <EmailLink />.
+          </p>
         </div>
         {showExperience && (
           <div className="mt-auto flex flex-col gap-2">

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Revenue Slider</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --ink:      #111827;
+    --muted:    #6b7280;
+    --faint:    #9ca3af;
+    --line:     #e5e7eb;
+    --green:    #10b981;
+    --green-bg: #ecfdf5;
+    --chip-bg:  #f3f4f6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: transparent;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Outer shell — gray canvas */
+  .shell {
+    width: 100%;
+    height: 100%;
+    background: rgba(242, 241, 237, 0.5);
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px 24px;
+  }
+
+  /* White inner frame */
+  .frame {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    padding: 20px 28px 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Top action row */
+  .top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .tabs {
+    display: flex;
+    align-items: center;
+    background: var(--chip-bg);
+    padding: 4px;
+    border-radius: 8px;
+    gap: 2px;
+  }
+  .tab {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color .15s;
+  }
+  .tab.active {
+    background: #fff;
+    color: var(--ink);
+    font-weight: 700;
+    box-shadow: 0 1px 2px rgba(0,0,0,.07);
+  }
+
+  /* Big number */
+  .marquee {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .big {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--green);
+    background: var(--green-bg);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  /* Sub-metrics */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 14px;
+    max-width: 640px;
+  }
+  .stat { display: flex; flex-direction: column; gap: 5px; }
+  .stat + .stat { border-left: 1px solid var(--line); padding-left: 28px; }
+  .stat .label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .stat .value {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Chart */
+  .chart-wrap {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .plot {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+    cursor: grab;
+  }
+  .plot.dragging { cursor: grabbing; }
+  .plot svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    overflow: visible;
+  }
+
+  .x-axis {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--faint);
+    font-family: 'Inter', monospace;
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(17,24,39,.10);
+    padding: 12px 14px;
+    width: 210px;
+    pointer-events: none;
+    will-change: left, top;
+  }
+  .tooltip .date {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .tooltip .rev-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    padding: 9px 11px;
+    gap: 8px;
+  }
+  .tooltip .rev-label { font-size: 11px; font-weight: 500; color: var(--muted); }
+  .tooltip .rev-value { font-size: 11px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  @keyframes nodePulse {
+    0%   { transform: scale(1);   opacity: 0.4; }
+    70%  { transform: scale(2.8); opacity: 0;   }
+    100% { transform: scale(2.8); opacity: 0;   }
+  }
+  #halo {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: nodePulse 2s ease-out infinite;
+  }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="frame">
+
+      <div class="top-row">
+        <span class="eyebrow">YTD Outstanding Debt</span>
+        <div class="tabs" id="tabs">
+          <button class="tab active" data-range="1M">1M</button>
+          <button class="tab" data-range="3M">3M</button>
+          <button class="tab" data-range="6M">6M</button>
+        </div>
+      </div>
+
+      <div class="marquee">
+        <span class="big">$100,000</span>
+        <span class="badge">↑ +12%</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="label">Total Debt</span>
+          <span class="value">$145,000</span>
+        </div>
+        <div class="stat">
+          <span class="label">Paid</span>
+          <span class="value">$45,000</span>
+        </div>
+        <div class="stat">
+          <span class="label">Outstanding</span>
+          <span class="value">$100,000</span>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <div class="plot" id="plot">
+          <svg id="svg" viewBox="0 0 1000 180" preserveAspectRatio="none" aria-label="Revenue over time, draggable">
+            <line x1="0" y1="140" x2="1000" y2="140" stroke="#e5e7eb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path id="zig" fill="none" stroke="#10b981" stroke-width="2"
+                  stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+            <g id="anchors"></g>
+            <g id="handle">
+              <circle id="halo" r="10" fill="#10b981"/>
+              <circle r="4.5" fill="#374151" stroke="#fff" stroke-width="2"/>
+            </g>
+          </svg>
+          <div class="tooltip" id="tooltip">
+            <div class="date" id="ttDate"></div>
+            <div class="rev-row">
+              <span class="rev-label">Total Revenue</span>
+              <span class="rev-value" id="ttRev"></span>
+            </div>
+          </div>
+        </div>
+        <div class="x-axis" id="xAxis"></div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+(function () {
+  const VW = 1000, VH = 180, PAD_T = 20, PAD_B = 40;
+  const usable = VH - PAD_T - PAD_B;
+
+  const DATASETS = {
+    '1M': [
+      { label: 'Feb 1', date: 'Tuesday, Feb 1, 2022',   rev: 2100 },
+      { label: 'Feb 2', date: 'Wednesday, Feb 2, 2022', rev: 1400 },
+      { label: 'Feb 3', date: 'Thursday, Feb 3, 2022',  rev: 2600 },
+      { label: 'Feb 4', date: 'Friday, Feb 4, 2022',    rev: 3500 },
+      { label: 'Feb 5', date: 'Saturday, Feb 5, 2022',  rev: 3291 },
+      { label: 'Feb 6', date: 'Sunday, Feb 6, 2022',    rev: 3700 },
+      { label: 'Feb 7', date: 'Monday, Feb 7, 2022',    rev: 3400 },
+      { label: 'Feb 8', date: 'Tuesday, Feb 8, 2022',   rev: 4200 },
+    ],
+    '3M': [
+      { label: 'Dec 6',  date: 'Week of Dec 6, 2021',  rev: 14200 },
+      { label: 'Dec 20', date: 'Week of Dec 20, 2021', rev: 11800 },
+      { label: 'Jan 3',  date: 'Week of Jan 3, 2022',  rev: 16500 },
+      { label: 'Jan 17', date: 'Week of Jan 17, 2022', rev: 13900 },
+      { label: 'Jan 31', date: 'Week of Jan 31, 2022', rev: 18200 },
+      { label: 'Feb 14', date: 'Week of Feb 14, 2022', rev: 15400 },
+      { label: 'Feb 28', date: 'Week of Feb 28, 2022', rev: 21000 },
+    ],
+    '6M': [
+      { label: 'Sep', date: 'September 2021', rev: 52000 },
+      { label: 'Oct', date: 'October 2021',  rev: 47000 },
+      { label: 'Nov', date: 'November 2021', rev: 61000 },
+      { label: 'Dec', date: 'December 2021', rev: 58000 },
+      { label: 'Jan', date: 'January 2022',  rev: 72000 },
+      { label: 'Feb', date: 'February 2022', rev: 69000 },
+    ],
+  };
+
+  const plot     = document.getElementById('plot');
+  const svg      = document.getElementById('svg');
+  const zig      = document.getElementById('zig');
+  const anchorsG = document.getElementById('anchors');
+  const handle   = document.getElementById('handle');
+  const tooltip  = document.getElementById('tooltip');
+  const ttDate   = document.getElementById('ttDate');
+  const ttRev    = document.getElementById('ttRev');
+  const xAxis    = document.getElementById('xAxis');
+  const tabs     = document.getElementById('tabs');
+  const SVGNS    = 'http://www.w3.org/2000/svg';
+
+  let data, N, spacing, pts;
+  let lastVX, currentTarget;
+  let dragging = false, anim = null;
+
+  function buildRange(key) {
+    data = DATASETS[key];
+    N = data.length;
+    spacing = VW / (N - 1);
+    const revs = data.map(d => d.rev);
+    const minR = Math.min(...revs);
+    const maxR = Math.max(...revs);
+    const range = (maxR - minR) || 1;
+
+    pts = data.map((d, i) => ({
+      x: i * spacing,
+      y: PAD_T + (1 - (d.rev - minR) / range) * usable,
+      r: d.rev,
+    }));
+
+    zig.setAttribute('d', pts.map((p, i) => (i ? 'L' : 'M') + p.x.toFixed(1) + ' ' + p.y.toFixed(1)).join(' '));
+
+    anchorsG.replaceChildren();
+    pts.forEach(p => {
+      const c = document.createElementNS(SVGNS, 'circle');
+      c.setAttribute('cx', p.x.toFixed(1));
+      c.setAttribute('cy', p.y.toFixed(1));
+      c.setAttribute('r', '3');
+      c.setAttribute('fill', '#fff');
+      c.setAttribute('stroke', '#10b981');
+      c.setAttribute('stroke-width', '2');
+      c.setAttribute('vector-effect', 'non-scaling-stroke');
+      anchorsG.appendChild(c);
+    });
+
+    xAxis.replaceChildren();
+    data.forEach(d => {
+      const s = document.createElement('span');
+      s.textContent = d.label;
+      xAxis.appendChild(s);
+    });
+
+    lastVX = currentTarget = Math.floor((N - 1) / 2) * spacing;
+  }
+
+  function sample(vx) {
+    vx = Math.max(0, Math.min(VW, vx));
+    const fi = vx / spacing;
+    const i = Math.min(N - 2, Math.floor(fi));
+    const t = fi - i;
+    const a = pts[i], b = pts[i + 1];
+    return { x: vx, y: a.y + (b.y - a.y) * t, r: a.r + (b.r - a.r) * t, idx: Math.round(fi) };
+  }
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+  function render(vx) {
+    lastVX = vx;
+    const s = sample(vx);
+    handle.setAttribute('transform', `translate(${s.x},${s.y})`);
+    ttDate.textContent = data[s.idx].date;
+    ttRev.textContent = fmt(s.r);
+
+    const rect = svg.getBoundingClientRect();
+    const px = (s.x / VW) * rect.width;
+    const py = (s.y / VH) * rect.height;
+    const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+    const top = py - th - 14 >= 0 ? py - th - 14 : py + 20;
+    tooltip.style.left = Math.max(0, Math.min(rect.width - tw, px - tw / 2)) + 'px';
+    tooltip.style.top  = top + 'px';
+  }
+
+  function glideTo(from, to) {
+    if (anim) { cancelAnimationFrame(anim); anim = null; }
+    const dist = to - from;
+    if (Math.abs(dist) < 0.5) { render(to); return; }
+    let startT = null;
+    function step(ts) {
+      if (!startT) startT = ts;
+      const p = Math.min(1, (ts - startT) / 130);
+      render(from + dist * (1 - Math.pow(1 - p, 3)));
+      anim = p < 1 ? requestAnimationFrame(step) : null;
+    }
+    anim = requestAnimationFrame(step);
+  }
+
+  function toVX(clientX) {
+    const r = svg.getBoundingClientRect();
+    return ((clientX - r.left) / r.width) * VW;
+  }
+  function snapTarget(clientX) {
+    return Math.round(Math.max(0, Math.min(VW, toVX(clientX))) / spacing) * spacing;
+  }
+  function goTo(t) {
+    if (t === currentTarget) return;
+    currentTarget = t;
+    glideTo(lastVX, t);
+  }
+
+  svg.addEventListener('pointerdown', e => { dragging = true; plot.classList.add('dragging'); goTo(snapTarget(e.clientX)); e.preventDefault(); });
+  window.addEventListener('pointermove', e => { if (dragging) goTo(snapTarget(e.clientX)); });
+  window.addEventListener('pointerup', () => { dragging = false; plot.classList.remove('dragging'); });
+  window.addEventListener('resize', () => render(lastVX));
+
+  tabs.addEventListener('click', e => {
+    const btn = e.target.closest('.tab');
+    if (!btn) return;
+    [...tabs.children].forEach(t => t.classList.toggle('active', t === btn));
+    if (anim) { cancelAnimationFrame(anim); anim = null; }
+    buildRange(btn.dataset.range);
+    render(lastVX);
+  });
+
+  buildRange('1M');
+  lastVX = currentTarget = 4 * spacing;
+  render(lastVX);
+})();
+</script>
+</body>
+</html>
