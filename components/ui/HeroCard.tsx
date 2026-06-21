@@ -12,22 +12,79 @@ function ArrowIcon() {
   );
 }
 
-export default function HeroCard({ showExperience = true, showAboutLink = false }: { showExperience?: boolean; showAboutLink?: boolean }) {
+function LinkedInLink() {
+  return (
+    <a
+      href="https://www.linkedin.com/in/cindyctsai/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="italic font-normal text-portfolio-primary hover:opacity-60 transition-opacity duration-200"
+    >
+      LinkedIn
+    </a>
+  );
+}
+
+function EmailLink() {
+  return (
+    <a
+      href="mailto:cindytsai7@gmail.com"
+      className="italic font-normal text-portfolio-primary hover:opacity-60 transition-opacity duration-200"
+    >
+      Email
+    </a>
+  );
+}
+
+export default function HeroCard({ showExperience = true, vertical = false }: { showExperience?: boolean; vertical?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  if (vertical) {
+    return (
+      <div ref={containerRef} className="flex flex-col h-full">
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
+              <VariableProximity
+                label="Cindy Tsai"
+                fromFontVariationSettings="'wght' 600"
+                toFontVariationSettings="'wght' 300"
+                containerRef={containerRef}
+                radius={150}
+                falloff="linear"
+              />
+            </h1>
+            <p className="text-[32px] leading-[1.05] tracking-[-0.04em] text-portfolio-primary mb-8 text-pretty">
+              I&rsquo;m a Seattle-based product designer creating enterprise software and B2B platforms, translating complex systems into clear digital experiences.
+            </p>
+            <p className="text-[32px] leading-[1.05] tracking-[-0.04em] mb-6 text-pretty" style={{ color: '#666666' }}>
+              Currently at Meta, I design AI compliance platforms to identify and mitigate systemic risk. Say hello! You can find me on <LinkedInLink /> or reach out over <EmailLink />.
+            </p>
+          </div>
+        </div>
+        {showExperience && (
+          <div className="mt-auto flex flex-col gap-2">
+            <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted">Experience</p>
+            <ExperienceList />
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Original grid layout — used on /about
   return (
     <div
       ref={containerRef}
       className={`flex flex-col gap-8 ${showExperience ? "md:grid md:grid-cols-3 md:gap-4 md:items-start" : ""}`}
     >
-      {/* Left: identity + CTA */}
       <div className={`flex flex-col justify-between gap-8 ${showExperience ? "md:col-span-2" : ""}`}>
         <div className="flex flex-col gap-2">
           <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
             <VariableProximity
               label="Cindy Tsai"
-              fromFontVariationSettings="'wght' 300"
-              toFontVariationSettings="'wght' 900"
+              fromFontVariationSettings="'wght' 600"
+              toFontVariationSettings="'wght' 300"
               containerRef={containerRef}
               radius={150}
               falloff="linear"
@@ -53,18 +110,8 @@ export default function HeroCard({ showExperience = true, showAboutLink = false 
           >
             Email<ArrowIcon />
           </a>
-          {showAboutLink && (
-            <a
-              href="#about"
-              className="text-[14px] font-bold uppercase text-portfolio-primary hover:opacity-60 transition-opacity duration-200 inline-flex items-center"
-            >
-              Approach
-            </a>
-          )}
         </div>
       </div>
-
-      {/* Right: experience timeline */}
       {showExperience && <ExperienceList />}
     </div>
   );

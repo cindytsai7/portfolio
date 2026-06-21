@@ -6,13 +6,14 @@ interface MetadataItem {
 }
 
 interface HeroSectionProps {
-  index: string;
-  tags: string[];
+  index?: string;
+  tags?: string[];
   title: string;
   notice?: string;
   body: string | string[];
   metadata: MetadataItem[];
   heroImage?: string;
+  bare?: boolean;
 }
 
 export default function HeroSection({
@@ -23,27 +24,30 @@ export default function HeroSection({
   body,
   metadata,
   heroImage,
+  bare = false,
 }: HeroSectionProps) {
   const bodyLines = Array.isArray(body) ? body : [body];
 
   return (
     <section className="px-4 md:px-8 flex flex-col gap-8">
       {/* Single hero card */}
-      <div className="surface-card bg-portfolio-surface/50 rounded-card px-6 py-8 md:px-10 md:py-12 flex flex-col gap-10">
+      <div className={bare ? "flex flex-col gap-10 py-4 md:py-6" : "surface-card bg-portfolio-surface/50 rounded-card px-6 py-8 md:px-10 md:py-12 flex flex-col gap-10"}>
 
         {/* Top row: tags + title + body / metadata */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
           {/* Left: tags + title + body */}
           <div className="flex flex-col gap-6 flex-1 max-w-[720px]">
-            <div className="flex items-center gap-[8px] font-mono text-[13px] tracking-[0.05em] uppercase whitespace-nowrap">
-              <span className="text-portfolio-primary">{index}</span>
-              {tags.map((tag) => (
-                <Fragment key={tag}>
-                  <span className="text-portfolio-rule">·</span>
-                  <span className="text-portfolio-muted">{tag}</span>
-                </Fragment>
-              ))}
-            </div>
+            {(index || (tags && tags.length > 0)) && (
+              <div className="flex items-center gap-[8px] font-mono text-[13px] tracking-[0.05em] uppercase whitespace-nowrap">
+                {index && <span className="text-portfolio-primary">{index}</span>}
+                {tags?.map((tag) => (
+                  <Fragment key={tag}>
+                    <span className="text-portfolio-rule">·</span>
+                    <span className="text-portfolio-muted">{tag}</span>
+                  </Fragment>
+                ))}
+              </div>
+            )}
             <div className="flex flex-col gap-4">
               <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
                 {title}

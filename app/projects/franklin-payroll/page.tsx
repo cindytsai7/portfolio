@@ -203,13 +203,15 @@ export default function FranklinPayrollPage() {
       {/* 3 · Reflections */}
       <CaseStudySection className="mt-16">
         <Reveal>
-          <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-12 flex flex-col gap-6">
-            <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">
-              Reflections
-            </p>
-            <h2 className="text-h1 font-bold leading-tight tracking-tight text-portfolio-primary">
-              Bridging founder vision and user needs
-            </h2>
+          <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-12 flex flex-col gap-4">
+            <div className="flex flex-col gap-1">
+              <p className="text-caption font-mono uppercase tracking-widest text-portfolio-muted">
+                Reflections
+              </p>
+              <h2 className="text-h1 font-bold leading-tight tracking-tight text-portfolio-primary">
+                Bridging founder vision and user needs
+              </h2>
+            </div>
             <p className="text-body text-portfolio-muted">
               As Franklin&apos;s founding designer, I owned the brand, visual and product architecture, moving at startup speed without sacrificing design integrity. My role evolved beyond execution to influence product strategy and business decision-making directly. I led technically and advocated for the user, balanced competing requirements, and honest calm alignment — delivering not just usable interfaces, but a coherent product strategy.
             </p>

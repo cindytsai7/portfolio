@@ -308,8 +308,26 @@
 ---
 
 ## Compliance Review page (`/projects/compliance-review`)
-- `'use client'` — password gate (hardcoded `meta2025`)
-- Single-column layout: full-width surface card
-- Two-column interior: title + body left (`max-w-[720px]`), metadata right (`md:w-[300px]`)
-- Password field: `bg-portfolio-background rounded-[14px]`, placeholder "Enter password here"
-- Tags: META, PLATFORM, NDA (dot-separated, index `02`)
+
+**Page structure (2 sections):**
+1. Editorial hero — raw `<section>` with `pt-16 md:pt-24 pb-16 md:pb-24`; all content in `md:pl-[20%]` container; `gap-16 md:gap-24` between blocks
+2. Further reading — raw `<section>` with `pb-16 md:pb-24`; same `md:pl-[20%]` indent; `max-w-[760px]` on inner content div
+
+**No index/tags row** — `HeroSection` not used; `index` and `tags` props on `HeroSection` are now optional and conditionally rendered
+
+**Editorial hero (`md:pl-[20%]` container):**
+- Display paragraph: `text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[760px]`
+- Current text: "At Meta, I design the intelligent, scalable risk review systems that protect billions of users across our platforms."
+- Metadata grid: `grid-cols-[160px_1fr] gap-y-2` — Role (Lead Designer), Timeline (2025 – Now)
+- Content block (`max-w-[760px] flex flex-col gap-12`): two labeled sections
+  - **Context**: NDA sentence in `italic mb-3`, then body paragraph; label `font-mono text-[13px] tracking-[0.05em] uppercase mb-2`
+  - **Role** (label says "Role"): 5 bullet items using `<span className="font-semibold text-portfolio-primary">{label}: </span>{body}` inline pattern; `gap-4` between items
+
+**Further reading section:**
+- `md:pl-[20%]` outer wrapper → `max-w-[760px]` inner div with `gap-2`
+- Mono label, then body text, then `text-[14px] font-bold uppercase` link on its own line (matches footer LinkedIn/Email style)
+- Article: "How AI Is Ushering in the Next Era of Risk Review at Meta" → `https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/`
+
+**Data constants:**
+- `METADATA` — Role, Timeline
+- `WHAT_I_OWN` — 5 items: End-to-end workflow design, Review experience, Data versioning, Structured intake patterns, Routing & decision-support
