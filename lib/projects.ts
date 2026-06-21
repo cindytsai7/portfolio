@@ -1,25 +1,20 @@
 export interface Project {
   id: string;
   title: string;
-  description: string;
   tags: string[];
-  filledTags?: string[];
   image?: string;
   href: string;
-  variant?: "large" | "small" | "editorial";
   colSpan?: 1 | 2;
   imageContain?: boolean;
-  role?: string;
-  timeline?: string;
-  passwordProtected?: boolean;
+  imageWidth?: string;
+  lockIcon?: boolean;
 }
 
 export const projects: Project[] = [
   {
     id: "edge-admin-hub",
-    title: "Building a scalable framework for Edge Browser's admin hub",
-    description: "Redesigned the Microsoft Edge admin center to support enterprise-scale policy management.",
-    tags: ["MICROSOFT", "ENTERPRISE", "SYSTEMS"],
+    title: "Edge browser's admin hub",
+    tags: ["Microsoft", "Enterprise", "Systems design"],
     image: "/projects/edge-admin-hub.png",
     href: "/projects/edge-admin-hub",
     colSpan: 2,
@@ -27,27 +22,25 @@ export const projects: Project[] = [
   {
     id: "compliance-review",
     title: "Risk systems",
-    tags: ["META", "PLATFORM", "NDA"],
-    image: "/projects/compliance-review.png",
+    tags: ["Platform design", "Internal tools", "NDA"],
     href: "/projects/compliance-review",
-    variant: "small",
     colSpan: 1,
+    lockIcon: true,
   },
   {
     id: "franklin-payroll",
-    title: "Web3 payroll suite",
-    description: "Designed a Web3 payroll suite for crypto-native startups.",
-    tags: ["START UP", "0 TO 1", "PAYROLL"],
+    title: "Web3 payroll",
+    tags: ["Start up", "Crypto", "Zero to one"],
     image: "/projects/franklin-payroll/card.png",
     href: "/projects/franklin-payroll",
-    variant: "small",
+    imageContain: true,
+    imageWidth: "100%",
     colSpan: 1,
   },
   {
     id: "edge-sidebar-onboarding",
-    title: "Driving user retention in Edge sidebar",
-    description: "Designed a contextual onboarding framework for Microsoft Edge's sidebar.",
-    tags: ["MICROSOFT", "GROWTH", "CONSUMER"],
+    title: "Edge browser's sidebar",
+    tags: ["Microsoft", "Consumer", "Growth design"],
     image: "/projects/edge-sidebar-onboarding/card.png",
     href: "/projects/edge-sidebar-onboarding",
     colSpan: 2,

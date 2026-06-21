@@ -15,7 +15,7 @@ const IMGS = {
 };
 
 const SHOWCASE_CANVAS = "w-full rounded-card surface-card bg-portfolio-surface/50 flex items-center justify-center px-32 py-32";
-const SHOWCASE_IMG    = "w-full max-w-[75%] h-auto object-contain";
+const SHOWCASE_IMG    = "w-full max-w-[88%] h-auto object-contain";
 const SHOWCASE_CAPTION = "flex flex-col gap-[6px] max-w-[560px]";
 
 const METADATA = [
@@ -52,18 +52,21 @@ export default function FranklinPayrollPage() {
 
       {/* 0 · Hero image */}
       <CaseStudySection>
-        <img
-          src={IMGS.hero}
-          alt="Franklin payroll hero"
-          className="w-full rounded-card object-cover"
-        />
+        <div className="relative [clip-path:inset(0_round_16px)]">
+          <img
+            src={IMGS.hero}
+            alt="Franklin payroll hero"
+            className="w-full block"
+          />
+          <div className="absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] pointer-events-none" />
+        </div>
       </CaseStudySection>
 
       {/* 1 · Editorial hero */}
       <section className="px-4 md:px-8 pt-16 md:pt-24 pb-16 md:pb-24">
         <div className="md:pl-[20%] flex flex-col gap-16 md:gap-24">
           <p className="text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[760px]">
-            Web3 companies lack out-of-the-box financial tools. The market drastically needs crypto-native solutions for traditional business workflows like payroll, taxes, and accounting. The soft launch successfully validated the platform, helping Franklin secure investor backing to close a $2.9M seed round.
+            Taking Franklin from initial concept to a $2.9M seed launch: Designing the enterprise financial suite that transforms complex blockchain data into compliant corporate payroll.
           </p>
 
           <div className="grid grid-cols-[160px_1fr] gap-y-2">
