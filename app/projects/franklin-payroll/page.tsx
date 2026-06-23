@@ -5,7 +5,6 @@ import SectionBlock from "@/components/case-study/SectionBlock";
 import Reveal from "@/components/motion/Reveal";
 
 const IMGS = {
-  hero:                "/projects/franklin-payroll/franklin-hero.png",
   batchDistribution:   "/projects/franklin-payroll/batch-distribution.png",
   batchEdge1:          "/projects/franklin-payroll/batch-distribution-edge-1.png",
   batchEdge2:          "/projects/franklin-payroll/batch-distribution-edge-2.png",
@@ -52,47 +51,44 @@ export default function FranklinPayrollPage() {
   return (
     <CaseStudyPage>
 
-      {/* 0 · Hero image */}
-      <CaseStudySection>
-        <div className="relative [clip-path:inset(0_round_16px)]">
-          <img
-            src={IMGS.hero}
-            alt="Franklin payroll hero"
-            className="w-full block"
-          />
-          <div className="absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] pointer-events-none" />
-        </div>
-      </CaseStudySection>
-
       {/* 1 · Editorial hero */}
       <section className="px-4 md:px-8 pt-16 md:pt-24 pb-24 md:pb-40">
-        <div className="md:pl-[20%] flex flex-col gap-16 md:gap-24">
-          <p className="text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[760px]">
-            Taking Franklin from initial concept to a $2.9M seed launch: Designing the enterprise financial suite that transforms complex blockchain data into compliant corporate payroll.
-          </p>
+        <div className="flex flex-col gap-16 md:gap-24">
 
-          <div className="grid grid-cols-[160px_1fr] gap-y-2">
-            {METADATA.map(({ label, value }) => (
-              <Fragment key={label}>
-                <p className="text-body text-portfolio-muted">{label}</p>
-                <p className="text-body text-portfolio-primary">{value}</p>
-              </Fragment>
-            ))}
+          {/* Label left · display text center-right */}
+          <div className="grid grid-cols-1 md:grid-cols-[20%_1fr] items-start gap-4 md:gap-8">
+            <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted md:pt-1">Web 3 Payroll</p>
+            <p className="text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[760px]">
+              Taking Franklin from initial concept to a $2.9M seed launch: Designing the enterprise financial suite that transforms complex blockchain data into compliant corporate payroll.
+            </p>
           </div>
 
-          <div className="max-w-[760px]">
-            <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted mb-2">The Challenge</p>
-            <p className="text-body text-portfolio-muted mb-12">To design an enterprise payroll platform that abstracts the complex friction of smart contracts, gas fees, and wallet connections into an intuitive interface for non-technical finance and HR admins.</p>
-
-            <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted mb-2">During my time here, I owned</p>
-            <div className="flex flex-col gap-4">
-              {OWNERSHIP.map(({ label, body }) => (
-                <p key={label} className="text-body text-portfolio-muted">
-                  <span className="font-semibold text-portfolio-primary">{label}: </span>{body}
-                </p>
+          {/* Metadata + ownership — aligned to display text column */}
+          <div className="md:pl-[20%] flex flex-col gap-16 md:gap-24">
+            <div className="grid grid-cols-[160px_1fr] gap-y-2">
+              {METADATA.map(({ label, value }) => (
+                <Fragment key={label}>
+                  <p className="text-body text-portfolio-muted">{label}</p>
+                  <p className="text-body text-portfolio-primary">{value}</p>
+                </Fragment>
               ))}
             </div>
+
+            <div className="max-w-[760px]">
+              <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted mb-2">The Challenge</p>
+              <p className="text-body text-portfolio-muted mb-12">To design an enterprise payroll platform that abstracts the complex friction of smart contracts, gas fees, and wallet connections into an intuitive interface for non-technical finance and HR admins.</p>
+
+              <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted mb-2">During my time here, I owned</p>
+              <div className="flex flex-col gap-4">
+                {OWNERSHIP.map(({ label, body }) => (
+                  <p key={label} className="text-body text-portfolio-muted">
+                    <span className="font-semibold text-portfolio-primary">{label}: </span>{body}
+                  </p>
+                ))}
+              </div>
+            </div>
           </div>
+
         </div>
       </section>
 
