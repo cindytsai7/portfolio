@@ -7,6 +7,8 @@ import Reveal from "@/components/motion/Reveal";
 const IMGS = {
   hero:                "/projects/franklin-payroll/franklin-hero.png",
   batchDistribution:   "/projects/franklin-payroll/batch-distribution.png",
+  batchEdge1:          "/projects/franklin-payroll/batch-distribution-edge-1.png",
+  batchEdge2:          "/projects/franklin-payroll/batch-distribution-edge-2.png",
   payrollConfirmation: "/projects/franklin-payroll/payroll-confirmation.png",
   navigationLeft:      "/projects/franklin-payroll/navigation-left.png",
   navigationRight:     "/projects/franklin-payroll/navigation-right.png",
@@ -168,20 +170,53 @@ export default function FranklinPayrollPage() {
           </div>
         </Reveal>
 
-        {/* Canvas showcases */}
-        {SHOWCASES.map(({ img, alt, heading, body }) => (
-          <Reveal key={heading} image>
-            <div className="flex flex-col gap-6">
-              <div className={SHOWCASE_CANVAS}>
-                <img src={img} alt={alt} className={SHOWCASE_IMG} />
+        {/* Batch distribution */}
+        <Reveal image>
+          <div className="flex flex-col gap-4">
+            <div className={SHOWCASE_CANVAS}>
+              <img src={IMGS.batchDistribution} alt="Employee bonus batch distribution interface" className={SHOWCASE_IMG} />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col min-h-[360px]">
+                <div className="p-4 shrink-0">
+                  <span className="font-mono text-[11px] tracking-[0.05em] uppercase text-portfolio-muted bg-portfolio-surface px-2 py-0.5 rounded-[6px]">
+                    Edge case
+                  </span>
+                </div>
+                <div className="flex-1 relative">
+                  <img src={IMGS.batchEdge1} alt="Batch distribution edge case" className="absolute bottom-0 right-0 w-[85%] h-auto" />
+                </div>
               </div>
-              <div className={SHOWCASE_CAPTION}>
-                <p className="text-body font-semibold text-portfolio-primary">{heading}</p>
-                <p className="text-body text-portfolio-muted">{body}</p>
+              <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col min-h-[360px]">
+                <div className="p-4 shrink-0">
+                  <span className="font-mono text-[11px] tracking-[0.05em] uppercase text-portfolio-muted bg-portfolio-surface px-2 py-0.5 rounded-[6px]">
+                    Edge case
+                  </span>
+                </div>
+                <div className="flex-1 relative">
+                  <img src={IMGS.batchEdge2} alt="Batch distribution edge case flagged" className="absolute bottom-0 right-0 w-[85%] h-auto" />
+                </div>
               </div>
             </div>
-          </Reveal>
-        ))}
+            <div className={SHOWCASE_CAPTION}>
+              <p className="text-body font-semibold text-portfolio-primary">Batch distribution</p>
+              <p className="text-body text-portfolio-muted">This interface provides a clear high-density view of distribution status, enabling administrators to quickly identify 'Pending' or 'Draft' items while ensuring that critical 'Approve all' workflows remain intuitive and secure.</p>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Payroll confirmation */}
+        <Reveal image>
+          <div className="flex flex-col gap-6">
+            <div className={SHOWCASE_CANVAS}>
+              <img src={IMGS.payrollConfirmation} alt="Recurring payroll run confirmation modal" className={SHOWCASE_IMG} />
+            </div>
+            <div className={SHOWCASE_CAPTION}>
+              <p className="text-body font-semibold text-portfolio-primary">Payroll confirmation</p>
+              <p className="text-body text-portfolio-muted">This confirmation modal provides a final, high-fidelity safety net, surfacing critical 'dual-currency' breakdowns to administrators to identify vulnerability before committing on-chain funds.</p>
+            </div>
+          </div>
+        </Reveal>
 
         {/* Navigation */}
         <Reveal image>
