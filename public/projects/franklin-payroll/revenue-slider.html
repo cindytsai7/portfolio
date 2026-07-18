@@ -247,10 +247,11 @@
 
       <div class="chart-wrap">
         <div class="plot" id="plot">
-          <svg id="svg" viewBox="0 0 1000 180" preserveAspectRatio="none" aria-label="Revenue over time, draggable">
-            <line x1="0" y1="140" x2="1000" y2="140" stroke="#e5e7eb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+          <!-- No viewBox / preserveAspectRatio — all coords are real pixels -->
+          <svg id="svg" aria-label="Outstanding debt over time, draggable">
+            <line id="gridLine" stroke="#e5e7eb" stroke-width="1"/>
             <path id="zig" fill="none" stroke="#10b981" stroke-width="2"
-                  stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+                  stroke-linejoin="round" stroke-linecap="round"/>
             <g id="anchors"></g>
             <g id="handle">
               <circle id="halo" r="10" fill="#10b981"/>
@@ -273,8 +274,7 @@
 
 <script>
 (function () {
-  const VW = 1000, VH = 180, PAD_T = 20, PAD_B = 40;
-  const usable = VH - PAD_T - PAD_B;
+  const PAD_T = 20, PAD_B = 40;
 
   const DATASETS = {
     '1M': [
@@ -308,6 +308,7 @@
 
   const plot     = document.getElementById('plot');
   const svg      = document.getElementById('svg');
+  const gridLine = document.getElementById('gridLine');
   const zig      = document.getElementById('zig');
   const anchorsG = document.getElementById('anchors');
   const handle   = document.getElementById('handle');
@@ -318,14 +319,24 @@
   const tabs     = document.getElementById('tabs');
   const SVGNS    = 'http://www.w3.org/2000/svg';
 
-  let data, N, spacing, pts;
+  let data, N, pts, spacing, svgW, svgH;
+  let currentKey = '1M';
   let lastVX, currentTarget;
   let dragging = false, anim = null;
 
   function buildRange(key) {
+    currentKey = key;
+
+    // All coordinates in actual pixel space — no viewBox distortion
+    const r = svg.getBoundingClientRect();
+    svgW = r.width;
+    svgH = r.height;
+    const usable = svgH - PAD_T - PAD_B;
+
     data = DATASETS[key];
     N = data.length;
-    spacing = VW / (N - 1);
+    spacing = svgW / (N - 1);
+
     const revs = data.map(d => d.rev);
     const minR = Math.min(...revs);
     const maxR = Math.max(...revs);
@@ -336,6 +347,13 @@
       y: PAD_T + (1 - (d.rev - minR) / range) * usable,
       r: d.rev,
     }));
+
+    // Baseline grid line
+    const lineY = (svgH - PAD_B).toFixed(1);
+    gridLine.setAttribute('x1', '0');
+    gridLine.setAttribute('y1', lineY);
+    gridLine.setAttribute('x2', svgW.toFixed(1));
+    gridLine.setAttribute('y2', lineY);
 
     zig.setAttribute('d', pts.map((p, i) => (i ? 'L' : 'M') + p.x.toFixed(1) + ' ' + p.y.toFixed(1)).join(' '));
 
@@ -348,7 +366,6 @@
       c.setAttribute('fill', '#fff');
       c.setAttribute('stroke', '#10b981');
       c.setAttribute('stroke-width', '2');
-      c.setAttribute('vector-effect', 'non-scaling-stroke');
       anchorsG.appendChild(c);
     });
 
@@ -363,11 +380,11 @@
   }
 
   function sample(vx) {
-    vx = Math.max(0, Math.min(VW, vx));
+    vx = Math.max(0, Math.min((N - 1) * spacing, vx));
     const fi = vx / spacing;
-    const i = Math.min(N - 2, Math.floor(fi));
-    const t = fi - i;
-    const a = pts[i], b = pts[i + 1];
+    const i  = Math.min(N - 2, Math.floor(fi));
+    const t  = fi - i;
+    const a  = pts[i], b = pts[i + 1];
     return { x: vx, y: a.y + (b.y - a.y) * t, r: a.r + (b.r - a.r) * t, idx: Math.round(fi) };
   }
 
@@ -376,16 +393,14 @@
   function render(vx) {
     lastVX = vx;
     const s = sample(vx);
-    handle.setAttribute('transform', `translate(${s.x},${s.y})`);
+    handle.setAttribute('transform', `translate(${s.x.toFixed(1)},${s.y.toFixed(1)})`);
     ttDate.textContent = data[s.idx].date;
-    ttRev.textContent = fmt(s.r);
+    ttRev.textContent  = fmt(s.r);
 
-    const rect = svg.getBoundingClientRect();
-    const px = (s.x / VW) * rect.width;
-    const py = (s.y / VH) * rect.height;
+    // s.x / s.y are already in pixel space — no conversion needed
     const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
-    const top = py - th - 14 >= 0 ? py - th - 14 : py + 20;
-    tooltip.style.left = Math.max(0, Math.min(rect.width - tw, px - tw / 2)) + 'px';
+    const top = s.y - th - 14 >= 0 ? s.y - th - 14 : s.y + 20;
+    tooltip.style.left = Math.max(0, Math.min(svgW - tw, s.x - tw / 2)) + 'px';
     tooltip.style.top  = top + 'px';
   }
 
@@ -404,11 +419,10 @@
   }
 
   function toVX(clientX) {
-    const r = svg.getBoundingClientRect();
-    return ((clientX - r.left) / r.width) * VW;
+    return clientX - svg.getBoundingClientRect().left;
   }
   function snapTarget(clientX) {
-    return Math.round(Math.max(0, Math.min(VW, toVX(clientX))) / spacing) * spacing;
+    return Math.round(Math.max(0, Math.min((N - 1) * spacing, toVX(clientX))) / spacing) * spacing;
   }
   function goTo(t) {
     if (t === currentTarget) return;
@@ -416,10 +430,19 @@
     glideTo(lastVX, t);
   }
 
-  svg.addEventListener('pointerdown', e => { dragging = true; plot.classList.add('dragging'); goTo(snapTarget(e.clientX)); e.preventDefault(); });
+  svg.addEventListener('pointerdown', e => {
+    dragging = true;
+    plot.classList.add('dragging');
+    goTo(snapTarget(e.clientX));
+    e.preventDefault();
+  });
   window.addEventListener('pointermove', e => { if (dragging) goTo(snapTarget(e.clientX)); });
-  window.addEventListener('pointerup', () => { dragging = false; plot.classList.remove('dragging'); });
-  window.addEventListener('resize', () => render(lastVX));
+  window.addEventListener('pointerup',   () => { dragging = false; plot.classList.remove('dragging'); });
+
+  window.addEventListener('resize', () => {
+    buildRange(currentKey);
+    render(lastVX);
+  });
 
   tabs.addEventListener('click', e => {
     const btn = e.target.closest('.tab');

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import Link from 'next/link';
 import ExperienceList from '@/components/ui/ExperienceList';
 import VariableProximity from '@/components/ui/VariableProximity';
 
@@ -44,14 +45,16 @@ export default function HeroCard({ showExperience = true, vertical = false }: { 
       <div ref={containerRef} className="flex flex-col h-full">
         <div className="flex flex-col gap-2">
           <h1 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
-            <VariableProximity
-              label="Cindy Tsai"
-              fromFontVariationSettings="'wght' 600"
-              toFontVariationSettings="'wght' 300"
-              containerRef={containerRef}
-              radius={150}
-              falloff="linear"
-            />
+            <Link href="/" className="hover:opacity-60 transition-opacity duration-200">
+              <VariableProximity
+                label="Cindy Tsai"
+                fromFontVariationSettings="'wght' 600"
+                toFontVariationSettings="'wght' 300"
+                containerRef={containerRef}
+                radius={150}
+                falloff="linear"
+              />
+            </Link>
           </h1>
           <p className="text-[32px] leading-[1.05] tracking-[-0.04em] text-portfolio-primary mb-8 text-pretty">
             I&rsquo;m a Seattle-based product designer creating enterprise software and B2B platforms, translating complex systems into clear digital experiences.
@@ -61,8 +64,7 @@ export default function HeroCard({ showExperience = true, vertical = false }: { 
           </p>
         </div>
         {showExperience && (
-          <div className="mt-auto flex flex-col gap-2">
-            <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted">Experience</p>
+          <div className="mt-auto">
             <ExperienceList />
           </div>
         )}

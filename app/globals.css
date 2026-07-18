@@ -103,7 +103,6 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1748 / 1158;
-  filter: drop-shadow(0 24px 60px rgba(20, 20, 40, 0.18));
 }
 .ca-bg {
   position: absolute; inset: 0; width: 100%; height: 100%;

@@ -7,7 +7,7 @@ interface ColumnItem {
 }
 
 interface ThreeColumnSectionProps {
-  label: string;
+  label?: string;
   title: string;
   columns: ColumnItem[];
 }

@@ -33,7 +33,7 @@ export default function ProjectCard({ project }: { project: Project }) {
   if (project.lockIcon) {
     return (
       <Link href={project.href} className="block">
-        <HoverCard as="article" className="flex flex-col lg:h-[460px]">
+        <HoverCard as="article" className="flex flex-col h-[460px]">
           <CardHeader title={project.title} tags={project.tags} />
           <div className="absolute inset-0 flex items-center justify-center">
             <MetaLogo />
@@ -45,7 +45,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Link href={project.href} className="block">
-      <HoverCard as="article" className="flex flex-col lg:h-[460px]">
+      <HoverCard as="article" className="flex flex-col h-[460px]">
         <CardHeader title={project.title} tags={project.tags} />
 
         {project.imageContain ? (

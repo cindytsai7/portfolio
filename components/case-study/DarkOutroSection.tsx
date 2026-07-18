@@ -6,7 +6,7 @@ interface Metric {
 }
 
 interface DarkOutroSectionProps {
-  label: string;
+  label?: string;
   heading: string;
   body: string;
   metrics?: Metric[];
@@ -28,7 +28,7 @@ export default function DarkOutroSection({
     return (
       <section className="bg-portfolio-surface-deep/50 rounded-card px-8 md:px-12 py-10 md:py-12 flex flex-col gap-8" style={{ boxShadow: 'inset 0 0 0 1px #D1CCC5' }}>
         <div className="flex flex-col gap-4">
-          <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-black/50">{label}</p>
+          {label && <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-black/50">{label}</p>}
           <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-black">{heading}</h2>
         </div>
 
@@ -64,7 +64,7 @@ export default function DarkOutroSection({
       <DarkCard className="px-8 md:px-12 py-10 md:py-12 flex flex-col gap-8">
 
         <div className="flex flex-col gap-4">
-          <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-white/50">{label}</p>
+          {label && <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-white/50">{label}</p>}
           <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-white">{heading}</h2>
         </div>
 

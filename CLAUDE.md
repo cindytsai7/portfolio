@@ -70,10 +70,17 @@
 
 ## Site Status
 
-### Landing page ✅
-- **Layout** — 2-column split: sticky left rail (508px) + scrollable right column. No top nav.
-- **Left rail** — `HeroCard vertical` prop; `sticky top-0 h-screen`; padding `pt-8 pr-4 pb-8 pl-8` (16px gap to right column)
-- **Right column** — Projects (2-col grid) + Footer; `pt-8 pr-8 pb-8 pl-0`
+### Persistent layout — route group `(main)` ✅
+- **Architecture** — `app/(main)/layout.tsx` wraps all main routes with a sticky left rail + scrollable right panel. Routes inside: `/` (home) and `/projects/**` (all case studies). `/about` stays at root level and does NOT get this layout.
+- **Left rail** — `HeroCard vertical` inside `lg:w-[508px] lg:shrink-0 lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col`; padding `lg:pt-8 lg:pr-[60px] lg:pb-8 lg:pl-8`; wrapped in `<Reveal>`
+- **Right panel** — `flex-1 min-w-0`, normal document flow (window scrolls, not an inner div — Lenis and `window.scrollY` both work)
+- **Outer container** — `w-full flex flex-col lg:flex-row` — **no `max-w-[1440px]`**, goes full viewport width
+- **`Cindy Tsai` name** — links to `/` via Next.js `<Link>` in the vertical HeroCard variant only; `hover:opacity-60 transition-opacity`
+- **`CaseStudyNav` deleted** — nothing imports it; back-navigation handled by the persistent left rail
+
+### Landing page (`app/(main)/page.tsx`) ✅
+- Renders `<Projects />` + `<Footer />` in the right panel
+- Padding: `px-4 pb-4 lg:pt-8 lg:pr-8 lg:pb-8 lg:pl-0`
 - **No EditorialStatement** — removed
 
 ### About page ✅
@@ -93,12 +100,13 @@
 
 | # | id | colSpan | Image mode | Tags |
 |---|---|---|---|---|
-| 01 | edge-admin-hub | 2 | `card-visual-wrapper` (16/10 bg-cover) | Microsoft · Enterprise · Systems design |
+| 01 | edge-admin-hub | 1 | `card-visual-wrapper` (16/10 bg-cover) | Microsoft · Enterprise · Systems design |
 | 02 | compliance-review | 1 | `lockIcon` → Meta logo image | Platform design · Internal tools · NDA |
 | 03 | franklin-payroll | 1 | `imageContain` 100% width, centered | Start up · Crypto · Zero to one |
-| 04 | edge-sidebar-onboarding | 2 | `imageContain` 68% width, centered | Microsoft · Consumer · Growth design |
+| 04 | edge-sidebar-onboarding | 1 | `imageContain` 68% width, centered | Microsoft · Consumer · Growth design |
 
-- Interface fields: `id`, `title`, `tags`, `image?`, `href`, `colSpan?`, `imageContain?`, `imageWidth?`, `lockIcon?` — all other fields removed
+- **Grid layout: 2×2** — all four cards `colSpan: 1`; row 1: Admin Hub + Risk Systems; row 2: Web3 + Sidebar
+- Interface fields: `id`, `title`, `tags`, `image?`, `href`, `colSpan?`, `imageContain?`, `imageWidth?`, `lockIcon?` — `colSpan` type is `1 | 2` (no 3)
 - Meta logo: `/projects/Meta_lockup_mono_black_RGB.png`
 
 ---
@@ -106,7 +114,8 @@
 ## Key Components
 
 ### `components/case-study/`
-- `CaseStudyNav` — sticky nav with RAF-driven scroll progress bar (`bg-portfolio-surface`, `h-[2px]`); `max-w-[1440px]` inner wrapper; `py-3 md:py-4`
+- `CaseStudyPage` — minimal div wrapper: `w-full flex flex-col gap-4 pt-4 overflow-hidden`; outer max-width and sticky nav removed (layout handles those)
+- `CaseStudyNav` — **deleted**; back-navigation is handled by the persistent left rail
 - `HeroSection` — accepts `index` prop; dot-separated meta string (`01 · TAG · TAG`); `text-h2` heading; body `text-body`; no metadata dividers; `bg-portfolio-surface/50 rounded-card px-6 py-8 md:px-10 md:py-12`; accepts `bare` prop to strip the card container (used only on edge-admin-hub, then replaced by custom editorial hero)
 - `SectionBlock` — label (optional) + heading + body; label and heading are grouped in an inner `flex flex-col gap-1` div (tight 4px gap); outer `gap-4` separates from body; body capped at `max-w-[560px]`
 - `NumberedList` — P0 (terracotta) / P1 (`#4F68B0`) priority rows; `items-center` alignment
@@ -145,7 +154,8 @@
 ---
 
 ## Layout Conventions
-- Page wrapper: `max-w-[1440px] mx-auto`
+- **Main layout** (`app/(main)/layout.tsx`): `w-full flex flex-col lg:flex-row` — no max-width; goes full viewport width
+- **Case study pages** (`CaseStudyPage`): `w-full flex flex-col gap-4 pt-4 overflow-hidden` — no max-width on wrapper; padding per-section via `CaseStudySection`
 - Outer padding: `px-4 md:px-8`, `pt-4 md:pt-8`, `pb-4 md:pb-8`
 - Section gap: `gap-4` between top-level sections on landing page
 - **Global card radius: `rounded-card`** (16px token) — all cards sitewide, no exceptions
@@ -155,10 +165,9 @@
 ## Specific Layout Constraints & Settled Styling
 
 ### Nav (all pages)
-- `CaseStudyNav`: `sticky top-0 z-10` (no background, no blur)
-- Inner wrapper: `max-w-[1440px] mx-auto w-full flex items-center justify-between px-4 md:px-8 py-3 md:py-4`
-- Progress bar: `absolute top-0 left-0 h-[2px] bg-portfolio-surface`, RAF-driven `style.width`
-- Back + About links slide outward on scroll: lerp 0.1, max 100px offset, full at 80px scroll
+- **No `CaseStudyNav`** — deleted; file removed from codebase
+- Back-navigation: clicking "Cindy Tsai" in the persistent left rail returns to `/`
+- No scroll progress bar currently (can be re-added if needed — was RAF-driven `style.width` on a `h-[2px]` bar)
 
 ### Hero — landing page left rail (`HeroCard vertical`)
 - Sticky left rail, 508px wide, `h-screen`, padding `pt-8 pr-4 pb-8 pl-8`
@@ -190,13 +199,13 @@
   - Title (left): `text-[20px] font-semibold leading-[1.08] tracking-[-0.025em] text-portfolio-primary`
   - Tags (right): stacked, `text-[20px] font-normal leading-[1.08] tracking-[-0.025em] text-portfolio-muted`
 - **No numbered index, no MetaString** — removed entirely
-- **Card heights:** all cards `lg:h-[460px]` regardless of colSpan — global, uniform height
+- **Card heights:** all cards `h-[460px]` (no `lg:` prefix) regardless of colSpan — uniform height at all viewport widths
 - **lockIcon variant:** Meta logo absolutely centered over full card (`position: absolute, inset-0`) — `/projects/Meta_lockup_mono_black_RGB.png`, `w-[180px]`
 - **imageContain variant:** `flex-1 flex items-center px-6 pb-6 md:px-10 md:pb-8`; `rounded-[6px]` on image; hover `-translate-y-4`
 - **standard variant:** `card-visual-wrapper` bg-image in `px-6 md:px-10`; hover `-translate-y-4`
 
 ### Outer page wrapper (case studies)
-- `max-w-[1440px] mx-auto w-full flex flex-col gap-4 pt-4 overflow-hidden` — note: horizontal padding is applied per-section via `CaseStudySection`, NOT on the outer wrapper
+- `CaseStudyPage`: `w-full flex flex-col gap-4 pt-4 overflow-hidden` — no max-width (layout provides full-width); horizontal padding applied per-section via `CaseStudySection`
 
 ### Edge Admin Hub (`/projects/edge-admin-hub`)
 - The Challenge card body: "No unified framework, no hierarchy, no cohesion." (first sentence removed)
@@ -222,7 +231,7 @@
 - `aspect-ratio: 16/10`, `background-size: cover`, `background-position: center center`
 
 ### Projects section (`components/sections/Projects.tsx`)
-- Grid: `md:grid-cols-2 gap-4` — colSpan 2 = full width, colSpan 1 = half width
+- Grid: `lg:grid-cols-2 gap-4` — all cards `colSpan: 1`; 2×2 layout
 - Reveal stagger: `delay={i * 0.08}` per card
 
 ### NumberedList (`components/case-study/NumberedList.tsx`)

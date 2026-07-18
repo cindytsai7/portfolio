@@ -17,7 +17,7 @@ export const projects: Project[] = [
     tags: ["Microsoft", "Enterprise", "Systems design"],
     image: "/projects/edge-admin-hub.png",
     href: "/projects/edge-admin-hub",
-    colSpan: 2,
+    colSpan: 1,
   },
   {
     id: "compliance-review",
@@ -43,7 +43,7 @@ export const projects: Project[] = [
     tags: ["Microsoft", "Consumer", "Growth design"],
     image: "/projects/edge-sidebar-onboarding/card.png",
     href: "/projects/edge-sidebar-onboarding",
-    colSpan: 2,
+    colSpan: 1,
     imageContain: true,
   },
 ];
