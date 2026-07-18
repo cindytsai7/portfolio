@@ -1,45 +1,35 @@
 import CaseStudyPage from "@/components/case-study/CaseStudyPage";
 import Reveal from "@/components/motion/Reveal";
 
-const GRID  = "grid grid-cols-[1fr_3fr] gap-x-16 gap-y-20 items-start";
+const GRID  = "grid grid-cols-[1fr_3fr] gap-x-16 gap-y-12 items-start";
 const LABEL = "font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted";
 
-const METADATA = [
-  { label: "Role",     value: "Product Designer" },
-  { label: "Timeline", value: "2025 – Now" },
-];
-
 const WHAT_I_OWN = [
-  { label: "End-to-end workflow design",    body: "Mapped the end-to-end submitter and reviewer journey, surfacing critical breakdowns in the operational workflow." },
-  { label: "Review experience",             body: "Designed the full review experience — structured status visibility, proactive context, and clear next steps at every stage." },
-  { label: "Data versioning",               body: "Led a new data architecture that carries forward historical evidence across iterative reviews, eliminating redundant manual work." },
-  { label: "Structured intake patterns",    body: "Created structured intake patterns that translate complex end-user context into reviewer-legible signals for novel risk categories." },
-  { label: "Routing & decision-support",    body: "Designed intelligent routing and decision-support tooling for triage and escalation, blending automation with human review." },
+  { label: "End-to-end workflow design",    body: "Mapped the submitter-to-reviewer journey and exposed where the operational workflow broke down." },
+  { label: "Review experience",             body: "Delivered structured status visibility, proactive context, and clear next steps at every stage." },
+  { label: "Data versioning",               body: "Built a versioning architecture that preserves historical evidence across reviews and eliminates redundant manual work." },
+  { label: "Structured intake patterns",    body: "Translated complex end-user context into reviewer-legible signals for novel risk categories." },
+  { label: "Routing & decision-support",    body: "Paired intelligent routing with decision-support tooling to balance automation and human judgment in triage and escalation." },
 ];
 
 export default function ComplianceReviewPage() {
   return (
     <CaseStudyPage>
 
-      {/* ── Master 2-column grid ── */}
       <section className="px-4 md:px-8 pt-16 md:pt-24 pb-24 md:pb-40">
         <div className={GRID}>
 
           {/* Row — Intro */}
-          <div className="flex flex-col gap-1">
-            {METADATA.map(({ value }) => (
-              <p key={value} className="text-body text-portfolio-muted">{value}</p>
-            ))}
-          </div>
-          <p className="text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary">
+          <div />
+          <p className="max-w-[560px] text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary">
             At Meta, I design the intelligent, scalable risk review systems that protect billions of users across our platforms.
           </p>
 
           {/* Row — Context */}
           <p className={LABEL}>Context</p>
           <Reveal>
-            <div className="flex flex-col gap-3">
-              <p className="text-body text-portfolio-muted">
+            <div className="flex flex-col gap-3 max-w-[560px]">
+              <p className="text-body text-portfolio-muted italic">
                 This work is covered by an NDA — some specifics are abstracted here, happy to go deeper in conversation.
               </p>
               <p className="text-body text-portfolio-muted">
@@ -51,7 +41,7 @@ export default function ComplianceReviewPage() {
           {/* Row — Role */}
           <p className={LABEL}>Role</p>
           <Reveal>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 max-w-[560px]">
               {WHAT_I_OWN.map(({ label, body }) => (
                 <p key={label} className="text-body text-portfolio-muted">
                   <span className="font-semibold text-portfolio-primary">{label}: </span>{body}
@@ -63,7 +53,7 @@ export default function ComplianceReviewPage() {
           {/* Row — Further reading */}
           <p className={LABEL}>Further reading</p>
           <Reveal>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 max-w-[560px]">
               <p className="text-body text-portfolio-muted">
                 Meta has written publicly about this broader initiative.
               </p>
