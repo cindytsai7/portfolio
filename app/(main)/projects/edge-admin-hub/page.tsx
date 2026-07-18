@@ -44,7 +44,7 @@ export default function EdgeAdminHubPage() {
       </section>
 
       {/* Full-width canvas */}
-      <section className="px-4 md:px-8 pt-20 pb-8">
+      <section className="px-4 md:px-8 pt-20">
         <div className="flex flex-col gap-20">
 
           {/* The challenge */}
@@ -74,8 +74,8 @@ export default function EdgeAdminHubPage() {
 
           {/* Spatial architecture */}
           <Reveal image>
-            <div className="flex flex-col gap-6">
-              <p className={LABEL}>Spatial architecture</p>
+            <div className="flex flex-col gap-3">
+              <p className="text-h3 text-portfolio-primary">Spatial architecture</p>
               <FullWidthShowcase
                 image={IMGS.spatialArchitecture}
                 alt="Spatial architecture diagram"
@@ -89,8 +89,8 @@ export default function EdgeAdminHubPage() {
           {/* Constraints */}
           <Reveal>
             <div className="flex flex-col gap-6">
-              <p className={LABEL}>Constraints</p>
               <ThreeColumnSection
+                label="Constraints"
                 title="Designing within limits"
                 columns={[
                   { heading: "Latency",     body: "Real time updates are not possible because the dashboard refreshes on a fixed polling interval." },
@@ -103,8 +103,8 @@ export default function EdgeAdminHubPage() {
 
           {/* Systemic craft */}
           <Reveal image>
-            <div className="flex flex-col gap-6">
-              <p className={LABEL}>Systemic craft</p>
+            <div className="flex flex-col gap-3">
+              <p className="text-h3 text-portfolio-primary">Systemic craft</p>
               <FullWidthShowcase
                 image={IMGS.craftCards}
                 alt="Modular action cards dashboard"
@@ -135,9 +135,9 @@ export default function EdgeAdminHubPage() {
           {/* Strategic outcome */}
           <Reveal>
             <div className="flex flex-col gap-6">
-              <p className={LABEL}>Strategic outcome</p>
               <DarkOutroSection
                 variant="overcast"
+                label="Strategic outcome"
                 heading="Unifying the system to unlock scale"
                 metrics={[
                   { value: "38%", label: "Reduction in bounce rate" },
