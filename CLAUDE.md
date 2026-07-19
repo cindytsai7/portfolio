@@ -47,24 +47,50 @@
 - Outer wrapper: `bg-black rounded-card overflow-hidden`
 - Inner: `DarkCard` → `bg-white/5` + `shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]`
 - Text: label `text-white/50`, heading `text-white`, body `text-white/70`
-- Currently unused (all DarkOutroSection instances use `variant="overcast"`)
+- **In use** by edge-sidebar-onboarding's "Solution: Customize app" card. All `DarkOutroSection` instances use `variant="overcast"`, so the dark *outro* variant is what's unused — not `DarkCard` itself.
 
 ---
 
 ## Type Scale
 
-| Class | Size | Weight | Line Height | Tracking |
-|---|---|---|---|---|
-| `text-display` | 64px | 600 | 1.1 | -0.03em |
-| `text-h1` | clamp(24–36px) | 600 | 1.3 | — |
-| `text-h2` | 36px | 600 | 1.08 | -0.025em |
-| `text-h3` | clamp(16–20px) | 500 | 1.4 | — |
-| `text-body` | clamp(15px,1.5vh,18px) | 400 | 1.25 | -0.025em |
-| `text-caption` | 13px | 400 | 1.4 | +0.05em |
+| Class | Size | Locks at | Weight | Line Height | Tracking |
+|---|---|---|---|---|---|
+| `text-display` | 64px (unused — zero call sites) | — | 600 | 1.1 | -0.03em |
+| `text-h1` | clamp(24–36px) | — | 600 | 1.3 | — |
+| `text-h2` | clamp(28px, 25.6px + 1.2vw, 36px) | 36px from 866px | 600 | 1.08 | -0.025em |
+| `text-h3` | clamp(16–20px) | — | 500 | 1.4 | — |
+| `text-body` | clamp(15px, 12px + 0.208vw, 16px) | 15px through 1440px | 400 | 1.25 | -0.025em |
+| `text-card-title` | clamp(16px, 13.69px + 0.62vw, 20px) | 20px from 1024px | — | 1.08 | -0.025em |
+| `text-stat` | clamp(32px, 20.45px + 3.08vw, 52px) | 52px from 1024px | — | 1 | -0.03em |
+| `text-caption` | 13px | — | 400 | 1.4 | +0.05em |
 
+- **Every fluid size locks to its previous literal at or below 1024–1440px**, so desktop (1280+) is unchanged by construction. Only phones shrink. When adding a clamp, follow this rule — it makes desktop-regression review mechanical.
+- **`text-body` used to be `clamp(15px, 1.5vh, 18px)`** — it clamped on viewport *height*, so it rendered 15px on any normal laptop and never responded to width. It now stays 15px through 1440 (identical to before) and drifts to 16px only above that. Do not "fix" it to 18px without expecting every paragraph on the site to reflow.
 - **All bold weights = 600** — `font-bold` is overridden to 600 in `tailwind.config.ts`; `font-semibold` is also 600 (Tailwind default). No 700s anywhere.
-- Case study headings: `text-h2` (36px) — not `text-h1`
+- Case study headings: `text-h2` — not `text-h1`
 - Labels / meta: always `font-mono text-[13px] tracking-[0.05em] uppercase`
+- `text-card-title` replaces the scattered `text-[20px]`; `text-stat` replaces `text-[52px]`
+
+---
+
+## Responsive conventions
+
+**Three-stop rule.** Every responsive value gets at most three stops:
+
+```
+base  → phone (<768)
+md    → 768–1279, rail is stacked, content column is full width
+xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop value.
+```
+
+`lg` is deliberately **not** used for structure. `sm` only for type/gap tweaks, never layout.
+
+- **Why the rail is `xl` and not `lg`:** with the rail at `lg`, a 508px rail appearing at 1024 collapsed the content column from 1023px → **516px** — narrower than at 768px. That made 1024–1279 the most cramped band on the site. At `xl` the column is 1024px there instead, and every grid needs only `grid-cols-1 md:grid-cols-2` rather than a four-stop incantation with an `lg` undo.
+- **Why grids stack at `md`, not `sm`:** at 640 the content column is 608px → 292px columns, too tight for card-in-card content (`NumberedList`'s fixed `w-12` numeral, `SectionBlock`'s `text-h1`). 768 gives ~340px, the honest minimum.
+- **`overflow-x: clip` (globals.css) and `overflow-x-clip` (CaseStudyPage) mask horizontal overflow.** If you're debugging layout, disable both temporarily or breakage fails silently.
+- **The failure mode here is squeeze, not overflow.** `scrollWidth === clientWidth` even when badly broken — an unprefixed `grid-cols-2` doesn't overflow, it just crushes columns to 160px. Measure *content widths*, not overflow.
+
+**Shared tokens:** `components/case-study/tokens.ts` — `CS_LABEL`, `CS_GRID_2`, `CS_GRID_2_STRETCH`. Only genuinely multi-page values live there; single-use strings stay local to their page. `INTRO_GRID` is deliberately **not** shared — the three case studies use different column gaps on purpose (edge-admin-hub uses `gap-4` so its intro paragraph aligns with the card grid beneath it).
 
 ---
 
@@ -72,15 +98,15 @@
 
 ### Persistent layout — route group `(main)` ✅
 - **Architecture** — `app/(main)/layout.tsx` wraps all main routes with a sticky left rail + scrollable right panel. Routes inside: `/` (home) and `/projects/**` (all case studies). `/about` stays at root level and does NOT get this layout.
-- **Left rail** — `HeroCard vertical` inside `lg:w-[508px] lg:shrink-0 lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col`; padding `lg:pt-8 lg:pr-[60px] lg:pb-8 lg:pl-8`; wrapped in `<Reveal>`
+- **Left rail** — `HeroCard vertical` inside `xl:w-[508px] xl:shrink-0 xl:sticky xl:top-0 xl:h-screen xl:flex xl:flex-col`; padding `xl:pt-8 xl:pr-[60px] xl:pb-8 xl:pl-8`; wrapped in `<Reveal>`. Below `xl` it stacks on top.
 - **Right panel** — `flex-1 min-w-0`, normal document flow (window scrolls, not an inner div — Lenis and `window.scrollY` both work)
-- **Outer container** — `w-full flex flex-col lg:flex-row` — **no `max-w-[1440px]`**, goes full viewport width
+- **Outer container** — `w-full flex flex-col xl:flex-row` — **no `max-w-[1440px]`**, goes full viewport width
 - **`Cindy Tsai` name** — links to `/` via Next.js `<Link>` in the vertical HeroCard variant only; `hover:opacity-60 transition-opacity`
 - **`CaseStudyNav` deleted** — nothing imports it; back-navigation handled by the persistent left rail
 
 ### Landing page (`app/(main)/page.tsx`) ✅
 - Renders `<Projects />` + `<Footer />` in the right panel
-- Padding: `px-4 pb-4 lg:pt-8 lg:pr-8 lg:pb-8 lg:pl-0`
+- Padding: `px-4 pb-4 xl:pt-8 xl:pr-8 xl:pb-8 xl:pl-0` — `pl-0` only once the rail is beside it at `xl`; below that it stacks and needs symmetric padding
 - **No EditorialStatement** — removed
 
 ### About page ✅
@@ -114,17 +140,17 @@
 ## Key Components
 
 ### `components/case-study/`
-- `CaseStudyPage` — minimal div wrapper: `w-full flex flex-col gap-4 pt-4 overflow-hidden`; outer max-width and sticky nav removed (layout handles those)
-- `CaseStudyNav` — **deleted**; back-navigation is handled by the persistent left rail
-- `HeroSection` — accepts `index` prop; dot-separated meta string (`01 · TAG · TAG`); `text-h2` heading; body `text-body`; no metadata dividers; `bg-portfolio-surface/50 rounded-card px-6 py-8 md:px-10 md:py-12`; accepts `bare` prop to strip the card container (used only on edge-admin-hub, then replaced by custom editorial hero)
+- `CaseStudyPage` — minimal div wrapper: `w-full flex flex-col gap-4 pt-4 overflow-x-clip`. Uses `overflow-x-clip`, **not** `overflow-hidden` — it's an ancestor of the sticky rail's sibling and `overflow-hidden` there can break sticky positioning.
+- `tokens.ts` — shared class strings: `CS_LABEL`, `CS_GRID_2`, `CS_GRID_2_STRETCH`. See Responsive conventions.
+- **Deleted** (no references anywhere): `CaseStudyNav`, `HeroSection`, `CaseStudySection`, `ScrollRevealQuote`, `MetricCountUp`. All case studies use inline editorial heroes + per-section padding.
 - `SectionBlock` — label (optional) + heading + body; label and heading are grouped in an inner `flex flex-col gap-1` div (tight 4px gap); outer `gap-4` separates from body; body capped at `max-w-[560px]`
 - `NumberedList` — P0 (terracotta) / P1 (`#4F68B0`) priority rows; `items-center` alignment
 - `ThreeColumnSection` — 3-col bento card; `bg-portfolio-surface/50 rounded-card`; divider rule sits between SectionBlock heading and columns (not on each column)
 - `FullWidthShowcase` — full-width image + caption block; caption container `max-w-[560px]` (was `w-3/4`); `rounded-card` on images
-- `DarkOutroSection` — accepts `variant="dark"` (default) or `variant="overcast"`; overcast uses `bg-portfolio-surface-deep/55` with black text and no dividers; body text `max-w-[560px]` on both variants
+- `DarkOutroSection` — accepts `variant="dark"` (default) or `variant="overcast"`; overcast uses `bg-portfolio-surface-deep/55` with black text and no dividers; body text `max-w-[560px]` on both variants. Metrics grid is `grid-cols-1 sm:grid-cols-3` with `text-stat`. **Keep 3 columns at desktop** even though edge-sidebar passes only 2 metrics — the empty third column is load-bearing for that composition.
 - `CardsAssembly` — animated dashboard card assembly for edge-admin-hub hero; assets at `/public/projects/edge-dashboard-assembly/assets/`; Web Animations API; replays on scroll-back via IntersectionObserver (threshold 0.4, stays connected); `'use client'`; CSS in `globals.css` under `.ca-stage / .ca-bg / .ca-piece`
-- `ScrollRevealQuote` — per-word color reveal (unused — was Franklin-specific, removed)
-- `MetricCountUp` — count-up animation (unused — was Franklin-specific, removed)
+  - **Static below md.** The fly-in offsets are fixed px (up to 240) — wider than the whole stage at 375, so pieces launched from off-canvas. The JS guard now matches `prefers-reduced-motion` OR `max-width: 767px`, mirrored by a `@media (max-width: 767px) { .ca-piece { opacity: 1 } }` rule. No extra asset needed: pieces are positioned in `%` against an `aspect-ratio` stage, so the static composition is already fluid.
+  - The `header` piece is `left: 22.254%` + `width: 88.787%` = **111%** — it deliberately bleeds past the stage. This registers as horizontal overflow at every width and is masked by `overflow-x: clip`. Pre-existing and intentional; don't "fix" it.
 
 ### `components/ui/`
 - `ProjectCard` — `CardHeader` (title left + tags stacked right) + image; two variants: `lockIcon` (Meta logo centered) and standard (`imageContain` or `card-visual-wrapper`); no numbered index; no MetaString
@@ -133,12 +159,13 @@
   - `vertical` (landing page): flex-col h-full; name → 2 bio paragraphs → inline CTA links; ExperienceList `mt-auto` at bottom
   - default (about page): 3-col grid `md:grid-cols-3`, left `md:col-span-2`, ExperienceList col 3
   - VariableProximity on name: `wght 600 → 300` (starts bold, lightens on hover); initial render seeded with `fromFontVariationSettings` via `?? fallback`
-- `ExperienceList` — `grid-cols-[100px_1fr] gap-x-[52px] py-[3px]`; `text-body font-medium`; border-top + border-bottom dividers per row
-- `DarkCard` — `bg-white/5 rounded-card`; `rgba(255,255,255,0.08)` inset border; for cards on black backgrounds
+- `ExperienceList` — `grid-cols-[auto_1fr] gap-x-5 md:grid-cols-[100px_1fr] md:gap-x-[52px] py-[3px]`; `text-body font-medium`; border-top + border-bottom dividers per row. The fixed 100px+52px chrome is 44% of a 343px phone column, so below md the year column is content-sized (`auto`) to stop the dates wrapping. Renders on both `/` (via the rail) and `/about`.
+- `DarkCard` — `bg-white/5 rounded-card`; `rgba(255,255,255,0.08)` inset border; for cards on black backgrounds. **In use** by edge-sidebar-onboarding's "Solution: Customize app" card.
 - `FooterCard` — semi-transparent weather tints (4 states); VariableProximity on "Cindy Tsai" (`wght 600 → 300`); tooltip forecast
-  - **Layout:** copyright ("© 2026 Designed and built by Cindy Tsai.") bottom-left, weather pill bottom-right; `mt-auto flex justify-between items-end`
+  - **Layout:** `mt-auto flex flex-col gap-4 md:flex-row md:justify-between md:items-end` — stacks below md (side by side the two lines collided on a phone). Weather line has `shrink-0`.
   - **No LinkedIn/Email links** — removed
-  - **Weather pill text:** DM Sans regular, `text-[20px] font-normal leading-[1.08] tracking-[-0.025em]`; "Seattle" sentence case (not uppercase); time uses no `.toUpperCase()`
+  - **Type:** both lines use `text-card-title font-normal`; "Seattle" sentence case (not uppercase); time uses no `.toUpperCase()`
+  - There is **no weather pill or tooltip** — it renders as a plain text line. The old `.weather-pill` / `.tooltip` CSS has been deleted.
 
 ### `components/sections/`
 - `Projects` — bento grid with `id="work"` for scroll target
@@ -149,13 +176,14 @@
 - `.surface-card` — `box-shadow: inset 0 0 0 1px #E6E5E1`
 - `.card-visual-wrapper` — 16/10 aspect ratio, `background-size: cover`, `border-radius: 6px`
 - `.footer-card` — color transition 0.7s
-- `.weather-pill` / `.tooltip` — hover tooltip; tooltip `width: 100%` relative to outer row
+- `.reveal` / `.reveal-image` — scroll reveal. Settled state is **`transform: none`**, not `translateY(0)`: a lingering identity transform breaks `overflow-hidden` + `border-radius` clipping of descendants in WebKit/Chrome, which square-cornered every image bleeding to a rounded card's edge. Do not change this back.
+- `.ca-*` — CardsAssembly; includes a `max-width: 767px` rule pinning pieces to their final opacity
 
 ---
 
 ## Layout Conventions
-- **Main layout** (`app/(main)/layout.tsx`): `w-full flex flex-col lg:flex-row` — no max-width; goes full viewport width
-- **Case study pages** (`CaseStudyPage`): `w-full flex flex-col gap-4 pt-4 overflow-hidden` — no max-width on wrapper; padding per-section via `CaseStudySection`
+- **Main layout** (`app/(main)/layout.tsx`): `w-full flex flex-col xl:flex-row` — no max-width; goes full viewport width
+- **Case study pages** (`CaseStudyPage`): `w-full flex flex-col gap-4 pt-4 overflow-x-clip` — no max-width on wrapper; horizontal padding applied per-section (`px-4 md:px-8`)
 - Outer padding: `px-4 md:px-8`, `pt-4 md:pt-8`, `pb-4 md:pb-8`
 - Section gap: `gap-4` between top-level sections on landing page
 - **Global card radius: `rounded-card`** (16px token) — all cards sitewide, no exceptions
@@ -181,14 +209,6 @@
 - Each row: `grid grid-cols-[100px_1fr] gap-x-[52px] py-[3px] border-b border-portfolio-stroke`
 - Text: `text-body font-medium` — dates `text-portfolio-muted`, companies `text-portfolio-primary`
 
-### HeroSection (case studies)
-- Padding: `px-6 py-8 md:px-10 md:py-12`
-- Background: `bg-portfolio-surface/50 rounded-card`
-- Tags row: dot-separated `index · TAG · TAG` (no pills)
-- Heading: `text-h2` (36px)
-- Body: `text-body text-portfolio-muted` (no leading/tracking overrides — uses global token)
-- Metadata: no dividers between items
-
 ### Arrow icon (`ArrowIcon` component)
 - Inline SVG: `viewBox="0 0 11 11"`, path `M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5`
 - Size: `w-[0.65em] h-[0.65em]` — scales with font size automatically
@@ -196,16 +216,16 @@
 
 ### ProjectCard layout (landing page)
 - **Header:** `flex justify-between items-start gap-6 px-6 pt-6 md:px-10 md:pt-10 pb-6`
-  - Title (left): `text-[20px] font-semibold leading-[1.08] tracking-[-0.025em] text-portfolio-primary`
-  - Tags (right): stacked, `text-[20px] font-normal leading-[1.08] tracking-[-0.025em] text-portfolio-muted`
+  - Title (left): `text-card-title font-semibold text-portfolio-primary`
+  - Tags (right): stacked, `text-card-title font-normal text-portfolio-muted`
 - **No numbered index, no MetaString** — removed entirely
-- **Card heights:** all cards `h-[460px]` (no `lg:` prefix) regardless of colSpan — uniform height at all viewport widths
+- **Card heights:** `min-h-[380px] md:h-[460px]` — `min-h` below md so a wrapped title can't crowd the image out; fixed 460px from md up
 - **lockIcon variant:** Meta logo absolutely centered over full card (`position: absolute, inset-0`) — `/projects/Meta_lockup_mono_black_RGB.png`, `w-[180px]`
 - **imageContain variant:** `flex-1 flex items-center px-6 pb-6 md:px-10 md:pb-8`; `rounded-[6px]` on image; hover `-translate-y-4`
 - **standard variant:** `card-visual-wrapper` bg-image in `px-6 md:px-10`; hover `-translate-y-4`
 
 ### Outer page wrapper (case studies)
-- `CaseStudyPage`: `w-full flex flex-col gap-4 pt-4 overflow-hidden` — no max-width (layout provides full-width); horizontal padding applied per-section via `CaseStudySection`
+- `CaseStudyPage`: `w-full flex flex-col gap-4 pt-4 overflow-x-clip` — no max-width (layout provides full-width); horizontal padding applied per-section (`px-4 md:px-8`)
 
 ### Edge Admin Hub (`/projects/edge-admin-hub`)
 - The Challenge card body: "No unified framework, no hierarchy, no cohesion." (first sentence removed)
@@ -242,11 +262,6 @@
 - Text block: `flex flex-col gap-1`
 - Rows separated by `divide-y divide-portfolio-rule`
 
-### HeroSection metadata (right column)
-- `flex flex-col gap-4 md:w-[300px] shrink-0`
-- Each item: label (`text-caption font-mono uppercase tracking-widest text-portfolio-muted`) + value (`text-body font-medium text-portfolio-primary`)
-- **No dividers** between items
-
 ### DarkOutroSection
 - Default `variant="dark"`: `bg-black` outer + `DarkCard` inner (`bg-white/5`); white text palette
 - `variant="overcast"`: `bg-portfolio-surface-deep/55` + `.surface-card` border; all black text (`text-black`, `text-black/50`, `text-black/70`); no metric dividers
@@ -267,10 +282,10 @@
 ### Franklin Payroll (`/projects/franklin-payroll`)
 
 **Page structure (4 sections):**
-1. Hero image — full-width `franklin-hero.png` in `CaseStudySection`
+1. Hero image — full-width `franklin-hero.png` in a `px-4 md:px-8` section
 2. Editorial hero — raw `<section>` with `pt-16 md:pt-24 pb-24 md:pb-40`; all content in single `md:pl-[20%]` container; `gap-16 md:gap-24` between blocks
-3. Solutions — `CaseStudySection` with `gap-[80px]`; contains bento grid + interactive prototype + canvas showcases + navigation
-4. Reflections — surface card closing statement
+3. Solutions — `px-4 md:px-8` section with `gap-20`; contains bento grid + interactive prototype + canvas showcases + navigation
+4. Reflections / Impact — surface card closing statement
 
 **Hero image corner fix (Lenis-safe):**
 - Lenis v1 applies `transform` to `document.documentElement`, which breaks `overflow-hidden` + `border-radius` clipping in WebKit/Chrome
@@ -285,16 +300,18 @@
 - Bullet paragraphs: `<span className="font-semibold text-portfolio-primary">{label}: </span>{body}` inline pattern
 
 **Bento grid (2 cards, 50/50):**
-- `grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch`
-- Captions live OUTSIDE and BELOW each card (`flex flex-col gap-4` per column), using `SHOWCASE_CAPTION` constant
-- Left card (V1 System Framework): `surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col min-h-[580px]`; pill tag in `p-4 shrink-0` wrapper at top; image in `flex-1 min-h-0 flex items-center justify-center px-6 pb-6` wrapper, `w-full h-auto object-contain block`; no hover effect
-- Right card (V2 Component Iteration): `surface-card bg-portfolio-surface/50 rounded-card p-6 flex flex-col gap-4 overflow-hidden flex-1 min-h-[580px]`; pill tag `self-start`; image centered via `flex flex-1 items-center justify-center`; `max-w-[380px] xl:max-w-[420px] object-contain`; no hover effect
-- Pill tag style: `font-mono text-[11px] tracking-[0.05em] uppercase text-portfolio-muted bg-portfolio-surface px-2 py-0.5 rounded-[6px]`
+- `grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch`
+- Captions live OUTSIDE and BELOW each card (`flex flex-col gap-4` per column), using the `CAPTION` constant
+- Left card (V1 System Framework): `surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col md:min-h-[520px]`; pill tag in `p-4 shrink-0` wrapper at top; image in `flex-1 min-h-0 flex items-center justify-center px-6 pb-6` wrapper, `w-full h-auto object-contain block`; no hover effect
+- Right card (V2 Component Iteration): `surface-card bg-portfolio-surface/50 rounded-card p-6 flex flex-col gap-4 overflow-hidden md:min-h-[520px]`; pill tag `self-start`; image centered via `flex flex-1 items-center justify-center`; `max-w-[380px] xl:max-w-[420px] object-contain`; no hover effect
+- **`min-h` is gated behind `md`** — a 520px-tall card in a 160px column is an absurd aspect ratio on a phone
+- Pill tag style: `font-mono text-[11px] tracking-[0.05em] uppercase text-portfolio-muted px-2 py-0.5 rounded-[6px]` — **no background**
 - Images: `image_e85e2e.png` (V1) and `image_e85df1.png` (V2)
 
 **Interactive prototype — Treasury tracking:**
 - File: `public/projects/franklin-payroll/revenue-slider.html` (zero-dependency, inline HTML/CSS/JS)
-- Embedded via `<iframe>` in `rounded-card overflow-hidden w-full` container; `h-[500px]`; `scrolling="no"`
+- **Desktop only.** Embedded via `<iframe>` in a `hidden md:block rounded-card overflow-hidden w-full` container; `h-[500px]`; `scrolling="no"`
+- **Below md it is replaced by a static screenshot** (`revenue-slider-static.png`, `md:hidden`). The inner HTML is height-driven (`html,body{height:100%}`) with no media queries, so it cannot reflow narrow — at 375 it rendered a 3-column dashboard in ~327px, clipped at 500px with scrolling disabled and therefore unreachable. Regenerate the asset with Playwright at 1000×500, `deviceScaleFactor: 2`, if the prototype changes.
 - Caption: "Treasury tracking (Interactive)" — uses `SHOWCASE_CAPTION` constant
 - Prototype layout: outer `.shell` is the gray canvas (`rgba(242,241,237,0.5)` = `bg-portfolio-surface/50`); `border-radius: 16px`; `border: 1px solid rgba(0,0,0,0.07)`; padding `20px 24px 24px`
 - Inner `.frame`: white card with `border-radius: 12px`; `box-shadow: 0 2px 8px rgba(0,0,0,0.04)`
@@ -303,26 +320,34 @@
 **Canvas showcase pattern** (batch distribution, payroll confirmation — rendered from `SHOWCASES` array):
 - Dashboard showcase removed
 - Outer: `flex flex-col gap-6`
-- Canvas: `w-full rounded-card surface-card bg-portfolio-surface/50 flex items-center justify-center px-32 py-32` (constant: `SHOWCASE_CANVAS`)
+- Canvas: `w-full rounded-card surface-card bg-portfolio-surface/50 flex items-center justify-center px-4 py-8 md:px-12 md:py-16 xl:px-20 xl:py-24` (constant: `CANVAS`). The old flat `px-20`/`px-32` left ~112px for a full dashboard screenshot at 375.
 - Image: `w-full max-w-[88%] h-auto object-contain` (constant: `SHOWCASE_IMG`) — NO shadow or border-radius on image
 - Caption: `flex flex-col gap-[6px] max-w-[560px]` (constant: `SHOWCASE_CAPTION`)
 
+**Impact / Reflections card (stacked layout):**
+- `surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-12` → inner `flex flex-col gap-12`
+- Order: mono `Impact` label → `text-h2` heading → full-width stats row → body paragraph
+- Stats: `grid grid-cols-2 gap-x-6 md:gap-x-12`, each cell `flex flex-col gap-4 pb-4 border-b border-portfolio-rule`; value `text-[clamp(36px,24.45px+3.08vw,56px)]`
+- Stays 2-up at every width — two short numerals read fine at 375; only the gap shrinks
+- Replaced an earlier 3-column `[1fr_1px_1fr]` grid with a vertical divider
+
+**Full-bleed images on rounded cards — read before touching the "Edge case" cards:**
+- Image must be a **static flex child with `mt-auto`**, never `position: absolute`. An abs-positioned image is not clipped to the card's `border-radius` in practice, regardless of `overflow-hidden` or `clip-path`.
+- `.surface-card`'s border is an **inset box-shadow, which paints beneath child content** — a full-bleed image covers it, so the rounded corner has nothing to read against on a white page and looks "cut off" even though clipping works. Fix by painting the stroke on top: `<div className="absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_#E6E5E1] pointer-events-none" />` (same pattern as the hero image).
+- **Never put `clip-path` on a `.surface-card`** — it clips the card's own paint and shaves the border off around the corners. A border cannot follow a clip-path.
+- Diagnosing: put a contrasting background on the element *behind* the card. If the corner shows that colour curving in, clipping is fine and the problem is the invisible stroke. Colouring the card itself proves nothing.
+
 **Data constants (page-level):**
 - `METADATA` — Role, Timeline, Status
+- `IMPACT` — 2 stats ($2.9M seed raised, 15% retention increase)
 - `OWNERSHIP` — 4 bullet items for "During my time here"
 - `SHOWCASES` — 2 canvas showcase items (batch distribution, payroll confirmation)
-- `SHOWCASE_CANVAS`, `SHOWCASE_IMG`, `SHOWCASE_CAPTION` — shared class string constants used across bento captions, showcase items, and navigation caption
+- `CANVAS`, `CAPTION`, `CAPTION_WIDE`, `PILL`, `INTRO_GRID` — page-local class string constants. `CAPTION_WIDE` is `max-w-[60ch] md:max-w-[50%]`: the bare `max-w-[50%]` produced 172px paragraphs on a phone, and at 1440 the 50% still wins so desktop is unchanged.
 
 ### Scroll-to-top on navigation (LenisProvider)
 - `LenisProvider` uses `usePathname` to detect route changes
 - Calls `lenis.scrollTo(0, { immediate: true })` on every pathname change
 - Ensures all case study pages start at the top on entry
-
-### Weather tooltip width fix
-- Tooltip `position: relative` context is on the **outer row**, NOT on `.weather-pill`
-- Tooltip `width: 100%` so it spans from SEATTLE text to right edge of pill automatically
-
----
 
 ## Compliance Review page (`/projects/compliance-review`)
 
@@ -330,7 +355,7 @@
 1. Editorial hero — raw `<section>` with `pt-16 md:pt-24 pb-24 md:pb-40`; all content in `md:pl-[20%]` container; `gap-16 md:gap-24` between blocks
 2. Further reading — raw `<section>` with `pb-24 md:pb-40`; same `md:pl-[20%]` indent; `max-w-[760px]` on inner content div
 
-**No index/tags row** — `HeroSection` not used; `index` and `tags` props on `HeroSection` are now optional and conditionally rendered
+**No index/tags row** — the page is a single grid: `grid-cols-1 gap-y-8 md:grid-cols-[1fr_3fr] md:gap-x-16 md:gap-y-12`. The intro row's empty spacer div is `hidden md:block` so it doesn't become a stray grid item when stacked.
 
 **Editorial hero (`md:pl-[20%]` container):**
 - Display paragraph: `text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[760px]`
