@@ -29,7 +29,7 @@ export default function ComplianceReviewPage() {
           <Reveal>
             <div className="flex flex-col gap-3">
               <p className={LABEL}>Context</p>
-              <div className="flex flex-col gap-4 max-w-[560px]">
+              <div className="flex flex-col gap-4 max-w-[760px]">
                 {/* NDA banner — franklin impact-card surface treatment */}
                 <div className="surface-card bg-portfolio-surface/50 rounded-card px-5 py-4">
                   <p className="text-body text-portfolio-muted italic">
@@ -47,7 +47,7 @@ export default function ComplianceReviewPage() {
           <Reveal>
             <div className="flex flex-col gap-3">
               <p className={LABEL}>Role</p>
-              <div className="flex flex-col gap-4 max-w-[560px]">
+              <div className="flex flex-col gap-4 max-w-[760px]">
                 {WHAT_I_OWN.map(({ label, body }) => (
                   <p key={label} className="text-body text-portfolio-muted">
                     <span className="font-semibold text-portfolio-primary">{label}: </span>{body}
@@ -61,7 +61,7 @@ export default function ComplianceReviewPage() {
           <Reveal>
             <div className="flex flex-col gap-3">
               <p className={LABEL}>Further reading</p>
-              <div className="flex flex-col gap-2 max-w-[560px]">
+              <div className="flex flex-col gap-2 max-w-[760px]">
                 <p className="text-body text-portfolio-muted">
                   Meta has written publicly about this broader initiative.
                 </p>
