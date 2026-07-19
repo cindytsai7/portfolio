@@ -19,9 +19,12 @@
               transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* `transform: none` (not translateY(0)) — a lingering identity transform still
+   breaks `overflow-hidden` + `border-radius` clipping of descendants in WebKit/Chrome,
+   which square-corners any image that bleeds to a rounded card's edge. */
 .reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 .reveal-image {
@@ -33,7 +36,7 @@
 
 .reveal-image.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 .srq-word {

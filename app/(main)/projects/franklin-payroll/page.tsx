@@ -14,7 +14,7 @@ const IMGS = {
 // Mirrors bento grid proportions so text aligns with V2 card content
 const INTRO_GRID = "grid grid-cols-2 gap-x-6 items-start";
 
-const PILL    = "font-mono text-[11px] tracking-[0.05em] uppercase text-portfolio-muted bg-portfolio-surface px-2 py-0.5 rounded-[6px]";
+const PILL    = "font-mono text-[11px] tracking-[0.05em] uppercase text-portfolio-muted px-2 py-0.5 rounded-[6px]";
 const CANVAS  = "w-full rounded-card surface-card bg-portfolio-surface/50 flex items-center justify-center px-20 py-24";
 const CAPTION      = "flex flex-col gap-[6px]";
 const CAPTION_WIDE = "flex flex-col gap-[6px] max-w-[50%]";
@@ -46,7 +46,7 @@ export default function FranklinPayrollPage() {
       </section>
 
       {/* ── Asymmetric intro: metadata left / description + bullets right ── */}
-      <section className="px-4 md:px-8 pt-8 md:pt-12">
+      <section className="px-4 md:px-8 pt-8 md:pt-12 pb-[48px]">
         <div className={INTRO_GRID}>
           <div className="flex flex-col gap-1">
             {METADATA.map((value) => (
@@ -137,17 +137,15 @@ export default function FranklinPayrollPage() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col min-h-[500px]">
+                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col min-h-[500px] relative">
                   <div className="p-4 shrink-0"><span className={PILL}>Edge case</span></div>
-                  <div className="flex-1 relative">
-                    <img src={IMGS.batchEdge1} alt="Batch distribution edge case" className="absolute bottom-0 right-0 w-full h-auto" />
-                  </div>
+                  <img src={IMGS.batchEdge1} alt="Batch distribution edge case" className="mt-auto w-full h-auto" />
+                  <div className="absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_#E6E5E1] pointer-events-none" />
                 </div>
-                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col min-h-[500px]">
+                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col min-h-[500px] relative">
                   <div className="p-4 shrink-0"><span className={PILL}>Edge case</span></div>
-                  <div className="flex-1 relative">
-                    <img src={IMGS.batchEdge2} alt="Batch distribution edge case flagged" className="absolute bottom-0 right-0 w-full h-auto" />
-                  </div>
+                  <img src={IMGS.batchEdge2} alt="Batch distribution edge case flagged" className="mt-auto w-full h-auto" />
+                  <div className="absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_#E6E5E1] pointer-events-none" />
                 </div>
               </div>
               <div className={CAPTION_WIDE}>
@@ -177,6 +175,7 @@ export default function FranklinPayrollPage() {
 
                 {/* Text */}
                 <div className="flex flex-col gap-4">
+                  <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-portfolio-muted">Impact</span>
                   <h2 className="text-h2 font-bold text-portfolio-primary">
                     Bridging founder vision and user needs
                   </h2>
@@ -188,9 +187,8 @@ export default function FranklinPayrollPage() {
                 {/* Vertical divider */}
                 <div className="bg-portfolio-rule self-stretch" />
 
-                {/* Impact */}
+                {/* Stats */}
                 <div className="flex flex-col gap-6">
-                  <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-portfolio-muted">Impact</span>
                   <div className="grid grid-cols-2 gap-x-8 gap-y-5">
                     {IMPACT.map(({ value, label }) => (
                       <div key={label} className="flex flex-col gap-1">

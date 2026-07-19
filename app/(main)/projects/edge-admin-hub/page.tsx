@@ -15,7 +15,7 @@ const IMGS = {
   craftBeforeAfter:    "/projects/edge-admin-hub/systemic-craft-before-after.png",
 };
 
-const INTRO_GRID = "grid grid-cols-2 gap-x-6 items-start";
+const INTRO_GRID = "grid grid-cols-2 gap-4 items-start";
 const LABEL      = "font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted";
 
 const METADATA = ["Lead Product Designer", "2024"];
@@ -30,15 +30,17 @@ export default function EdgeAdminHubPage() {
       </section>
 
       {/* Intro: metadata left / display paragraph right */}
-      <section className="px-4 md:px-8 pt-8 md:pt-12">
+      <section className="px-4 md:px-8 pt-8 md:pt-12 pb-[48px]">
         <div className={INTRO_GRID}>
           <div className="flex flex-col gap-1">
             {METADATA.map((value) => (
               <p key={value} className="text-body text-portfolio-muted">{value}</p>
             ))}
           </div>
-          <p className="text-body text-portfolio-muted pl-6">
-            I led the redesign of Edge Browser&apos;s admin hub at Microsoft, creating a scalable framework that simplifies complex policy management. By re-architecting the admin center around a unified design system and an adaptable kit of parts, I established a foundation that streamlines future feature expansion.
+          <p className="text-body text-portfolio-muted">
+            I was the sole designer working on Edge Browser&apos;s admin hub at Microsoft. I created a scalable framework that simplifies complex policy management. By re-architecting the admin center around a unified design system and an adaptable kit of parts, I established a foundation that streamlines future feature expansion.
+            <br /><br />
+            My cross-functional partners included a product manager and two engineers. I also worked with the design systems team to consult and align our patterns with broader enterprise standards, ensuring code-level consistency. By establishing this tight feedback loop, we reduced front-end debt and paved the way for engineering to ship subsequent policy updates twice as fast using the newly componentized kit.
           </p>
         </div>
       </section>
