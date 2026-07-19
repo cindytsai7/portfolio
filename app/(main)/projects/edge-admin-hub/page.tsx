@@ -16,7 +16,6 @@ const IMGS = {
 };
 
 const INTRO_GRID = "grid grid-cols-2 gap-4 items-start";
-const LABEL      = "font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted";
 
 const METADATA = ["Lead Product Designer", "2024"];
 

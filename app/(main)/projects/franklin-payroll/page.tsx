@@ -150,7 +150,7 @@ export default function FranklinPayrollPage() {
               </div>
               <div className={CAPTION_WIDE}>
                 <p className="text-body font-semibold text-portfolio-primary">Batch distribution</p>
-                <p className="text-body text-portfolio-muted">This interface provides a clear high-density view of distribution status, enabling administrators to quickly identify 'Pending' or 'Draft' items while ensuring that critical 'Approve all' workflows remain intuitive and secure.</p>
+                <p className="text-body text-portfolio-muted">This interface provides a clear high-density view of distribution status, enabling administrators to quickly identify &apos;Pending&apos; or &apos;Draft&apos; items while ensuring that critical &apos;Approve all&apos; workflows remain intuitive and secure.</p>
               </div>
             </div>
           </Reveal>
@@ -163,7 +163,7 @@ export default function FranklinPayrollPage() {
               </div>
               <div className={CAPTION_WIDE}>
                 <p className="text-body font-semibold text-portfolio-primary">Payroll confirmation</p>
-                <p className="text-body text-portfolio-muted">This confirmation modal provides a final, high-fidelity safety net, surfacing critical 'dual-currency' breakdowns to administrators to identify vulnerability before committing on-chain funds.</p>
+                <p className="text-body text-portfolio-muted">This confirmation modal provides a final, high-fidelity safety net, surfacing critical &apos;dual-currency&apos; breakdowns to administrators to identify vulnerability before committing on-chain funds.</p>
               </div>
             </div>
           </Reveal>
