@@ -32,32 +32,33 @@ export default function DarkOutroSection({
       : 'grid-cols-1 sm:grid-cols-3 gap-8';
 
   if (isOvercast) {
+    // Matches franklin's impact card: light surface-card + portfolio text tokens
     return (
-      <section className="bg-portfolio-surface-deep/50 rounded-card px-8 md:px-12 py-10 md:py-12 flex flex-col gap-12" style={{ boxShadow: 'inset 0 0 0 1px #D1CCC5' }}>
+      <section className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-12 flex flex-col gap-12">
         <div className="flex flex-col gap-4">
-          {label && <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-black/50">{label}</p>}
-          <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-black">{heading}</h2>
+          {label && <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted">{label}</p>}
+          <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">{heading}</h2>
         </div>
 
         {metrics && metrics.length > 0 && (
           <div className={`grid ${metricGrid}`}>
             {metrics.map((m) => (
-              <div key={m.label} className="flex flex-col gap-4 pb-4 border-b border-black/15">
-                <span className="text-black font-bold text-stat">{m.value}</span>
-                <span className="text-black/50 text-body">{m.label}</span>
+              <div key={m.label} className="flex flex-col gap-4 pb-4 border-b border-portfolio-rule">
+                <span className="text-portfolio-primary font-bold text-stat">{m.value}</span>
+                <span className="text-portfolio-muted text-body">{m.label}</span>
               </div>
             ))}
           </div>
         )}
 
-        <p className="text-black/70 text-body max-w-[560px]">{body}</p>
+        <p className="text-portfolio-muted text-body max-w-[560px]">{body}</p>
 
         {link && (
           <a
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-black/50 text-caption font-mono uppercase tracking-widest underline underline-offset-4 hover:text-black transition-colors w-fit"
+            className="text-portfolio-muted text-caption font-mono uppercase tracking-widest underline underline-offset-4 hover:text-portfolio-primary transition-colors w-fit"
           >
             {link.text}
           </a>

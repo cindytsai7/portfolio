@@ -11,6 +11,7 @@ const IMGS = {
   whatIsSidebar:       "/projects/edge-sidebar-onboarding/what-is-sidebar.png",
   challenge:           "/projects/edge-sidebar-onboarding/challenge.png",
   prototypeOnboarding: "/projects/edge-sidebar-onboarding/prototype-onboarding.mov",
+  setUp:               "/projects/edge-sidebar-onboarding/set-up.mov",
   solutionCustomize:   "/projects/edge-sidebar-onboarding/solution-customize.png",
   explorationNotif:    "/projects/edge-sidebar-onboarding/exploration-notification.png",
   explorationTooltip:  "/projects/edge-sidebar-onboarding/exploration-tooltip.png",
@@ -64,7 +65,7 @@ export default function EdgeSidebarOnboardingPage() {
       </section>
 
       {/* Full-width canvas */}
-      <section className="px-4 md:px-8 pt-20 pb-8">
+      <section className="px-4 md:px-8 pt-20 pb-0">
         <div className="flex flex-col gap-20">
 
           {/* Tell me more / The challenge */}
@@ -161,6 +162,28 @@ export default function EdgeSidebarOnboardingPage() {
                 </div>
 
               </div>
+            </div>
+          </Reveal>
+
+          {/* Designing for scale */}
+          <Reveal image>
+            <div className="flex flex-col gap-6">
+              <p className="text-card-title font-semibold text-portfolio-primary">
+                Designing for scale
+              </p>
+              {/* Silent by nature (no audio stream); muted is still required for autoplay. No rounded corners. */}
+              <video
+                src={IMGS.setUp}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full block"
+              />
+              <p className="text-body text-portfolio-muted max-w-[560px]">
+                <span className="font-semibold text-portfolio-primary">How does a localized sidebar framework translate to a full-bleed browser canvas?</span> I was able to lift the same core UI patterns out of the sidebar and scale them seamlessly into full-page marketing updates. This system-driven approach ensured absolute visual alignment between what a user sees during a marketing announcement and the actual interactive experience they encounter in their daily workflow.
+              </p>
             </div>
           </Reveal>
 
