@@ -3,10 +3,12 @@ import Reveal from "@/components/motion/Reveal";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="w-full flex flex-col lg:flex-row">
+    <main className="w-full flex flex-col xl:flex-row">
 
-      {/* Left rail — always sticky */}
-      <div className="p-4 lg:pt-8 lg:pr-[60px] lg:pb-8 lg:pl-8 lg:w-[508px] lg:shrink-0 lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col">
+      {/* Left rail — sticky from xl. Below xl it stacks on top.
+          Rail is xl (1280) not lg (1024): at lg the 508px rail collapsed the
+          content column to 516px — narrower than at 768px. */}
+      <div className="p-4 xl:pt-8 xl:pr-[60px] xl:pb-8 xl:pl-8 xl:w-[508px] xl:shrink-0 xl:sticky xl:top-0 xl:h-screen xl:flex xl:flex-col">
         <Reveal className="flex flex-col h-full">
           <HeroCard vertical />
         </Reveal>
