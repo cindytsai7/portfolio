@@ -17,7 +17,9 @@ const IMGS = {
   explorationSettings: "/projects/edge-sidebar-onboarding/exploration-settings.png",
 };
 
-const INTRO_GRID  = "grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-6 items-start";
+// gap-4 mirrors the card grid directly below, so the intro paragraph's left
+// edge lines up with the second card
+const INTRO_GRID  = "grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-4 items-start";
 const LABEL       = CS_LABEL;
 const CARD        = "surface-card bg-portfolio-surface/50 rounded-card";
 const CARD_PADDED = `${CARD} p-8 md:p-10 flex flex-col gap-6 h-full`;
@@ -44,16 +46,21 @@ export default function EdgeSidebarOnboardingPage() {
       </section>
 
       {/* Intro: metadata left / display paragraph right */}
-      <section className="px-4 md:px-8 pt-8 md:pt-12 pb-12 md:pb-16">
+      <section className="px-4 md:px-8 pt-8 md:pt-12 pb-[48px]">
         <div className={INTRO_GRID}>
           <div className="flex flex-col gap-1">
             {METADATA.map((value) => (
               <p key={value} className="text-body text-portfolio-muted">{value}</p>
             ))}
           </div>
-          <p className="text-body text-portfolio-muted md:pl-6">
-            I designed a contextual onboarding framework for Edge sidebar, activating dormant browser cohorts through intelligent, progressive onboarding triggers, then sustaining engagement via passive, context-aware collaboration hubs.
-          </p>
+          <div className="flex flex-col gap-4">
+            <p className="text-body text-portfolio-muted">
+              The Edge sidebar is an ecosystem designed to bring utility directly into the browsing experience. It ships with a suite of default productivity apps right out of the box to help users multitask without leaving their active tabs. However, we found that a severe lack of user awareness caused most people to either overlook these tools completely or dismiss the entire interface as browser clutter.
+            </p>
+            <p className="text-body text-portfolio-muted">
+              I worked alongside a product manager and an engineer as the lead designer on this retention vertical. My role included designing a progressive onboarding framework and contextual triggers that can turn an ignored browser feature into an indispensable daily workflow.
+            </p>
+          </div>
         </div>
       </section>
 
