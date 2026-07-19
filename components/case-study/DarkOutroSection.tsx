@@ -24,18 +24,25 @@ export default function DarkOutroSection({
 }: DarkOutroSectionProps) {
   const isOvercast = variant === 'overcast';
 
+  // Two metrics sit 2-up (matches franklin's impact card); three keep the 3-col
+  // composition. A 2-of-3 grid would leave a rule-less blank column.
+  const metricGrid =
+    metrics && metrics.length === 2
+      ? 'grid-cols-2 gap-x-6 md:gap-x-12'
+      : 'grid-cols-1 sm:grid-cols-3 gap-8';
+
   if (isOvercast) {
     return (
-      <section className="bg-portfolio-surface-deep/50 rounded-card px-8 md:px-12 py-10 md:py-12 flex flex-col gap-8" style={{ boxShadow: 'inset 0 0 0 1px #D1CCC5' }}>
+      <section className="bg-portfolio-surface-deep/50 rounded-card px-8 md:px-12 py-10 md:py-12 flex flex-col gap-12" style={{ boxShadow: 'inset 0 0 0 1px #D1CCC5' }}>
         <div className="flex flex-col gap-4">
           {label && <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-black/50">{label}</p>}
           <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-black">{heading}</h2>
         </div>
 
         {metrics && metrics.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div className={`grid ${metricGrid}`}>
             {metrics.map((m) => (
-              <div key={m.label} className="flex flex-col gap-3">
+              <div key={m.label} className="flex flex-col gap-4 pb-4 border-b border-black/15">
                 <span className="text-black font-bold text-stat">{m.value}</span>
                 <span className="text-black/50 text-body">{m.label}</span>
               </div>

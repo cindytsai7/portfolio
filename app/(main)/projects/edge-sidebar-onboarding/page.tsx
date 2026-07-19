@@ -5,7 +5,7 @@ import NumberedList from "@/components/case-study/NumberedList";
 import DarkOutroSection from "@/components/case-study/DarkOutroSection";
 import DarkCard from "@/components/ui/DarkCard";
 import Reveal from "@/components/motion/Reveal";
-import { CS_LABEL, CS_GRID_2_STRETCH } from "@/components/case-study/tokens";
+import { CS_GRID_2_STRETCH } from "@/components/case-study/tokens";
 
 const IMGS = {
   whatIsSidebar:       "/projects/edge-sidebar-onboarding/what-is-sidebar.png",
@@ -20,7 +20,6 @@ const IMGS = {
 // gap-4 mirrors the card grid directly below, so the intro paragraph's left
 // edge lines up with the second card
 const INTRO_GRID  = "grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-4 items-start";
-const LABEL       = CS_LABEL;
 const CARD        = "surface-card bg-portfolio-surface/50 rounded-card";
 const CARD_PADDED = `${CARD} p-8 md:p-10 flex flex-col gap-6 h-full`;
 
@@ -168,9 +167,9 @@ export default function EdgeSidebarOnboardingPage() {
           {/* Strategic outcome */}
           <Reveal>
             <div className="flex flex-col gap-6">
-              <p className={LABEL}>Strategic outcome</p>
               <DarkOutroSection
                 variant="overcast"
+                label="Strategic outcome"
                 heading="Turning dormant users into active adopters"
                 metrics={[
                   { value: "2×",      label: "Click-through rate (0.8% → 1.2%)" },
