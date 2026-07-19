@@ -29,10 +29,13 @@ export default function ComplianceReviewPage() {
           <Reveal>
             <div className="flex flex-col gap-3">
               <p className={LABEL}>Context</p>
-              <div className="flex flex-col gap-3 max-w-[560px]">
-                <p className="text-body text-portfolio-muted italic">
-                  This work is covered by an NDA — some specifics are abstracted here, happy to go deeper in conversation.
-                </p>
+              <div className="flex flex-col gap-4 max-w-[560px]">
+                {/* NDA banner — franklin impact-card surface treatment */}
+                <div className="surface-card bg-portfolio-surface/50 rounded-card px-5 py-4">
+                  <p className="text-body text-portfolio-muted italic">
+                    This work is covered by an NDA — some specifics are abstracted here, happy to go deeper in conversation.
+                  </p>
+                </div>
                 <p className="text-body text-portfolio-muted">
                   As part of the risk organization, I lead design for internal systems that surface risk signals for researchers, streamline end-to-end triage and escalation workflows for review teams, and shape the long-term vision for an agentic AI-powered risk review experience.
                 </p>
