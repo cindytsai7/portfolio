@@ -5,12 +5,12 @@ import type { Project } from "@/lib/projects";
 function CardHeader({ title, tags }: { title: string; tags: string[] }) {
   return (
     <div className="flex justify-between items-start gap-6 px-6 pt-6 lg:px-10 lg:pt-10 pb-6">
-      <h2 className="text-[20px] font-semibold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
+      <h2 className="text-card-title font-semibold text-portfolio-primary">
         {title}
       </h2>
       <div className="flex flex-col text-left shrink-0">
         {tags.map((tag) => (
-          <span key={tag} className="text-[20px] font-normal leading-[1.08] tracking-[-0.025em] text-portfolio-muted">
+          <span key={tag} className="text-card-title font-normal text-portfolio-muted">
             {tag}
           </span>
         ))}
@@ -33,7 +33,7 @@ export default function ProjectCard({ project }: { project: Project }) {
   if (project.lockIcon) {
     return (
       <Link href={project.href} className="block">
-        <HoverCard as="article" className="flex flex-col h-[460px]">
+        <HoverCard as="article" className="flex flex-col min-h-[380px] md:h-[460px]">
           <CardHeader title={project.title} tags={project.tags} />
           <div className="absolute inset-0 flex items-center justify-center">
             <MetaLogo />

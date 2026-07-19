@@ -33,10 +33,10 @@ export default function DarkOutroSection({
         </div>
 
         {metrics && metrics.length > 0 && (
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {metrics.map((m) => (
               <div key={m.label} className="flex flex-col gap-3">
-                <span className="text-black font-bold text-[52px] leading-none">{m.value}</span>
+                <span className="text-black font-bold text-stat">{m.value}</span>
                 <span className="text-black/50 text-body">{m.label}</span>
               </div>
             ))}
@@ -69,10 +69,10 @@ export default function DarkOutroSection({
         </div>
 
         {metrics && metrics.length > 0 && (
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {metrics.map((m) => (
               <div key={m.label} className="flex flex-col gap-3">
-                <span className="text-white font-bold text-[52px] leading-none">{m.value}</span>
+                <span className="text-white font-bold text-stat">{m.value}</span>
                 <span className="text-white/50 text-body pb-4 border-b border-white/[0.08]">{m.label}</span>
               </div>
             ))}

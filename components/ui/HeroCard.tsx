@@ -5,6 +5,10 @@ import Link from 'next/link';
 import ExperienceList from '@/components/ui/ExperienceList';
 import VariableProximity from '@/components/ui/VariableProximity';
 
+// 22px @375 -> 32px from 900px up (desktop unchanged). At a fixed 32px these two
+// paragraphs are ~11 characters per line in the 343px mobile rail.
+const BIO = "text-[clamp(22px,14.87px+1.9vw,32px)] leading-[1.05] tracking-[-0.04em]";
+
 function ArrowIcon() {
   return (
     <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-[0.65em] h-[0.65em] shrink-0 ml-0.5">
@@ -56,10 +60,10 @@ export default function HeroCard({ showExperience = true, vertical = false }: { 
               />
             </Link>
           </h1>
-          <p className="text-[32px] leading-[1.05] tracking-[-0.04em] text-portfolio-primary mb-8 text-pretty">
+          <p className={`${BIO} text-portfolio-primary mb-8 text-pretty`}>
             I&rsquo;m a Seattle-based product designer creating enterprise software and B2B platforms, translating complex systems into clear digital experiences.
           </p>
-          <p className="text-[32px] leading-[1.05] tracking-[-0.04em] mb-6 text-pretty" style={{ color: '#666666' }}>
+          <p className={`${BIO} mb-6 text-pretty`} style={{ color: '#666666' }}>
             Currently at Meta, I design AI compliance platforms to identify and mitigate systemic risk. Say hello! You can find me on <LinkedInLink /> or reach out over <EmailLink />.
           </p>
         </div>

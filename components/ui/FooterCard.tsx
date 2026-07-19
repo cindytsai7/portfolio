@@ -60,9 +60,10 @@ export default function FooterCard() {
         boxShadow:       `inset 0 0 0 1px ${state.stroke}`,
       }}
     >
-      <div className="flex justify-between items-end mt-auto">
+      {/* Stacks below md — side by side these two collide on a phone */}
+      <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-end mt-auto">
 
-        <h2 className="text-[20px] font-normal leading-[1.08] tracking-[-0.025em] max-w-[520px]">
+        <h2 className="text-card-title font-normal max-w-[520px]">
           © 2026 Designed and built by <VariableProximity
             label="Cindy Tsai"
             fromFontVariationSettings="'wght' 600"
@@ -73,7 +74,7 @@ export default function FooterCard() {
           />.
         </h2>
 
-        <p className="text-[20px] font-normal leading-[1.08] tracking-[-0.025em]">
+        <p className="text-card-title font-normal shrink-0">
           Seattle · {time}{temp !== null ? ` · ${temp}°F` : ''}
         </p>
 
