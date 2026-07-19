@@ -1,8 +1,11 @@
 import CaseStudyPage from "@/components/case-study/CaseStudyPage";
 import Reveal from "@/components/motion/Reveal";
+import { CS_LABEL } from "@/components/case-study/tokens";
 
-const GRID  = "grid grid-cols-[1fr_3fr] gap-x-16 gap-y-12 items-start";
-const LABEL = "font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted";
+// Single column below md — at 375 the 1fr_3fr split plus a 64px gap left a 70px
+// label column and a 209px body column.
+const GRID  = "grid grid-cols-1 gap-y-8 md:grid-cols-[1fr_3fr] md:gap-x-16 md:gap-y-12 items-start";
+const LABEL = CS_LABEL;
 
 const WHAT_I_OWN = [
   { label: "End-to-end workflow design",    body: "Mapped the submitter-to-reviewer journey and exposed where the operational workflow broke down." },
@@ -19,8 +22,8 @@ export default function ComplianceReviewPage() {
       <section className="px-4 md:px-8 pt-16 md:pt-24 pb-24 md:pb-40">
         <div className={GRID}>
 
-          {/* Row — Intro */}
-          <div />
+          {/* Row — Intro. Spacer only exists to occupy the label column at md+ */}
+          <div className="hidden md:block" />
           <p className="max-w-[560px] text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary">
             At Meta, I design the intelligent, scalable risk review systems that protect billions of users across our platforms.
           </p>

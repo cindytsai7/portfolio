@@ -6,6 +6,7 @@ import ThreeColumnSection from "@/components/case-study/ThreeColumnSection";
 import FullWidthShowcase from "@/components/case-study/FullWidthShowcase";
 import DarkOutroSection from "@/components/case-study/DarkOutroSection";
 import Reveal from "@/components/motion/Reveal";
+import { CS_GRID_2_STRETCH } from "@/components/case-study/tokens";
 
 const IMGS = {
   challenge:           "/projects/edge-admin-hub/the-problem.png",
@@ -23,8 +24,10 @@ export default function EdgeAdminHubPage() {
   return (
     <CaseStudyPage>
 
-      {/* Hero animation */}
-      <section className="pt-16">
+      {/* Hero animation. Full-bleed from md up (deliberate — unlike every other
+          section, it has no horizontal padding at desktop); gutter only on phones
+          so it doesn't run into the screen edges. */}
+      <section className="px-4 md:px-0 pt-16">
         <CardsAssembly />
       </section>
 
@@ -50,7 +53,7 @@ export default function EdgeAdminHubPage() {
 
           {/* The challenge */}
           <Reveal>
-            <div className="grid grid-cols-2 gap-4 items-stretch">
+            <div className={CS_GRID_2_STRETCH}>
               <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-10 flex flex-col gap-6 h-full">
                 <SectionBlock label="The challenge" heading="Users weren&apos;t getting alerted" />
                 <p className="text-body text-portfolio-muted">No unified framework, no hierarchy, no cohesion.</p>

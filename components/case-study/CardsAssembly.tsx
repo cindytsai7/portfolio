@@ -35,7 +35,13 @@ export default function CardsAssembly() {
   };
 
   useEffect(() => {
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Skip the fly-in on phones as well as for reduced-motion: the entry offsets
+    // are fixed pixels (up to 240px) which exceed the stage width at 375, so
+    // pieces launch from far off-canvas. The final composition is positioned in
+    // % against an aspect-ratio stage, so the static state is already fluid.
+    const reduce =
+      matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      matchMedia('(max-width: 767px)').matches;
     if (reduce) {
       PIECES.forEach((p) => { if (refs.current[p.key]) refs.current[p.key]!.style.opacity = '1'; });
       return;

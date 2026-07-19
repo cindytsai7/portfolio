@@ -1,5 +1,6 @@
 import CaseStudyPage from "@/components/case-study/CaseStudyPage";
 import Reveal from "@/components/motion/Reveal";
+import { CS_GRID_2 } from "@/components/case-study/tokens";
 
 const IMGS = {
   hero:                "/projects/franklin-payroll/franklin-hero.png",
@@ -9,15 +10,16 @@ const IMGS = {
   payrollConfirmation: "/projects/franklin-payroll/payroll-confirmation.png",
   onboardingMacro:     "/projects/franklin-payroll/image_e85e2e.png",
   onboardingChecklist: "/projects/franklin-payroll/image_e85df1.png",
+  revenueSliderStatic: "/projects/franklin-payroll/revenue-slider-static.png",
 };
 
 // Mirrors bento grid proportions so text aligns with V2 card content
-const INTRO_GRID = "grid grid-cols-2 gap-x-6 items-start";
+const INTRO_GRID = "grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-6 items-start";
 
 const PILL    = "font-mono text-[11px] tracking-[0.05em] uppercase text-portfolio-muted px-2 py-0.5 rounded-[6px]";
-const CANVAS  = "w-full rounded-card surface-card bg-portfolio-surface/50 flex items-center justify-center px-20 py-24";
+const CANVAS  = "w-full rounded-card surface-card bg-portfolio-surface/50 flex items-center justify-center px-4 py-8 md:px-12 md:py-16 xl:px-20 xl:py-24";
 const CAPTION      = "flex flex-col gap-[6px]";
-const CAPTION_WIDE = "flex flex-col gap-[6px] max-w-[50%]";
+const CAPTION_WIDE = "flex flex-col gap-[6px] max-w-[60ch] md:max-w-[50%]";
 
 const METADATA = ["Lead Designer", "2022", "Shipped"];
 
@@ -53,7 +55,7 @@ export default function FranklinPayrollPage() {
               <p key={value} className="text-body text-portfolio-muted">{value}</p>
             ))}
           </div>
-          <div className="flex flex-col gap-8 pl-6">
+          <div className="flex flex-col gap-8 md:pl-6">
             <p className="text-body text-portfolio-muted">
               I took Franklin from initial concept to a $2.9M seed launch: Designing the enterprise financial suite that transforms complex blockchain data into compliant corporate payroll. I designed an enterprise payroll platform that abstracts the complex friction of smart contracts, gas fees, and wallet connections into an intuitive interface for non-technical finance and HR admins.
             </p>
@@ -74,10 +76,10 @@ export default function FranklinPayrollPage() {
 
           {/* Bento */}
           <Reveal>
-            <div className="grid grid-cols-2 gap-6 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
 
               <div className="flex flex-col gap-4">
-                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col min-h-[520px]">
+                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col md:min-h-[520px]">
                   <div className="p-4 shrink-0">
                     <span className={PILL}>V1 System Framework</span>
                   </div>
@@ -92,7 +94,7 @@ export default function FranklinPayrollPage() {
               </div>
 
               <div className="flex flex-col gap-4">
-                <div className="surface-card bg-portfolio-surface/50 rounded-card p-6 flex flex-col gap-4 overflow-hidden min-h-[520px]">
+                <div className="surface-card bg-portfolio-surface/50 rounded-card p-6 flex flex-col gap-4 overflow-hidden md:min-h-[520px]">
                   <span className={`${PILL} self-start`}>V2 Component Iteration</span>
                   <div className="flex flex-1 items-center justify-center">
                     <img src={IMGS.onboardingChecklist} alt="Onboarding checklist component" className="w-full max-w-[380px] xl:max-w-[420px] h-auto object-contain" />
@@ -110,7 +112,16 @@ export default function FranklinPayrollPage() {
           {/* Interactive prototype */}
           <Reveal image>
             <div className="flex flex-col gap-6">
-              <div className="rounded-card overflow-hidden w-full">
+              {/* revenue-slider.html is height-driven (html,body{height:100%}) and has no
+                  media queries, so it cannot reflow narrow. Below md it would render a
+                  3-column dashboard in ~327px, clipped at 500px with scrolling disabled
+                  and therefore unreachable. Serve a still there instead. */}
+              <img
+                src={IMGS.revenueSliderStatic}
+                alt="Treasury tracking dashboard showing outstanding debt and a daily revenue time-series chart"
+                className="md:hidden w-full h-auto rounded-card block"
+              />
+              <div className="hidden md:block rounded-card overflow-hidden w-full">
                 <iframe
                   src="/projects/franklin-payroll/revenue-slider.html"
                   title="Interactive Treasury Tracking Prototype"
@@ -132,17 +143,17 @@ export default function FranklinPayrollPage() {
                 <div className="p-4 shrink-0">
                   <span className={PILL}>Bulk disbursements</span>
                 </div>
-                <div className="flex items-center justify-center px-20 py-16">
+                <div className="flex items-center justify-center px-4 py-8 md:px-12 md:py-12 xl:px-20 xl:py-16">
                   <img src={IMGS.batchDistribution} alt="Employee bonus batch distribution interface" className="w-full max-w-[88%] h-auto object-contain" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col min-h-[500px] relative">
+              <div className={CS_GRID_2}>
+                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col md:min-h-[500px] relative">
                   <div className="p-4 shrink-0"><span className={PILL}>Edge case</span></div>
                   <img src={IMGS.batchEdge1} alt="Batch distribution edge case" className="mt-auto w-full h-auto" />
                   <div className="absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_#E6E5E1] pointer-events-none" />
                 </div>
-                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col min-h-[500px] relative">
+                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col md:min-h-[500px] relative">
                   <div className="p-4 shrink-0"><span className={PILL}>Edge case</span></div>
                   <img src={IMGS.batchEdge2} alt="Batch distribution edge case flagged" className="mt-auto w-full h-auto" />
                   <div className="absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_#E6E5E1] pointer-events-none" />
@@ -182,10 +193,10 @@ export default function FranklinPayrollPage() {
                 </div>
 
                 {/* Stats — full-width row, rule under each */}
-                <div className="grid grid-cols-2 gap-x-12">
+                <div className="grid grid-cols-2 gap-x-6 md:gap-x-12">
                   {IMPACT.map(({ value, label }) => (
                     <div key={label} className="flex flex-col gap-4 pb-4 border-b border-portfolio-rule">
-                      <span className="text-[56px] font-bold leading-none tracking-[-0.03em] text-portfolio-primary">{value}</span>
+                      <span className="text-[clamp(36px,24.45px+3.08vw,56px)] font-bold leading-none tracking-[-0.03em] text-portfolio-primary">{value}</span>
                       <span className="text-body text-portfolio-muted">{label}</span>
                     </div>
                   ))}

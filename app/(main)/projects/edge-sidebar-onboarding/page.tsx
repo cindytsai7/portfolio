@@ -5,6 +5,7 @@ import NumberedList from "@/components/case-study/NumberedList";
 import DarkOutroSection from "@/components/case-study/DarkOutroSection";
 import DarkCard from "@/components/ui/DarkCard";
 import Reveal from "@/components/motion/Reveal";
+import { CS_LABEL, CS_GRID_2_STRETCH } from "@/components/case-study/tokens";
 
 const IMGS = {
   whatIsSidebar:       "/projects/edge-sidebar-onboarding/what-is-sidebar.png",
@@ -16,8 +17,8 @@ const IMGS = {
   explorationSettings: "/projects/edge-sidebar-onboarding/exploration-settings.png",
 };
 
-const INTRO_GRID  = "grid grid-cols-2 gap-x-6 items-start";
-const LABEL       = "font-mono text-[13px] tracking-[0.05em] uppercase text-portfolio-muted";
+const INTRO_GRID  = "grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-6 items-start";
+const LABEL       = CS_LABEL;
 const CARD        = "surface-card bg-portfolio-surface/50 rounded-card";
 const CARD_PADDED = `${CARD} p-8 md:p-10 flex flex-col gap-6 h-full`;
 
@@ -50,7 +51,7 @@ export default function EdgeSidebarOnboardingPage() {
               <p key={value} className="text-body text-portfolio-muted">{value}</p>
             ))}
           </div>
-          <p className="text-body text-portfolio-muted pl-6">
+          <p className="text-body text-portfolio-muted md:pl-6">
             I designed a contextual onboarding framework for Edge sidebar, activating dormant browser cohorts through intelligent, progressive onboarding triggers, then sustaining engagement via passive, context-aware collaboration hubs.
           </p>
         </div>
@@ -62,7 +63,7 @@ export default function EdgeSidebarOnboardingPage() {
 
           {/* Tell me more / The challenge */}
           <Reveal>
-            <div className="grid grid-cols-2 gap-4 items-stretch">
+            <div className={CS_GRID_2_STRETCH}>
               <div className={CARD_PADDED}>
                 <SectionBlock
                   label="Tell me more"
@@ -82,7 +83,7 @@ export default function EdgeSidebarOnboardingPage() {
                 <img
                   src={IMGS.challenge}
                   alt="Feature blindness diagram"
-                  className="mt-auto w-[90%] object-cover"
+                  className="mt-auto w-full md:w-[90%] object-cover"
                 />
               </div>
             </div>
@@ -91,7 +92,7 @@ export default function EdgeSidebarOnboardingPage() {
           {/* Designing for growth */}
           <Reveal>
             <div className="flex flex-col gap-6">
-              <p className="text-[20px] font-semibold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">
+              <p className="text-card-title font-semibold text-portfolio-primary">
                 Designing for growth: How might we nudge existing users?
               </p>
               <div className="grid md:grid-cols-2 gap-4">
@@ -114,7 +115,7 @@ export default function EdgeSidebarOnboardingPage() {
                       <p className="text-body font-semibold text-white">Solution: Customize app</p>
                       <p className="text-body text-white/70">Final decision was to house this notification within the &apos;customize&apos; app so that it remains accessible post first-run experience without disrupting the users&apos; primary workflow.</p>
                     </div>
-                    <img src={IMGS.solutionCustomize} alt="Customize app UI" className="mt-auto w-[85%] object-cover object-top" />
+                    <img src={IMGS.solutionCustomize} alt="Customize app UI" className="mt-auto w-full md:w-[85%] object-cover object-top" />
                   </DarkCard>
                 </div>
 
@@ -135,7 +136,7 @@ export default function EdgeSidebarOnboardingPage() {
                     <p className="text-body font-semibold text-portfolio-primary">Exploration: Tool tip flyout</p>
                     <p className="text-body text-portfolio-muted">Targeted towards existing sidebar users as it&apos;s a familiar behavior; however it interrupts the user flow by pulling user attention.</p>
                   </div>
-                  <div className="w-1/2 mx-auto mt-auto">
+                  <div className="w-3/4 md:w-1/2 mx-auto mt-auto">
                     <img src={IMGS.explorationTooltip} alt="Tool tip flyout" className="w-full" />
                   </div>
                 </div>
@@ -149,7 +150,7 @@ export default function EdgeSidebarOnboardingPage() {
                   <img
                     src={IMGS.explorationSettings}
                     alt="Settings gear"
-                    className="mt-auto w-[85%] -ml-[5%] object-cover object-right-top"
+                    className="mt-auto w-full md:w-[85%] md:-ml-[5%] object-cover object-right-top"
                   />
                 </div>
 

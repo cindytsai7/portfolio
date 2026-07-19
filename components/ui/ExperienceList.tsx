@@ -5,7 +5,7 @@ export default function ExperienceList() {
     <div className="flex flex-col">
       {/* 100px + 52px of fixed chrome is 44% of a 343px phone column — tighten below md */}
       {experience.map(({ years, company, isActive }) => (
-        <div key={years} className="grid grid-cols-[72px_1fr] gap-x-6 md:grid-cols-[100px_1fr] md:gap-x-[52px] py-[3px] border-b border-portfolio-stroke/50 last:border-b-0">
+        <div key={years} className="grid grid-cols-[auto_1fr] gap-x-5 md:grid-cols-[100px_1fr] md:gap-x-[52px] py-[3px] border-b border-portfolio-stroke/50 last:border-b-0">
           <p className="text-body font-medium text-portfolio-muted tracking-tight">{years}</p>
           <p className="text-body font-medium text-portfolio-muted tracking-tight flex items-center gap-2">
             {isActive && (

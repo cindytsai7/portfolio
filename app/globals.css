@@ -76,3 +76,7 @@
 @media (prefers-reduced-motion: reduce) {
   .ca-piece { opacity: 1 !important; }
 }
+/* Mirrors the JS guard in CardsAssembly.tsx — static final state on phones. */
+@media (max-width: 767px) {
+  .ca-piece { opacity: 1 !important; }
+}
