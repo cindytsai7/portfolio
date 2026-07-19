@@ -15,7 +15,7 @@
 |---|---|---|
 | `portfolio-primary` | `#1A1A1A` | Headings, primary text |
 | `portfolio-surface` | `#F2F1ED` | Light card background (used at /50 opacity) |
-| `portfolio-surface-deep` | `#B4AC9E` | Warm accent card background (used at /55 opacity) |
+| `portfolio-surface-deep` | `#B4AC9E` | Defined but currently unused (was the overcast outro-card bg; that card is now light `surface/50`) |
 | `portfolio-stroke` | `#E6E5E1` | 1px inside stroke on all surface cards |
 | `portfolio-background` | `#FFFFFF` | Page background |
 | `portfolio-accent` | `#B35942` | P0 priority, accent |
@@ -37,11 +37,9 @@
 - Hover (project cards): `hover:bg-portfolio-surface/80`
 - Border: `.surface-card` class → `box-shadow: inset 0 0 0 1px #E6E5E1`
 
-### Warm accent card ("darker" variant)
-- `surface-card bg-portfolio-surface-deep/55 rounded-card`
-- Black text: label `text-black/50`, heading `text-black`, body `text-black/70`
-- No dividers between metrics/metadata
-- Used for: DarkOutroSection `variant="overcast"`, Edge sidebar Customize App card
+### Warm accent card ("darker" variant) — no longer used
+- Was `surface-card bg-portfolio-surface-deep/55 rounded-card` with black text.
+- **Nothing references `portfolio-surface-deep` anymore.** The `DarkOutroSection` overcast variant that used it now matches franklin's impact card (light `surface/50` + portfolio text tokens). Kept here for history; the token still exists in `tailwind.config.ts`.
 
 ### Dark card (`DarkCard` component)
 - Outer wrapper: `bg-black rounded-card overflow-hidden`
@@ -147,7 +145,7 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 - `NumberedList` — P0 (terracotta) / P1 (`#4F68B0`) priority rows; `items-center` alignment
 - `ThreeColumnSection` — 3-col bento card; `bg-portfolio-surface/50 rounded-card`; divider rule sits between SectionBlock heading and columns (not on each column)
 - `FullWidthShowcase` — full-width image + caption block; caption container `max-w-[560px]` (was `w-3/4`); `rounded-card` on images
-- `DarkOutroSection` — accepts `variant="dark"` (default) or `variant="overcast"`; overcast uses `bg-portfolio-surface-deep/55` with black text and no dividers; body text `max-w-[560px]` on both variants. Metrics grid is `grid-cols-1 sm:grid-cols-3` with `text-stat`. **Keep 3 columns at desktop** even though edge-sidebar passes only 2 metrics — the empty third column is load-bearing for that composition.
+- `DarkOutroSection` — accepts `variant="dark"` (default) or `variant="overcast"`. **overcast now matches franklin's impact card**: `surface-card bg-portfolio-surface/50` + `text-portfolio-primary`/`text-portfolio-muted`/`border-portfolio-rule`; inner `gap-12`; each metric has a `pb-4` rule beneath its label; body `max-w-[560px]`. Used by edge-sidebar (2 metrics) and edge-admin-hub (3 metrics). **Metric grid adapts to count**: exactly 2 → `grid-cols-2` (like franklin); otherwise `grid-cols-1 sm:grid-cols-3`. A fixed 3-col grid with 2 metrics would leave a rule-less blank column.
 - `CardsAssembly` — animated dashboard card assembly for edge-admin-hub hero; assets at `/public/projects/edge-dashboard-assembly/assets/`; Web Animations API; replays on scroll-back via IntersectionObserver (threshold 0.4, stays connected); `'use client'`; CSS in `globals.css` under `.ca-stage / .ca-bg / .ca-piece`
   - **Static below md.** The fly-in offsets are fixed px (up to 240) — wider than the whole stage at 375, so pieces launched from off-canvas. The JS guard now matches `prefers-reduced-motion` OR `max-width: 767px`, mirrored by a `@media (max-width: 767px) { .ca-piece { opacity: 1 } }` rule. No extra asset needed: pieces are positioned in `%` against an `aspect-ratio` stage, so the static composition is already fluid.
   - The `header` piece is `left: 22.254%` + `width: 88.787%` = **111%** — it deliberately bleeds past the stage. This registers as horizontal overflow at every width and is masked by `overflow-x: clip`. Pre-existing and intentional; don't "fix" it.
@@ -243,7 +241,8 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 - **Removed sections:** "Solutions / Redesigned Framework" (FullWidthShowcase with framework.png) — deleted entirely
 
 ### Global body text line length
-- All case study body text capped at `max-w-[560px]` — applied in `SectionBlock`, `FullWidthShowcase`, and `DarkOutroSection` (both variants)
+- Most case study body text capped at `max-w-[560px]` — applied in `SectionBlock`, `FullWidthShowcase`, and `DarkOutroSection`
+- **Exception: compliance-review** deliberately uses `max-w-[760px]` on all its body blocks so they match the intro heading width
 - `SectionBlock` label→heading gap: `gap-1` (4px) inside a wrapper div; outer container remains `gap-4`
 
 ### Card image — large variant (`card-visual-wrapper`)
@@ -264,7 +263,7 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 
 ### DarkOutroSection
 - Default `variant="dark"`: `bg-black` outer + `DarkCard` inner (`bg-white/5`); white text palette
-- `variant="overcast"`: `bg-portfolio-surface-deep/55` + `.surface-card` border; all black text (`text-black`, `text-black/50`, `text-black/70`); no metric dividers
+- `variant="overcast"`: `surface-card bg-portfolio-surface/50` (light, matches franklin impact card); `text-portfolio-primary` heading, `text-portfolio-muted` label/body, `border-portfolio-rule` under each metric
 - All active case study pages use `variant="overcast"`
 
 ### FooterCard weather states (semi-transparent over white)
@@ -351,25 +350,18 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 
 ## Compliance Review page (`/projects/compliance-review`)
 
-**Page structure (2 sections):**
-1. Editorial hero — raw `<section>` with `pt-16 md:pt-24 pb-24 md:pb-40`; all content in `md:pl-[20%]` container; `gap-16 md:gap-24` between blocks
-2. Further reading — raw `<section>` with `pb-24 md:pb-40`; same `md:pl-[20%]` indent; `max-w-[760px]` on inner content div
+**Single-column editorial stack** (no grid, no `md:pl-[20%]` indent, flush left at all widths). One `<section className="px-4 md:px-8 pt-16 md:pt-24 pb-24 md:pb-40">` → `<div className="flex flex-col gap-14">` holding four blocks:
 
-**No index/tags row** — the page is a single grid: `grid-cols-1 gap-y-8 md:grid-cols-[1fr_3fr] md:gap-x-16 md:gap-y-12`. The intro row's empty spacer div is `hidden md:block` so it doesn't become a stray grid item when stacked.
+1. **Intro** — display paragraph `text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[760px]`: "At Meta, I design the intelligent, scalable risk review systems that protect billions of users across our platforms."
+2. **Context** — label above content (`flex flex-col gap-3`); content `flex flex-col gap-4 max-w-[760px]`:
+   - **NDA banner** — `surface-card bg-portfolio-surface/50 rounded-card px-5 py-4` (franklin impact-card surface treatment) wrapping the italic NDA note
+   - body paragraph
+3. **Role** — label above 5 bullet items using `<span className="font-semibold text-portfolio-primary">{label}: </span>{body}`; content `gap-4 max-w-[760px]`
+4. **Further reading** — label above body + a `text-[14px] font-bold uppercase` "Read article" link with the inline arrow SVG. Article → `https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/`
 
-**Editorial hero (`md:pl-[20%]` container):**
-- Display paragraph: `text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[760px]`
-- Current text: "At Meta, I design the intelligent, scalable risk review systems that protect billions of users across our platforms."
-- Metadata grid: `grid-cols-[160px_1fr] gap-y-2` — Role (Lead Designer), Timeline (2025 – Now)
-- Content block (`max-w-[760px] flex flex-col gap-12`): two labeled sections
-  - **Context**: NDA sentence in `italic mb-3`, then body paragraph; label `font-mono text-[13px] tracking-[0.05em] uppercase mb-2`
-  - **Role** (label says "Role"): 5 bullet items using `<span className="font-semibold text-portfolio-primary">{label}: </span>{body}` inline pattern; `gap-4` between items
-
-**Further reading section:**
-- `md:pl-[20%]` outer wrapper → `max-w-[760px]` inner div with `gap-2`
-- Mono label, then body text, then `text-[14px] font-bold uppercase` link on its own line (matches footer LinkedIn/Email style)
-- Article: "How AI Is Ushering in the Next Era of Risk Review at Meta" → `https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/`
+- **No index/tags row, no metadata grid.** Earlier `1fr_3fr` two-column grid and the `hidden md:block` spacer are gone.
+- **Body width is `max-w-[760px]`** (matches the intro heading) — a deliberate exception to the sitewide `max-w-[560px]` rule.
+- Labels use the shared `CS_LABEL` token; each label sits directly above its content (`gap-3`), sections separated by `gap-14`.
 
 **Data constants:**
-- `METADATA` — Role, Timeline
 - `WHAT_I_OWN` — 5 items: End-to-end workflow design, Review experience, Data versioning, Structured intake patterns, Routing & decision-support
