@@ -23,7 +23,7 @@ const METADATA = ["Lead Designer", "2022", "Shipped"];
 
 const IMPACT = [
   { value: "$2.9M", label: "Seed raised at launch" },
-  { value: "5mo",   label: "Blank canvas to market" },
+  { value: "15%",   label: "Retention increase" },
 ];
 
 const OWNERSHIP = [
@@ -171,33 +171,29 @@ export default function FranklinPayrollPage() {
           {/* Reflections */}
           <Reveal>
             <div className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-12">
-              <div className="grid grid-cols-[1fr_1px_1fr] gap-x-10 items-start">
+              <div className="flex flex-col gap-12">
 
-                {/* Text */}
+                {/* Label + heading */}
                 <div className="flex flex-col gap-4">
                   <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-portfolio-muted">Impact</span>
                   <h2 className="text-h2 font-bold text-portfolio-primary">
                     Bridging founder vision and user needs
                   </h2>
-                  <p className="text-body text-portfolio-muted max-w-[560px]">
-                    I was brought in to redesign and architect Franklin&apos;s product ecosystem from the ground up. Moving at startup speed, I owned the visual and brand strategy, translating highly technical protocol logic into clear digital experiences. My ownership went beyond execution—I collaborated directly on business strategy, balanced engineering constraints, and brought calm, system-level alignment to the team to deliver a coherent enterprise platform.
-                  </p>
                 </div>
 
-                {/* Vertical divider */}
-                <div className="bg-portfolio-rule self-stretch" />
-
-                {/* Stats */}
-                <div className="flex flex-col gap-6">
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-5">
-                    {IMPACT.map(({ value, label }) => (
-                      <div key={label} className="flex flex-col gap-1">
-                        <span className="text-[32px] font-bold leading-none tracking-[-0.03em] text-portfolio-primary">{value}</span>
-                        <span className="text-body text-portfolio-muted">{label}</span>
-                      </div>
-                    ))}
-                  </div>
+                {/* Stats — full-width row, rule under each */}
+                <div className="grid grid-cols-2 gap-x-12">
+                  {IMPACT.map(({ value, label }) => (
+                    <div key={label} className="flex flex-col gap-4 pb-4 border-b border-portfolio-rule">
+                      <span className="text-[56px] font-bold leading-none tracking-[-0.03em] text-portfolio-primary">{value}</span>
+                      <span className="text-body text-portfolio-muted">{label}</span>
+                    </div>
+                  ))}
                 </div>
+
+                <p className="text-body text-portfolio-muted max-w-[560px]">
+                  I was brought in to redesign and architect Franklin&apos;s product ecosystem from the ground up. Moving at startup speed, I owned the visual and brand strategy, translating highly technical protocol logic into clear digital experiences. My ownership went beyond execution—I collaborated directly on business strategy, balanced engineering constraints, and brought calm, system-level alignment to the team to deliver a coherent enterprise platform.
+                </p>
 
               </div>
             </div>
