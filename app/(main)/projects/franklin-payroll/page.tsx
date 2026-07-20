@@ -148,12 +148,12 @@ export default function FranklinPayrollPage() {
                 </div>
               </div>
               <div className={CS_GRID_2}>
-                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col md:min-h-[500px] relative">
+                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col md:min-h-[280px] relative">
                   <div className="p-4 shrink-0"><span className={PILL}>Edge case</span></div>
                   <img src={IMGS.batchEdge1} alt="Batch distribution edge case" className="mt-auto w-full h-auto" />
                   <div className="absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_#E6E5E1] pointer-events-none" />
                 </div>
-                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col md:min-h-[500px] relative">
+                <div className="surface-card bg-portfolio-surface/50 rounded-card overflow-hidden flex flex-col md:min-h-[280px] relative">
                   <div className="p-4 shrink-0"><span className={PILL}>Edge case</span></div>
                   <img src={IMGS.batchEdge2} alt="Batch distribution edge case flagged" className="mt-auto w-full h-auto" />
                   <div className="absolute inset-0 rounded-card shadow-[inset_0_0_0_1px_#E6E5E1] pointer-events-none" />

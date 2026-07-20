@@ -64,7 +64,7 @@ export default function HeroCard({ showExperience = true, vertical = false }: { 
             I&rsquo;m a Seattle-based product designer creating enterprise software and B2B platforms, translating complex systems into clear digital experiences.
           </p>
           <p className={`${BIO} mb-6 text-pretty`} style={{ color: '#666666' }}>
-            Currently at Meta, I design AI compliance platforms to identify and mitigate systemic risk. Say hello! You can find me on <LinkedInLink /> or reach out over <EmailLink />.
+            At Meta, I design AI compliance platforms to identify and mitigate systemic risk. Say hello! You can find me on <LinkedInLink /> or reach out over <EmailLink />.
           </p>
         </div>
         {showExperience && (
