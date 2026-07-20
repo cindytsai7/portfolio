@@ -16,7 +16,7 @@ const IMGS = {
   craftBeforeAfter:    "/projects/edge-admin-hub/systemic-craft-before-after.png",
 };
 
-const INTRO_GRID = "grid grid-cols-2 gap-4 items-start";
+const INTRO_GRID = "grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-4 items-start";
 
 const METADATA = ["Lead Product Designer", "2024"];
 
