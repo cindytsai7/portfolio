@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/motion/LenisProvider";
+import DisableContextMenu from "@/components/util/DisableContextMenu";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${dmSans.variable} ${dmMono.variable} font-sans bg-portfolio-background text-portfolio-primary`}>
+        <DisableContextMenu />
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>
