@@ -61,7 +61,7 @@ export default function HeroCard({ showExperience = true, vertical = false }: { 
             </Link>
           </h1>
           <p className={`${BIO} text-portfolio-primary mb-8 text-pretty`}>
-            I&rsquo;m a Seattle-based product designer creating enterprise software and B2B platforms, translating complex systems into clear digital experiences.
+            I&rsquo;m a product designer creating enterprise software and B2B platforms, translating complex systems into clear digital experiences.
           </p>
           <p className={`${BIO} mb-6 text-pretty`} style={{ color: '#666666' }}>
             At Meta, I design AI compliance platforms to identify and mitigate systemic risk. Say hello! You can find me on <LinkedInLink /> or reach out over <EmailLink />.
