@@ -4,18 +4,11 @@ import { useRef } from 'react';
 import Link from 'next/link';
 import ExperienceList from '@/components/ui/ExperienceList';
 import VariableProximity from '@/components/ui/VariableProximity';
+import ArrowLink from '@/components/ui/ArrowLink';
 
 // 22px @375 -> 32px from 900px up (desktop unchanged). At a fixed 32px these two
 // paragraphs are ~11 characters per line in the 343px mobile rail.
 const BIO = "text-[clamp(22px,14.87px+1.9vw,32px)] leading-[1.05] tracking-[-0.04em]";
-
-function ArrowIcon() {
-  return (
-    <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-[0.65em] h-[0.65em] shrink-0 ml-0.5">
-      <path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" />
-    </svg>
-  );
-}
 
 function LinkedInLink() {
   return (
@@ -100,20 +93,10 @@ export default function HeroCard({ showExperience = true, vertical = false }: { 
           </p>
         </div>
         <div className="flex items-center gap-6">
-          <a
-            href="https://www.linkedin.com/in/cindyctsai/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[14px] font-bold uppercase text-portfolio-primary hover:opacity-60 transition-opacity duration-200 inline-flex items-center"
-          >
-            LinkedIn<ArrowIcon />
-          </a>
-          <a
-            href="mailto:cindytsai7@gmail.com"
-            className="text-[14px] font-bold uppercase text-portfolio-primary hover:opacity-60 transition-opacity duration-200 inline-flex items-center"
-          >
-            Email<ArrowIcon />
-          </a>
+          <ArrowLink href="https://www.linkedin.com/in/cindyctsai/" external>
+            LinkedIn
+          </ArrowLink>
+          <ArrowLink href="mailto:cindytsai7@gmail.com">Email</ArrowLink>
         </div>
       </div>
       {showExperience && <ExperienceList />}

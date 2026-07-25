@@ -207,10 +207,10 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 - Each row: `grid grid-cols-[100px_1fr] gap-x-[52px] py-[3px] border-b border-portfolio-stroke`
 - Text: `text-body font-medium` — dates `text-portfolio-muted`, companies `text-portfolio-primary`
 
-### Arrow icon (`ArrowIcon` component)
-- Inline SVG: `viewBox="0 0 11 11"`, path `M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5`
-- Size: `w-[0.65em] h-[0.65em]` — scales with font size automatically
-- Used in HeroCard (About page links) and FooterCard (LINKEDIN/E-MAIL links)
+### Arrow link (`ArrowLink` component — `components/ui/ArrowLink.tsx`)
+- Single source for the uppercase text link + trailing ↗ arrow. Renders the anchor, shared link style (`inline-flex items-center gap-0.5 text-[14px] font-bold uppercase text-portfolio-primary transition-opacity hover:opacity-60`), and the inline SVG (`viewBox="0 0 11 11"`, path `M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5`, `w-[0.65em] h-[0.65em]` — scales with font size).
+- Props: `href`, `external` (adds `target="_blank" rel="noopener noreferrer"`), `className`, `children`.
+- Used by HeroCard (About-page LinkedIn/Email) and compliance-review ("Read article"). Replaced the old local `ArrowIcon` function + duplicated inline SVGs.
 
 ### ProjectCard layout (landing page)
 - **Header:** `flex justify-between items-start gap-6 px-6 pt-6 md:px-10 md:pt-10 pb-6`

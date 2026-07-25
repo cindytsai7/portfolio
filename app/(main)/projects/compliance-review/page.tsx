@@ -1,8 +1,7 @@
 import CaseStudyPage from "@/components/case-study/CaseStudyPage";
 import Reveal from "@/components/motion/Reveal";
+import ArrowLink from "@/components/ui/ArrowLink";
 import { CS_LABEL } from "@/components/case-study/tokens";
-
-const LABEL = CS_LABEL;
 
 const WHAT_I_OWN = [
   { label: "End-to-end workflow design",    body: "Mapped the submitter-to-reviewer journey and exposed where the operational workflow broke down." },
@@ -28,7 +27,7 @@ export default function ComplianceReviewPage() {
           {/* Context */}
           <Reveal>
             <div className="flex flex-col gap-3">
-              <p className={LABEL}>Context</p>
+              <p className={CS_LABEL}>Context</p>
               <div className="flex flex-col gap-4 max-w-[760px]">
                 {/* NDA banner — franklin impact-card surface treatment */}
                 <div className="surface-card bg-portfolio-surface/50 rounded-card px-5 py-4">
@@ -46,7 +45,7 @@ export default function ComplianceReviewPage() {
           {/* Role */}
           <Reveal>
             <div className="flex flex-col gap-3">
-              <p className={LABEL}>Role</p>
+              <p className={CS_LABEL}>Role</p>
               <div className="flex flex-col gap-4 max-w-[760px]">
                 {WHAT_I_OWN.map(({ label, body }) => (
                   <p key={label} className="text-body text-portfolio-muted">
@@ -60,22 +59,17 @@ export default function ComplianceReviewPage() {
           {/* Further reading */}
           <Reveal>
             <div className="flex flex-col gap-3">
-              <p className={LABEL}>Further reading</p>
+              <p className={CS_LABEL}>Further reading</p>
               <div className="flex flex-col gap-2 max-w-[760px]">
                 <p className="text-body text-portfolio-muted">
                   Meta has written publicly about this broader initiative.
                 </p>
-                <a
+                <ArrowLink
                   href="https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[14px] font-bold uppercase text-portfolio-primary hover:opacity-60 transition-opacity duration-200 inline-flex items-center gap-0.5"
+                  external
                 >
                   Read article
-                  <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-[0.65em] h-[0.65em] shrink-0">
-                    <path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" />
-                  </svg>
-                </a>
+                </ArrowLink>
               </div>
             </div>
           </Reveal>
