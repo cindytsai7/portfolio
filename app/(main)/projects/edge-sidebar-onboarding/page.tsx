@@ -169,7 +169,7 @@ export default function EdgeSidebarOnboardingPage() {
           <Reveal image>
             <div className="flex flex-col gap-6">
               <p className="text-card-title font-semibold text-portfolio-primary">
-                Designing for scale
+                From sidebar to full screen
               </p>
               {/* Silent by nature (no audio stream); muted is still required for autoplay. No rounded corners. */}
               <video
@@ -182,7 +182,7 @@ export default function EdgeSidebarOnboardingPage() {
                 className="w-full block"
               />
               <p className="text-body text-portfolio-muted max-w-[560px]">
-                <span className="font-semibold text-portfolio-primary">How does a localized sidebar framework translate to a full-bleed browser canvas?</span> I was able to lift the same core UI patterns out of the sidebar and scale them seamlessly into full-page marketing updates. This system-driven approach ensured absolute visual alignment between what a user sees during a marketing announcement and the actual interactive experience they encounter in their daily workflow.
+                I was able to lift the same core UI patterns out of the sidebar and scale them seamlessly into full-page marketing updates. This system-driven approach ensured absolute visual alignment between what a user sees during a marketing announcement and the actual interactive experience they encounter in their daily workflow.
               </p>
             </div>
           </Reveal>
