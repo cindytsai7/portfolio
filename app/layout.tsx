@@ -16,8 +16,8 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "My portfolio",
+  title: "Cindy Tsai — Product Designer",
+  description: "Cindy Tsai's design portfolio",
 };
 
 export default function RootLayout({
