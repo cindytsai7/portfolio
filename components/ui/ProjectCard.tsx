@@ -45,7 +45,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Link href={project.href} className="block">
-      <HoverCard as="article" className="flex flex-col h-[460px]">
+      <HoverCard as="article" className="flex flex-col lg:h-[460px]">
         <CardHeader title={project.title} tags={project.tags} />
 
         {project.imageContain ? (
@@ -59,7 +59,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             </div>
           </div>
         ) : (
-          <div className="px-6 lg:px-10">
+          <div className="px-6 pb-6 lg:px-10 lg:pb-0">
             <div
               className="card-visual-wrapper transition-transform duration-[400ms] ease-in-out group-hover:-translate-y-4"
               style={{ backgroundImage: `url(${project.image})` }}
