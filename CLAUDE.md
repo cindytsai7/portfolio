@@ -145,7 +145,9 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 - `NumberedList` — P0 (terracotta) / P1 (`#4F68B0`) priority rows; `items-center` alignment
 - `ThreeColumnSection` — 3-col bento card; `bg-portfolio-surface/50 rounded-card`; divider rule sits between SectionBlock heading and columns (not on each column)
 - `FullWidthShowcase` — full-width image + caption block; caption container `max-w-[560px]` (was `w-3/4`); `rounded-card` on images
-- `DarkOutroSection` — accepts `variant="dark"` (default) or `variant="overcast"`. **overcast now matches franklin's impact card**: `surface-card bg-portfolio-surface/50` + `text-portfolio-primary`/`text-portfolio-muted`/`border-portfolio-rule`; inner `gap-12`; each metric has a `pb-4` rule beneath its label; body `max-w-[560px]`. Used by edge-sidebar (2 metrics) and edge-admin-hub (3 metrics). **Metric grid adapts to count**: exactly 2 → `grid-cols-2` (like franklin); otherwise `grid-cols-1 sm:grid-cols-3`. A fixed 3-col grid with 2 metrics would leave a rule-less blank column.
+- `DarkOutroSection` — `heading`, `body`, `cta`, and `padding` are all **optional**; compliance-review omits `heading`/`body` for a label → metrics → CTA card. Accepts `variant="dark"` (default) or `variant="overcast"`.
+  - **`cta={{ href, label }}` renders an action bar inside the card** (`flex items-center justify-end`) rather than a link floating below it. `justify-end`, not `justify-between` — with a single child `justify-between` resolves to `flex-start` and parks the CTA on the left. **No `border-t` on that bar**: every metric already carries its own bottom rule, so a container rule reads as a doubled line. The card's `gap-12` supplies the spacing.
+  - **`padding` is a prop, not a className merge.** `p-8` and an incoming `px-6` are different CSS properties, so the cascade — not class order — would pick the winner. Overriding the whole string keeps it deterministic. **overcast now matches franklin's impact card**: `surface-card bg-portfolio-surface/50` + `text-portfolio-primary`/`text-portfolio-muted`/`border-portfolio-rule`; inner `gap-12`; each metric has a `pb-4` rule beneath its label; body `max-w-[560px]`. Used by edge-sidebar (2 metrics) and edge-admin-hub (3 metrics). **Metric grid adapts to count**: exactly 2 → `grid-cols-2` (like franklin); otherwise `grid-cols-1 sm:grid-cols-3`. A fixed 3-col grid with 2 metrics would leave a rule-less blank column.
 - `CardsAssembly` — animated dashboard card assembly for edge-admin-hub hero; assets at `/public/projects/edge-dashboard-assembly/assets/`; Web Animations API; replays on scroll-back via IntersectionObserver (threshold 0.4, stays connected); `'use client'`; CSS in `globals.css` under `.ca-stage / .ca-bg / .ca-piece`
   - **Static below md.** The fly-in offsets are fixed px (up to 240) — wider than the whole stage at 375, so pieces launched from off-canvas. The JS guard now matches `prefers-reduced-motion` OR `max-width: 767px`, mirrored by a `@media (max-width: 767px) { .ca-piece { opacity: 1 } }` rule. No extra asset needed: pieces are positioned in `%` against an `aspect-ratio` stage, so the static composition is already fluid.
   - The `header` piece is `left: 22.254%` + `width: 88.787%` = **111%** — it deliberately bleeds past the stage. This registers as horizontal overflow at every width and is masked by `overflow-x: clip`. Pre-existing and intentional; don't "fix" it.
@@ -209,8 +211,10 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 
 ### Arrow link (`ArrowLink` component — `components/ui/ArrowLink.tsx`)
 - Single source for the uppercase text link + trailing ↗ arrow. Renders the anchor, shared link style (`inline-flex items-center gap-0.5 text-[14px] font-bold uppercase text-portfolio-primary transition-opacity hover:opacity-60`), and the inline SVG (`viewBox="0 0 11 11"`, path `M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5`, `w-[0.65em] h-[0.65em]` — scales with font size).
-- Props: `href`, `external` (adds `target="_blank" rel="noopener noreferrer"`), `className`, `children`.
-- Used by HeroCard (About-page LinkedIn/Email) and compliance-review ("Read article"). Replaced the old local `ArrowIcon` function + duplicated inline SVGs.
+- Props: `href`, `external` (adds `target="_blank" rel="noopener noreferrer"`), `tone`, `className`, `children`.
+- **`tone="inverse"` swaps the colour to white for dark surfaces.** It is a prop rather than a `text-*` class passed via `className` because the two would collide at equal specificity and the winner would be decided by stylesheet order, not class order.
+- Used by HeroCard (About-page LinkedIn/Email) and compliance-review ("Read Meta's Announcement"). Replaced the old local `ArrowIcon` function + duplicated inline SVGs.
+- **The ↗ is the component's own SVG** — pass text only as children. A literal ↗ in the label renders a second arrow. The class list also forces `uppercase`, so children are display-cased regardless of how they're written in source.
 
 ### ProjectCard layout (landing page)
 - **Header:** `flex justify-between items-start gap-6 px-6 pt-6 md:px-10 md:pt-10 pb-6`
@@ -232,7 +236,7 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 - Section class: `px-4 md:px-8 pt-16 md:pt-24 pb-24 md:pb-40`
 - Applies to: edge-admin-hub (section 1), franklin-payroll (section 1), compliance-review (section 1)
 - White space is intentional — editorial anchor between animation/hero and body content
-- **compliance-review overrides the top stop at `xl` only** (`xl:pt-[18px]`) so its intro cap-aligns with the rail's "Cindy Tsai" h1 — it has no hero image or animation above the intro, so there is nothing for the whitespace to anchor. The other two keep `pt-24` at every width. See the compliance-review section for why 18px.
+- **compliance-review overrides both stops** — `xl:pt-[18px]` so its intro cap-aligns with the rail's "Cindy Tsai" h1 (it has no hero image or animation above the intro, so there is nothing for the whitespace to anchor), and `pb-0` because it is a single-section page: `app/(main)/projects/layout.tsx` puts the Footer directly after it on a deliberate `pt-4`, and that 16px is meant to be the whole card-to-footer gap. Any `pb` stacks on top of it — the editorial `pb-40` made it 176px. The other two keep `pt-24`/`pb-40`. See the compliance-review section for why 18px.
 
 ### Edge Admin Hub — custom hero (instance-specific, not shared)
 - **No HeroSection** — replaced with inline editorial layout
@@ -351,28 +355,32 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 
 ## Compliance Review page (`/projects/compliance-review`)
 
-**Single-column editorial stack** (no grid, no `md:pl-[20%]` indent, flush left at all widths). One `<section className="px-4 md:px-8 pt-16 md:pt-24 xl:pt-[18px] pb-24 md:pb-40">` → `<div className="flex flex-col gap-14">` holding four blocks:
+**Single full-width column** (no grid, no `md:pl-[20%]` indent, no inner max-width, flush left at all widths). One `<section className="px-4 md:px-8 pt-16 md:pt-24 xl:pt-[18px] pb-0">` → `<div className="flex flex-col gap-16">` holding four blocks:
 
 **`xl:pt-[18px]` cap-aligns the intro with the rail's "Cindy Tsai" h1.** It aligns CAPS, not box tops — the h1 is 36px/1.08 and the intro is 2.2vw/1.05, so their half-leading differs and matching box tops sets the intro ~3px high. The perfect value drifts with viewport (19.25px at 1280 → 16.5px at 1636+, where the intro's clamp caps at 36px and both sizes lock); 18px splits the difference, keeping the error under 1.5px at any desktop width (measured: −1.25px at 1280, +1.0px at 1600). Below `xl` the rail stacks above the content, so there is nothing to align to and the editorial `pt-16 md:pt-24` stands.
 
-1. **Intro** — display paragraph `text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary` (no own max-width)
+1. **Intro** — display paragraph `text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary` (no own max-width). Currently the short title "Agentic AI & Triage Workflows" — one line at every width (356px ink at 1280, 253px at 375), so it no longer constrains the column.
 2. **Context** — label above content (`flex flex-col gap-3`); content `flex flex-col gap-3`:
    - **NDA callout** — `rounded-card border border-portfolio-stroke bg-portfolio-surface/50 px-5 py-4` wrapping the NDA note (roman, **not** italic — deliberate)
    - body paragraph
 3. **Role** — label above a two-column focus-area/description list; see below
-4. **Read article** — a bare `ArrowLink` (no `Further reading` label, no lead-in sentence), still wrapped in `<Reveal>`. Article → `https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/`
+4. **Strategic outcome** — `DarkOutroSection variant="overcast"` with the CTA *inside* it. Two metrics (37% / 26%), so it takes the component's `grid-cols-2` branch. Passes **no `heading`** and **no `body`** — this is the only caller that omits either, so the card runs label → metrics → CTA.
+   - Metric values stay terse (`"37%"`, not `"37% reduction"`) — they render at `text-stat` (52px), where "37% reduction" measures 342px against a ~282px column. The noun belongs in the label, matching the other two cards.
+   - `padding="px-6 py-8 md:px-10 md:py-12"` mirrors `FooterCard` exactly. The component default is `p-8 md:p-12`, which edge-admin-hub and edge-sidebar keep.
 
 - **No index/tags row, no metadata grid.** Earlier `1fr_3fr` two-column grid and the `hidden md:block` spacer are gone.
-- **One measure: `max-w-[680px]` on the stack, not on individual blocks.** Every block shares one width and one right edge (verified: 17 content blocks all at 680px). Do not re-add per-block max-widths — the page went through a 760 → 640/560 → single-680 progression, and the split widths are what 680 replaced.
-- **680 is near the top of the intro's 3-line band.** The intro sets in three lines from ~610px to ~695px; at 700px it collapses to two. There is only ~15px of headroom, so raising the column much past 680 silently reflows the headline.
-- **Body copy runs ~98 chars/line at 680** (it was ~86 at 560). Long for body text — if it needs tightening, the fix is the stack's max-width, which moves everything at once.
-- The NDA callout uses a real `border`, not `.surface-card`. `.surface-card`'s inset box-shadow paints *beneath* child content and reads as a fill edge rather than a hairline; `border-portfolio-stroke` is the same `#E6E5E1` drawn as an actual stroke. Its inner text measures 638px (680 − 2×20 padding − 2×1 border), so it wraps one word earlier than the paragraph below it.
-- **Vertical rhythm is 12 / 24 / 56.** `gap-3` label→content and between the callout and its paragraph (the callout should read as attached, not floating), `gap-6` between Role rows, `gap-14` between sections — verified exact at 56px across all three section boundaries.
+- **One full-width boundary — do not re-add a max-width.** The page went 760 → 640/560 → single-680 → full width. Every block now resolves to the section's content box (708px at 1280), which is the *same box the Footer card uses*, since both are panel width minus `px-8`. Verified: outcome card and `.footer-card` share an identical box, padding, and radius.
+- **Body copy runs ~111 chars/line** at full width. Long for body text, and the Context paragraph is the one block with no sub-column to break it up. If it needs tightening, put `max-w-[560px]` on that paragraph alone — do not re-cap the container, or the cards stop matching the footer.
+- The NDA callout uses a real `border`, not `.surface-card`. `.surface-card`'s inset box-shadow paints *beneath* child content and reads as a fill edge rather than a hairline; `border-portfolio-stroke` is the same `#E6E5E1` drawn as an actual stroke.
+- **Vertical rhythm is 12 / 48 / 64.** `gap-3` label→content and callout→paragraph (the callout should read as attached, not floating), `py-6` on Role rows (24 top + 24 bottom = 48), `gap-16` between sections — verified exact at 64px across all three boundaries. `gap-16` rather than the old `gap-14`: Role rows now sit 48px apart, so 56px between sections read too close to be a bigger break.
+- **`pb-0` on the section.** `app/(main)/projects/layout.tsx` already follows it with the Footer on a deliberate `pt-4`; that 16px *is* the card-to-footer gap and matches the landing page's `gap-4`. Any `pb` here stacks on top of it — the editorial `pb-40` made it 176px.
 
-**Role — two-column focus-area list.** Each item is its own `flex flex-col gap-1 md:grid md:grid-cols-[200px_1fr] md:gap-x-8 md:gap-y-0`, inside a `flex flex-col gap-6`.
-- **The 200px label column is fixed, not fractional.** A `1fr_2fr` split would let each row's own label length move its description; a fixed column puts all five descriptions on one left edge (verified: all at x=772, 448px wide).
-- **200px is set by the longest label** — "End-to-end workflow design" measures 194px at `font-medium`, leaving ~6px of slack. Adding a longer focus area wraps that label to two lines; it does not break the column. Tightest others: "Routing & decision-support" 188px, "Structured intake patterns" 179px.
+**Role — two-column focus-area list.** Each item is its own `flex flex-col gap-1 py-6 first:pt-0 border-b border-black/5 md:grid md:grid-cols-[200px_1fr] md:gap-x-8 md:gap-y-0 md:items-baseline`, inside a plain `flex flex-col` (**no** gap).
+- **The 200px label column is fixed, not fractional.** This was tried as `1fr_2fr` and reverted: a fraction scales the label column with the container (225px at 1280, 332px at 1600), so short labels like "Data versioning" (104px ink) opened a dead gap that grew with the viewport. Fixed keeps the gutter constant while `1fr` still carries the description to the right edge — verified grounded on the card's right edge at 1280 (1248) and 1600 (1568).
+- **200px is set by the longest label** — "End-to-end workflow design" measures 194px at `font-medium`, leaving ~6px of slack. Adding a longer focus area wraps that label to two lines; it does not break the column. Bump to 220px if one is added. Others: "Routing & decision-support" 188px, "Structured intake patterns" 179px.
 - **`font-medium` (500), not semibold.** The column break already separates label from body, so inline weight contrast is no longer doing the work — and at semibold the longest label is 199px and would wrap in a 200px column. Matches `ExperienceList`'s `text-body font-medium`.
+- **Rules come from `py-6` + `border-b` on the row, not a container gap.** A gap *plus* row padding compounds; padding is also what centres the hairline between two rows (24px above, 24px below). `first:pt-0` keeps the list flush under the ROLE label.
+- **A residual gap is unavoidable** — labels vary 104→194px, so the gutter runs 38px (longest label) to 128px (shortest). Only right-aligning the label column (`md:text-right`) makes it uniform; no fixed width can.
 - **Stacks below md** (label over description, `gap-1`): a 200px label column inside a 343px phone column leaves ~110px for the description.
 - Labels use the shared `CS_LABEL` token; each label sits directly above its content (`gap-3`), sections separated by `gap-14`.
 

@@ -1,4 +1,5 @@
 import DarkCard from "@/components/ui/DarkCard";
+import ArrowLink from "@/components/ui/ArrowLink";
 import { CS_LABEL } from "@/components/case-study/tokens";
 
 interface Metric {
@@ -6,11 +7,26 @@ interface Metric {
   label: string;
 }
 
+interface Cta {
+  href: string;
+  label: string;
+}
+
 interface DarkOutroSectionProps {
   label?: string;
-  heading: string;
-  body: string;
+  /** Optional. compliance-review runs label + metrics only. */
+  heading?: string;
+  /** Optional closing paragraph. edge-admin-hub and edge-sidebar both pass one;
+   *  compliance-review is metrics-only, so the card ends on the stat row. */
+  body?: string;
   metrics?: Metric[];
+  /** Optional trailing action bar. Renders inside the card so the CTA belongs to
+   *  it rather than floating between the card and whatever follows. */
+  cta?: Cta;
+  /** Padding is a prop, not a className merge: `p-8` and an incoming `px-6` are
+   *  different properties, so the cascade — not class order — would pick the
+   *  winner. Overriding the whole string keeps it deterministic. */
+  padding?: string;
   variant?: 'dark' | 'overcast';
 }
 
@@ -19,6 +35,8 @@ export default function DarkOutroSection({
   heading,
   body,
   metrics,
+  cta,
+  padding = 'p-8 md:p-12',
   variant = 'dark',
 }: DarkOutroSectionProps) {
   const isOvercast = variant === 'overcast';
@@ -33,10 +51,10 @@ export default function DarkOutroSection({
   if (isOvercast) {
     // Matches franklin's impact card: light surface-card + portfolio text tokens
     return (
-      <section className="surface-card bg-portfolio-surface/50 rounded-card p-8 md:p-12 flex flex-col gap-12">
+      <section className={`surface-card bg-portfolio-surface/50 rounded-card ${padding} flex flex-col gap-12`}>
         <div className="flex flex-col gap-4">
           {label && <p className={CS_LABEL}>{label}</p>}
-          <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">{heading}</h2>
+          {heading && <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">{heading}</h2>}
         </div>
 
         {metrics && metrics.length > 0 && (
@@ -50,7 +68,24 @@ export default function DarkOutroSection({
           </div>
         )}
 
-        <p className="text-portfolio-muted text-body max-w-[560px]">{body}</p>
+        {body && <p className="text-portfolio-muted text-body max-w-[560px]">{body}</p>}
+
+        {/* justify-end, not justify-between: with a single child justify-between
+            resolves to flex-start, which would sit the CTA on the left.
+            No border-t and no mt/pt — each metric already carries its own bottom
+            rule, so a full-width rule here read as a doubled line, and the card's
+            gap-12 supplies the spacing on its own. */}
+        {cta && (
+          <div className="flex items-center justify-end">
+            <ArrowLink
+              href={cta.href}
+              external
+              className="rounded-full border border-black/10 px-4 py-2 hover:bg-black/[0.03]"
+            >
+              {cta.label}
+            </ArrowLink>
+          </div>
+        )}
       </section>
     );
   }
@@ -63,7 +98,7 @@ export default function DarkOutroSection({
           {/* Dark variant uses white label text; CS_LABEL bakes in the muted
               color, so this one stays inline to avoid a color conflict. */}
           {label && <p className="font-mono text-[13px] tracking-[0.05em] uppercase text-white/50">{label}</p>}
-          <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-white">{heading}</h2>
+          {heading && <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-white">{heading}</h2>}
         </div>
 
         {metrics && metrics.length > 0 && (
@@ -77,7 +112,21 @@ export default function DarkOutroSection({
           </div>
         )}
 
-        <p className="text-white/70 text-body max-w-[560px]">{body}</p>
+        {body && <p className="text-white/70 text-body max-w-[560px]">{body}</p>}
+
+        {/* Dark twin of the overcast action bar. */}
+        {cta && (
+          <div className="flex items-center justify-end">
+            <ArrowLink
+              href={cta.href}
+              external
+              tone="inverse"
+              className="rounded-full border border-white/15 px-4 py-2 hover:bg-white/5"
+            >
+              {cta.label}
+            </ArrowLink>
+          </div>
+        )}
 
       </DarkCard>
     </section>
