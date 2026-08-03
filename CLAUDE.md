@@ -232,6 +232,7 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 - Section class: `px-4 md:px-8 pt-16 md:pt-24 pb-24 md:pb-40`
 - Applies to: edge-admin-hub (section 1), franklin-payroll (section 1), compliance-review (section 1)
 - White space is intentional — editorial anchor between animation/hero and body content
+- **compliance-review overrides the top stop at `xl` only** (`xl:pt-[18px]`) so its intro cap-aligns with the rail's "Cindy Tsai" h1 — it has no hero image or animation above the intro, so there is nothing for the whitespace to anchor. The other two keep `pt-24` at every width. See the compliance-review section for why 18px.
 
 ### Edge Admin Hub — custom hero (instance-specific, not shared)
 - **No HeroSection** — replaced with inline editorial layout
@@ -242,7 +243,7 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 
 ### Global body text line length
 - Most case study body text capped at `max-w-[560px]` — applied in `SectionBlock`, `FullWidthShowcase`, and `DarkOutroSection`
-- **Exception: compliance-review** deliberately uses `max-w-[760px]` on all its body blocks so they match the intro heading width
+- **Exception: compliance-review** runs a single `max-w-[680px]` column on its whole stack rather than per-block widths, so every element shares one right edge. (It previously used `760px`, then a split `640px` intro / `560px` body.)
 - `SectionBlock` label→heading gap: `gap-1` (4px) inside a wrapper div; outer container remains `gap-4`
 
 ### Card image — large variant (`card-visual-wrapper`)
@@ -350,17 +351,29 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 
 ## Compliance Review page (`/projects/compliance-review`)
 
-**Single-column editorial stack** (no grid, no `md:pl-[20%]` indent, flush left at all widths). One `<section className="px-4 md:px-8 pt-16 md:pt-24 pb-24 md:pb-40">` → `<div className="flex flex-col gap-14">` holding four blocks:
+**Single-column editorial stack** (no grid, no `md:pl-[20%]` indent, flush left at all widths). One `<section className="px-4 md:px-8 pt-16 md:pt-24 xl:pt-[18px] pb-24 md:pb-40">` → `<div className="flex flex-col gap-14">` holding four blocks:
 
-1. **Intro** — display paragraph `text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary max-w-[760px]`: "At Meta, I design the intelligent, scalable risk review systems that protect billions of users across our platforms."
-2. **Context** — label above content (`flex flex-col gap-3`); content `flex flex-col gap-4 max-w-[760px]`:
-   - **NDA banner** — `surface-card bg-portfolio-surface/50 rounded-card px-5 py-4` (franklin impact-card surface treatment) wrapping the italic NDA note
+**`xl:pt-[18px]` cap-aligns the intro with the rail's "Cindy Tsai" h1.** It aligns CAPS, not box tops — the h1 is 36px/1.08 and the intro is 2.2vw/1.05, so their half-leading differs and matching box tops sets the intro ~3px high. The perfect value drifts with viewport (19.25px at 1280 → 16.5px at 1636+, where the intro's clamp caps at 36px and both sizes lock); 18px splits the difference, keeping the error under 1.5px at any desktop width (measured: −1.25px at 1280, +1.0px at 1600). Below `xl` the rail stacks above the content, so there is nothing to align to and the editorial `pt-16 md:pt-24` stands.
+
+1. **Intro** — display paragraph `text-[clamp(20px,2.2vw,36px)] font-normal leading-[1.05] tracking-[-0.04em] text-portfolio-primary` (no own max-width)
+2. **Context** — label above content (`flex flex-col gap-3`); content `flex flex-col gap-3`:
+   - **NDA callout** — `rounded-card border border-portfolio-stroke bg-portfolio-surface/50 px-5 py-4` wrapping the NDA note (roman, **not** italic — deliberate)
    - body paragraph
-3. **Role** — label above 5 bullet items using `<span className="font-semibold text-portfolio-primary">{label}: </span>{body}`; content `gap-4 max-w-[760px]`
-4. **Further reading** — label above body + a `text-[14px] font-bold uppercase` "Read article" link with the inline arrow SVG. Article → `https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/`
+3. **Role** — label above a two-column focus-area/description list; see below
+4. **Read article** — a bare `ArrowLink` (no `Further reading` label, no lead-in sentence), still wrapped in `<Reveal>`. Article → `https://about.fb.com/news/2026/03/how-ai-is-ushering-in-the-next-era-of-risk-review-at-meta/`
 
 - **No index/tags row, no metadata grid.** Earlier `1fr_3fr` two-column grid and the `hidden md:block` spacer are gone.
-- **Body width is `max-w-[760px]`** (matches the intro heading) — a deliberate exception to the sitewide `max-w-[560px]` rule.
+- **One measure: `max-w-[680px]` on the stack, not on individual blocks.** Every block shares one width and one right edge (verified: 17 content blocks all at 680px). Do not re-add per-block max-widths — the page went through a 760 → 640/560 → single-680 progression, and the split widths are what 680 replaced.
+- **680 is near the top of the intro's 3-line band.** The intro sets in three lines from ~610px to ~695px; at 700px it collapses to two. There is only ~15px of headroom, so raising the column much past 680 silently reflows the headline.
+- **Body copy runs ~98 chars/line at 680** (it was ~86 at 560). Long for body text — if it needs tightening, the fix is the stack's max-width, which moves everything at once.
+- The NDA callout uses a real `border`, not `.surface-card`. `.surface-card`'s inset box-shadow paints *beneath* child content and reads as a fill edge rather than a hairline; `border-portfolio-stroke` is the same `#E6E5E1` drawn as an actual stroke. Its inner text measures 638px (680 − 2×20 padding − 2×1 border), so it wraps one word earlier than the paragraph below it.
+- **Vertical rhythm is 12 / 24 / 56.** `gap-3` label→content and between the callout and its paragraph (the callout should read as attached, not floating), `gap-6` between Role rows, `gap-14` between sections — verified exact at 56px across all three section boundaries.
+
+**Role — two-column focus-area list.** Each item is its own `flex flex-col gap-1 md:grid md:grid-cols-[200px_1fr] md:gap-x-8 md:gap-y-0`, inside a `flex flex-col gap-6`.
+- **The 200px label column is fixed, not fractional.** A `1fr_2fr` split would let each row's own label length move its description; a fixed column puts all five descriptions on one left edge (verified: all at x=772, 448px wide).
+- **200px is set by the longest label** — "End-to-end workflow design" measures 194px at `font-medium`, leaving ~6px of slack. Adding a longer focus area wraps that label to two lines; it does not break the column. Tightest others: "Routing & decision-support" 188px, "Structured intake patterns" 179px.
+- **`font-medium` (500), not semibold.** The column break already separates label from body, so inline weight contrast is no longer doing the work — and at semibold the longest label is 199px and would wrap in a 200px column. Matches `ExperienceList`'s `text-body font-medium`.
+- **Stacks below md** (label over description, `gap-1`): a 200px label column inside a 343px phone column leaves ~110px for the description.
 - Labels use the shared `CS_LABEL` token; each label sits directly above its content (`gap-3`), sections separated by `gap-14`.
 
 **Data constants:**
