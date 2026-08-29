@@ -75,7 +75,7 @@ export default function FooterCard() {
         </h2>
 
         <p className="text-card-title font-normal shrink-0">
-          New York City · {time}{temp !== null ? ` · ${temp}°F` : ''}
+          New York · {time}{temp !== null ? ` · ${temp}°F` : ''}
         </p>
 
       </div>

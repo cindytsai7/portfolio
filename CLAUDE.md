@@ -164,8 +164,9 @@ xl    → 1280+, rail is beside the content. MUST equal the pre-existing desktop
 - `FooterCard` — semi-transparent weather tints (4 states); VariableProximity on "Cindy Tsai" (`wght 600 → 300`); tooltip forecast
   - **Layout:** `mt-auto flex flex-col gap-4 md:flex-row md:justify-between md:items-end` — stacks below md (side by side the two lines collided on a phone). Weather line has `shrink-0`.
   - **No LinkedIn/Email links** — removed
-  - **Type:** both lines use `text-card-title font-normal`; "New York City" sentence case (not uppercase); time uses no `.toUpperCase()`
-  - **Location is New York City, and it lives in two files.** `FooterCard.tsx` holds the display label + `formatTime`'s `timeZone`; `app/api/weather/route.ts` holds the two OpenWeatherMap `q=` queries + three `timeZone` values used to bucket forecast days. All five timezone references must move together — changing the city but not the timezone silently renders the right city's weather on the wrong clock.
+  - **Type:** both lines use `text-card-title font-normal`; "New York" sentence case (not uppercase); time uses no `.toUpperCase()`
+  - **The display label ("New York") is shorter than the OWM query city ("New York,NY,US") on purpose** — they are independent strings and do not need to match.
+  - **Location is New York, and it lives in two files.** `FooterCard.tsx` holds the display label + `formatTime`'s `timeZone`; `app/api/weather/route.ts` holds the two OpenWeatherMap `q=` queries + three `timeZone` values used to bucket forecast days. All five timezone references must move together — changing the city but not the timezone silently renders the right city's weather on the wrong clock.
   - The OWM query is `q=New%20York,NY,US` (explicit state code; `New York,US` alone is ambiguous with the state). **A failed query is detectable:** the route falls back to `{ condition: 'rain', temp: 58 }` with a THU/FRI/SAT mock forecast, so those exact values mean the API call 404'd or the key is missing.
   - There is **no weather pill or tooltip** — it renders as a plain text line. The old `.weather-pill` / `.tooltip` CSS has been deleted.
 
