@@ -23,7 +23,7 @@ function formatTime(date: Date) {
     hour: 'numeric',
     minute: '2-digit',
     hour12: true,
-    timeZone: 'America/Los_Angeles',
+    timeZone: 'America/New_York',
   })
 }
 
@@ -75,7 +75,7 @@ export default function FooterCard() {
         </h2>
 
         <p className="text-card-title font-normal shrink-0">
-          Seattle · {time}{temp !== null ? ` · ${temp}°F` : ''}
+          New York City · {time}{temp !== null ? ` · ${temp}°F` : ''}
         </p>
 
       </div>

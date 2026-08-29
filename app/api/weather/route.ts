@@ -27,24 +27,24 @@ function mapCondition(id: number): Condition {
 async function getForecast(apiKey: string): Promise<ForecastDay[]> {
   try {
     const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?q=Seattle,US&appid=${apiKey}&units=imperial&cnt=24`,
+      `https://api.openweathermap.org/data/2.5/forecast?q=New%20York,NY,US&appid=${apiKey}&units=imperial&cnt=24`,
       { next: { revalidate: 600 } }
     )
     if (!res.ok) return mockForecast
 
     const data = await res.json()
     const seenDays = new Set<string>()
-    const todayStr = new Date().toLocaleDateString('en-US', { timeZone: 'America/Los_Angeles' })
+    const todayStr = new Date().toLocaleDateString('en-US', { timeZone: 'America/New_York' })
     const forecast: ForecastDay[] = []
 
     for (const item of data.list) {
       const date = new Date(item.dt * 1000)
-      const dateStr = date.toLocaleDateString('en-US', { timeZone: 'America/Los_Angeles' })
+      const dateStr = date.toLocaleDateString('en-US', { timeZone: 'America/New_York' })
       if (dateStr === todayStr || seenDays.has(dateStr)) continue
       seenDays.add(dateStr)
 
       const dayStr = date
-        .toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/Los_Angeles' })
+        .toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' })
         .toUpperCase()
 
       forecast.push({
@@ -72,7 +72,7 @@ export async function GET() {
   try {
     const [weatherRes, forecast] = await Promise.all([
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=Seattle,US&appid=${apiKey}&units=imperial`,
+        `https://api.openweathermap.org/data/2.5/weather?q=New%20York,NY,US&appid=${apiKey}&units=imperial`,
         { next: { revalidate: 600 } }
       ),
       getForecast(apiKey),
