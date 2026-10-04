@@ -20,6 +20,11 @@ interface DarkOutroSectionProps {
    *  compliance-review is metrics-only, so the card ends on the stat row. */
   body?: string;
   metrics?: Metric[];
+  /** Stack metrics in a single column instead of the count-based grid — for use
+   *  in a narrow column (e.g. the asymmetric row on compliance-review), where a
+   *  side-by-side grid would squeeze each stat's value and label together.
+   *  Overcast variant only; no current dark-variant caller needs it. */
+  stackedMetrics?: boolean;
   /** Optional trailing action bar. Renders inside the card so the CTA belongs to
    *  it rather than floating between the card and whatever follows. */
   cta?: Cta;
@@ -35,6 +40,7 @@ export default function DarkOutroSection({
   heading,
   body,
   metrics,
+  stackedMetrics = false,
   cta,
   padding = 'p-8 md:p-12',
   variant = 'dark',
@@ -43,8 +49,9 @@ export default function DarkOutroSection({
 
   // Two metrics sit 2-up (matches franklin's impact card); three keep the 3-col
   // composition. A 2-of-3 grid would leave a rule-less blank column.
-  const metricGrid =
-    metrics && metrics.length === 2
+  const metricGrid = stackedMetrics
+    ? 'grid-cols-1 gap-y-6'
+    : metrics && metrics.length === 2
       ? 'grid-cols-2 gap-x-6 md:gap-x-12'
       : 'grid-cols-1 sm:grid-cols-3 gap-8';
 
@@ -60,7 +67,10 @@ export default function DarkOutroSection({
         {metrics && metrics.length > 0 && (
           <div className={`grid ${metricGrid}`}>
             {metrics.map((m) => (
-              <div key={m.label} className="flex flex-col gap-4 pb-4 border-b border-portfolio-rule">
+              <div
+                key={m.label}
+                className={`flex flex-col gap-4 ${stackedMetrics ? '' : 'pb-4 border-b border-portfolio-rule'}`}
+              >
                 <span className="text-portfolio-primary font-bold text-stat">{m.value}</span>
                 <span className="text-portfolio-muted text-body">{m.label}</span>
               </div>
@@ -72,11 +82,13 @@ export default function DarkOutroSection({
 
         {/* justify-end, not justify-between: with a single child justify-between
             resolves to flex-start, which would sit the CTA on the left.
-            No border-t and no mt/pt — each metric already carries its own bottom
-            rule, so a full-width rule here read as a doubled line, and the card's
-            gap-12 supplies the spacing on its own. */}
+            No border-t — each metric already carries its own bottom rule, so a
+            full-width rule here read as a doubled line, and the card's gap-12
+            supplies the spacing on its own. mt-auto pins the CTA to the card's
+            bottom edge when the card is stretched taller than its own content
+            (e.g. items-stretch beside a taller sibling card) — a no-op otherwise. */}
         {cta && (
-          <div className="flex items-center justify-end">
+          <div className="flex items-center justify-end mt-auto">
             <ArrowLink
               href={cta.href}
               external
