@@ -42,12 +42,9 @@ export default function ComplianceReviewPage() {
 
           {/* Context */}
           <Reveal>
-            <div className="flex flex-col gap-3">
-              <p className={CS_LABEL}>Context</p>
-              <p className="text-body text-portfolio-muted">
-                As part of the risk organization, I lead design for internal systems that surface risk signals for researchers, streamline end-to-end triage and escalation workflows for review teams, and shape the long-term vision for an agentic AI-powered risk review experience. This work is covered by an NDA — some specifics are abstracted here.
-              </p>
-            </div>
+            <p className="text-body text-portfolio-muted">
+              As part of the risk organization, I lead design for internal systems that surface risk signals for researchers, streamline end-to-end triage and escalation workflows for review teams, and shape the long-term vision for an agentic AI-powered risk review experience. This work is covered by an NDA — some specifics are abstracted here.
+            </p>
           </Reveal>
 
           {/* Scope of work + Strategic outcome — asymmetric row, not a 50/50 grid.
