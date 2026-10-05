@@ -79,11 +79,14 @@ export default function ComplianceReviewPage() {
                   and its (long) label in this narrow a column. Values stay terse
                   ("37%", not "37% reduction") since they render at text-stat (up to
                   52px); the noun lives in the label. The CTA is a `cta` prop so it
-                  renders inside the card, anchored at the bottom via justify-end. */}
+                  renders inside the card, anchored at the bottom via justify-end.
+                  padding="p-8" overrides the component's default p-8 md:p-12 bump
+                  so this card's padding matches Scope-of-work's constant p-8. */}
               <DarkOutroSection
                 variant="overcast"
                 label="Strategic outcome"
                 stackedMetrics
+                padding="p-8"
                 metrics={[
                   { value: "37%", label: "Reduction in manual data entry, driving operational efficiency" },
                   { value: "26%", label: "Reduction in audit failure rates through automated checks" },

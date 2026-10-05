@@ -49,16 +49,21 @@ export default function DarkOutroSection({
 
   // Two metrics sit 2-up (matches franklin's impact card); three keep the 3-col
   // composition. A 2-of-3 grid would leave a rule-less blank column.
+  // stackedMetrics' gap-y-12 matches Scope-of-work's 48px (py-6) between-row
+  // rhythm on compliance-review, where the two cards sit side by side.
   const metricGrid = stackedMetrics
-    ? 'grid-cols-1 gap-y-6'
+    ? 'grid-cols-1 gap-y-12'
     : metrics && metrics.length === 2
       ? 'grid-cols-2 gap-x-6 md:gap-x-12'
       : 'grid-cols-1 sm:grid-cols-3 gap-8';
 
   if (isOvercast) {
-    // Matches franklin's impact card: light surface-card + portfolio text tokens
+    // Matches franklin's impact card: light surface-card + portfolio text tokens.
+    // stackedMetrics also tightens the outer gap (12->6) and each metric's own
+    // value-to-label gap (4->1) to match Scope-of-work's label-to-content and
+    // label-to-body spacing on compliance-review's paired card row.
     return (
-      <section className={`surface-card bg-portfolio-surface/50 rounded-card ${padding} flex flex-col gap-12`}>
+      <section className={`surface-card bg-portfolio-surface/50 rounded-card ${padding} flex flex-col ${stackedMetrics ? 'gap-6' : 'gap-12'}`}>
         <div className="flex flex-col gap-4">
           {label && <p className={CS_LABEL}>{label}</p>}
           {heading && <h2 className="text-h2 font-bold leading-[1.08] tracking-[-0.025em] text-portfolio-primary">{heading}</h2>}
@@ -69,7 +74,7 @@ export default function DarkOutroSection({
             {metrics.map((m) => (
               <div
                 key={m.label}
-                className={`flex flex-col gap-4 ${stackedMetrics ? '' : 'pb-4 border-b border-portfolio-rule'}`}
+                className={`flex flex-col ${stackedMetrics ? 'gap-1' : 'gap-4 pb-4 border-b border-portfolio-rule'}`}
               >
                 <span className="text-portfolio-primary font-bold text-stat">{m.value}</span>
                 <span className="text-portfolio-muted text-body">{m.label}</span>
